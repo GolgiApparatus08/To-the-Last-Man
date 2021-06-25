@@ -1,13 +1,20 @@
+from Locations import Barraks
+import sys
+
+moderatorMessage = ""
+locations = []
+
 class Player:
-    def __init__(self, name, rank, strength, intellect, nerves, weapon, shift):
+    def __init__(self, name, rank, strength, intellect, nerves, weapon, enteredShift, location):
         self.name = name
         self.rank = rank
         self.strength = strength
         self.intellect = intellect
         self.nerves = nerves
         self.weapon = weapon
-        self.shift = shift
-        self.location = barraks
+        self.enteredShift = enteredShift
+        self.location = location
+        self.shift = "shift"
         self.honor = 1
         self.alive = True
         self.defending = False
@@ -23,9 +30,11 @@ class Player:
 
     def KILL(self, target):
 
+        global moderatorMessage
+
         #Check for location access
         Access = selfRankCheck()
-        if Access is false:
+        if Access is False:
             return
 
         #Change location
@@ -34,23 +43,21 @@ class Player:
         #Make sure the target is actually alive :P
         if target.alive is False:
             self.message += str("While looking to kill them, you find " + target.name + "'s body on the floor in " + self.location + ". ")
-            selfIdentify()
             return
 
-        self.message += str("You find " + target.name " in " + target.location + ". ")
+        self.message += str("You find " + target.name + " in " + target.location + ". ")
 
         #Deal with defending
         if target.defending is true:
             self.message += str("Unfortunatly, they're alert at the moment, and you're too intimidated to attack head on. ")
-            selfIdentify()
             return
 
         #FIGHT!
 
         #Blunt
-        if self.currentWeapon.weaponType is blunt:
-            self.marks.append(bruises)
-            target.marks.append(bruises)
+        if self.currentWeapon.type is "blunt":
+            self.marks.append("bruises")
+            target.marks.append("bruises")
 
             #Wins
             if self.strength > fightStrength:
@@ -60,22 +67,16 @@ class Player:
                 if self.honor is 0:
                     self.honor = -1
                 target.message += str(self.name + " catches you off guard and bashes your skull in with " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                witnesses = []
-                selvesInLocation(witnesses)
-                for i in range(len(witnesses))
-                    if witnesses[i] is alive and witnesses[i] is not self:
-                        witnesses[i].message += str("You witness " + self.name + " bash " + target.name + "'s head in with " + self.currentWeapon.weaponType + ". ")
-                clear(witnesses)
                 return
 
             #Loses
             else:
                 target.message += str(self.name + " comes at you with " + self.weapon + " in an attempt to bash your head in. Stronger than him, you survive the scuffle that follows, albeit with a few bruises.")
-                self.message += str("You attempt to bash " + target.name + "'s head in with your " + self.currentWeapon ", but he's too strong and survives the scuffle that follows with only a few bruises.")
+                self.message += str("You attempt to bash " + target.name + "'s head in with your " + self.currentWeapon + ", but he's too strong and survives the scuffle that follows with only a few bruises.")
                 return
 
         #Medical
-        else if self.currentWeapon.weaponType is medical:
+        elif self.currentWeapon.weaponType is medical:
 
             #Wins
             if self.intellect > fightIntellect:
@@ -86,11 +87,6 @@ class Player:
                     self.honor = -1
                 target.message += str(self.name + " catches you off guard and manages to outwit you with " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
                 witnesses = []
-                selvesInLocation(witnesses)
-                for i in range(len(witnesses))
-                    if witnesses[i] is alive and witnesses[i] is not self:
-                        witnesses[i].message += str("You witness " + self.name + " outwit " + target.name + " with" + self.currentWeapon.weaponType + ". ")
-                clear(witnesses)
                 return
 
             #Loses
@@ -113,11 +109,6 @@ class Player:
                     self.honor = -1
                 target.message += str(self.name + " catches you off guard and stabs you with " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
                 witnesses = []
-                selvesInLocation(witnesses)
-                for i in range(len(witnesses))
-                    if witnesses[i] is alive and witnesses[i] is not self:
-                        witnesses[i].message += str("You witness " + self.name + " stab " + target.name + " with" + self.currentWeapon.weaponType + ". ")
-                clear(witnesses)
                 return
 
             #Loses
@@ -126,54 +117,41 @@ class Player:
                 self.message += str("You try to stab " + target.name + " with your " + self.currentWeapon ", but he's too quick, survives the attempt.")
                 return
 
-    def ASSIST(self, target):
 
-        #Check for location access
-        Access = selfRankCheck()
-        if Access is false:
-            return
 
-        #Change location
-        self.location = target.location
 
-        #Make sure target is alive
-        if target.alive is False:
-            self.message += str("While looking to help them, you find " + target.name + "'s body on the floor in " + self.location + ". ")
-            selfIdentify()
-            return
 
-#Function and list for adding players
-players = []
 
-numberWords = {
-    1 : 'First', 
-    2 : 'Second', 
-    3 : 'Third', 
-    4 : 'Fourth', 
-    5 : 'Fifth', 
-    6 : 'Sixth', 
-    7 : 'Seventh', 
-    8 : 'Eighth', 
-    9 : 'Ninth', 
-    10 : 'Tenth', 
-    11 : 'Eleventh', 
-    12 : 'Twelfth'
-}
 
-def addPlayer(playerList):    
-    
-    playerNumberWords = numberWords[len(playerList) + 1]
 
-    playerList.append(
-        Player(
-            input(playerNumberWords + " soldier's name: \n"),
-            input(playerNumberWords + " soldier's rank: \n"),
-            input(playerNumberWords + " soldier's strength: \n"),
-            input(playerNumberWords + " soldier's intellect: \n"),       
-            input(playerNumberWords + " soldier's nerves: \n"),
-            input(playerNumberWords + " soldier's weapon: \n"),
-            input(playerNumberWords + " soldier's shift: \n")
+
+numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
+
+def howMany():
+    amount = input("Number of soldiers (2-12): \n")
+    if amount <= 0:
+        input("You don't have a base without soldiers. Come back with some players!\n")
+        sys.exit()
+    elif amount is 1:
+        input("There's already a last man, silly!")
+        sys.exit()
+    else:
+        return amount
+
+def addPlayers(players, amount, startingLocation):    
+
+    for p in range(amount):
+        players.append(
+            Player(
+                input(numberWords[p] + " soldier's name: \n"),
+                input(numberWords[p] + " soldier's rank: \n"),
+                input(numberWords[p] + " soldier's strength: \n"),
+                input(numberWords[p] + " soldier's intellect: \n"),       
+                input(numberWords[p] + " soldier's nerves: \n"),
+                input(numberWords[p] + " soldier's weapon: \n"),
+                input(numberWords[p] + " soldier's shift: \n"),
+                startingLocation
+            )
         )
-    )
 
-    print(playerList[-1].name + " logged!\n")
+        print(players[p].name + " logged! \n")

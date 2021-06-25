@@ -106,8 +106,15 @@ class improvisedShiv():
         self.type = "sharp"
         self.used = False
 
-def findWeapon(players, weapons):
+
+
+
+
+
+
+
+def findWeapons(players, weapons):
     for p in range(len(players)):
-        for w in range(len(weapons)):
-            if weapons[w].name is players[p].weapon:
-                players[p].weapon = weapons[w]
+        for i in range(len(weapons)):
+            if weapons[i].name is players[p].weapons:
+                players[p].weapons = weapons[i]

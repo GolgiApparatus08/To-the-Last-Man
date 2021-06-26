@@ -1,5 +1,6 @@
 from Locations import Barraks
 import sys
+import string
 
 moderatorMessage = ""
 locations = []
@@ -26,7 +27,7 @@ class Player:
         self.sleep = 0
         self.currentWeapon = weapon
         self.marks = []
-        self.owner = ""
+        self.commands = []
 
     def KILL(self, target):
 
@@ -126,6 +127,7 @@ class Player:
 
 
 numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
+lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
 
 def howMany():
     amount = input("Number of soldiers (2-12): \n")
@@ -155,3 +157,18 @@ def addPlayers(players, amount, startingLocation):
         )
 
         print(players[p].name + " logged! \n")
+
+def askCommands(players):
+    for p in range(len(players)):
+        players[p].commands.append(
+            input("What is " + players[p].name + "'s first command? \n"),
+            input("What is " + players[p].name + "'s second command? \n"),
+            input("What is " + players[p].name + "'s third command? \n"),
+            input("What is " + players[p].name + "'s fourth command? \n"),
+            input("What is " + players[p].name + "'s fifth command? \n"),
+            input("What is " + players[p].name + "'s sixth command? \n"),
+            input("What is " + players[p].name + "'s seventh command? \n"),
+            input("What is " + players[p].name + "'s eighth command? \n")
+        )
+        for c in range(len(players[p].commands)):
+            players[p].commands[c] = string.split(players[p].commands)

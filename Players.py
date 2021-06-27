@@ -1,9 +1,6 @@
-from Locations import Barraks
-import sys
-import string
+from Functions import whoHere
 
 moderatorMessage = ""
-locations = []
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, enteredShift, location):
@@ -28,18 +25,126 @@ class Player:
         self.currentWeapon = weapon
         self.marks = []
         self.commands = []
+        self.located = False
+        self.visited = False
+
+    def REST(self, locations, players):
+        if self.alive is False:
+            self.DEAD()
+            return
+
+        if self.location is locations[0]:   #Barraks
+            self.location.visit(self)
+        if self.location is locations[1]:   #Sanitation
+            self.message += str("You nod off as far from the incinerator as you can get and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping as far from the incinerator as they can get. ")
+        if self.location is locations[2]:   #Gymnasium
+            self.message += str("You nod off on one of the weight benches and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping on one of the weight benches. ")
+        if self.location is locations[3]:   #Medical
+            self.message += str("You nod off on a gurney and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping on a gurney. ")
+        if self.location is locations[4]:   #Library
+            self.message += str("You nod off behind one of the bookshelves and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping behind one of the bookshelves. ")
+        if self.location is locations[5]:   #Information
+            self.message += str("You nod off between two fileing cabinets and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping between two fileing cabinets. ")
+        if self.location is locations[6]:   #Bathhouse
+            self.message += str("You nod off in one of the pool chairs and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping in one of the pool chairs. ")
+        if self.location is locations[7]:   #Communications
+            self.message += str("You nod off leaning forward against a communications monitor and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was leaning foward, asleep, against one of the communications monitors. ")
+        if self.location is locations[8]:   #Power
+            self.message += str("You nod off against the wall as far from the generator as you can get and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping against the wall as far from the generator as they could get. ")
+        if self.location is locations[9]:   #Armaments
+            self.message += str("You nod off against the glass case that stores the weapons and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping against the glass case that stores the weapons. ")
+        if self.location is locations[10]:  #Security
+            self.message += str("You nod off in one of the security guard's swiveling chairs and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping in one of the security guard's swiveling chairs. ")
+        if self.location is locations[11]:  #Command
+            self.message += str("You nod off in a desk chair and manage to get a decent hour of rest in. ")
+            witnesses = whoHere(self, players)
+            for w in range(len(witnesses)):
+                witnesses[w].message += str(self.name + " was sleeping in a desk chair. ")
+
+    def WORK(self, room, locations, players):
+        if self.alive is False:
+            self.DEAD()
+            return
+        if self.location is not room:
+            self.message += str("Instead of working at " + room.name + ", ")
+            self.LOITER(self.location)
+            return
+
+        if self.location is locations[0]:   #Barraks
+            
+        if self.location is locations[1]:   #Sanitation
+        if self.location is locations[2]:   #Gymnasium
+        if self.location is locations[3]:   #Medical
+        if self.location is locations[4]:   #Library
+        if self.location is locations[5]:   #Information
+        if self.location is locations[6]:   #Bathhouse
+        if self.location is locations[7]:   #Communications
+        if self.location is locations[8]:   #Power
+        if self.location is locations[9]:   #Armaments
+        if self.location is locations[10]:  #Security
+        if self.location is locations[11]:  #Command
+
+    def SABOTAGE():
+        if self.location is locations[0]:   #Barraks
+        if self.location is locations[1]:   #Sanitation
+        if self.location is locations[2]:   #Gymnasium
+        if self.location is locations[3]:   #Medical
+        if self.location is locations[4]:   #Library
+        if self.location is locations[5]:   #Information
+        if self.location is locations[6]:   #Bathhouse
+        if self.location is locations[7]:   #Communications
+        if self.location is locations[8]:   #Power
+        if self.location is locations[9]:   #Armaments
+        if self.location is locations[10]:  #Security
+        if self.location is locations[11]:  #Command
+
+    def LOITER():
+        if self.location is locations[0]:   #Barraks
+        if self.location is locations[1]:   #Sanitation
+        if self.location is locations[2]:   #Gymnasium
+        if self.location is locations[3]:   #Medical
+        if self.location is locations[4]:   #Library
+        if self.location is locations[5]:   #Information
+        if self.location is locations[6]:   #Bathhouse
+        if self.location is locations[7]:   #Communications
+        if self.location is locations[8]:   #Power
+        if self.location is locations[9]:   #Armaments
+        if self.location is locations[10]:  #Security
+        if self.location is locations[11]:  #Command
 
     def KILL(self, target):
 
         global moderatorMessage
-
-        #Check for location access
-        Access = selfRankCheck()
-        if Access is False:
-            return
-
-        #Change location
-        self.location = target.location
 
         #Make sure the target is actually alive :P
         if target.alive is False:
@@ -117,58 +222,3 @@ class Player:
                 target.message += str(self.name + " tries to stab you with " + self.weapon + ", but your reaction time is quicker than theirs and you survive.")
                 self.message += str("You try to stab " + target.name + " with your " + self.currentWeapon ", but he's too quick, survives the attempt.")
                 return
-
-
-
-
-
-
-
-
-
-numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
-lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
-
-def howMany():
-    amount = input("Number of soldiers (2-12): \n")
-    if amount <= 0:
-        input("You don't have a base without soldiers. Come back with some players!\n")
-        sys.exit()
-    elif amount is 1:
-        input("There's already a last man, silly!")
-        sys.exit()
-    else:
-        return amount
-
-def addPlayers(players, amount, startingLocation):    
-
-    for p in range(amount):
-        players.append(
-            Player(
-                input(numberWords[p] + " soldier's name: \n"),
-                input(numberWords[p] + " soldier's rank: \n"),
-                input(numberWords[p] + " soldier's strength: \n"),
-                input(numberWords[p] + " soldier's intellect: \n"),       
-                input(numberWords[p] + " soldier's nerves: \n"),
-                input(numberWords[p] + " soldier's weapon: \n"),
-                input(numberWords[p] + " soldier's shift: \n"),
-                startingLocation
-            )
-        )
-
-        print(players[p].name + " logged! \n")
-
-def askCommands(players):
-    for p in range(len(players)):
-        players[p].commands.append(
-            input("What is " + players[p].name + "'s first command? \n"),
-            input("What is " + players[p].name + "'s second command? \n"),
-            input("What is " + players[p].name + "'s third command? \n"),
-            input("What is " + players[p].name + "'s fourth command? \n"),
-            input("What is " + players[p].name + "'s fifth command? \n"),
-            input("What is " + players[p].name + "'s sixth command? \n"),
-            input("What is " + players[p].name + "'s seventh command? \n"),
-            input("What is " + players[p].name + "'s eighth command? \n")
-        )
-        for c in range(len(players[p].commands)):
-            players[p].commands[c] = string.split(players[p].commands)

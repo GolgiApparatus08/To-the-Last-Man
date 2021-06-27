@@ -1,10 +1,11 @@
 class Barraks:
     def __init__(self, rank):
         self.name = "the barraks"
-        self.rank = rank
+        self.rank = 1
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "BARRAKS"
 
     def visit(player):
         
@@ -26,10 +27,11 @@ class Barraks:
 class Sanitation:
     def __init__(self, rank):
         self.name = "sanitation"
-        self.rank = rank
+        self.rank = 1
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "SANITATION"
         
     def visit(player):
         
@@ -57,10 +59,11 @@ class Sanitation:
 class Gymnasium:
     def __init__(self, rank):
         self.name = "the gymnasium"
-        self.rank = rank
+        self.rank = 2
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "GYMNASIUM"
         
     def visit(player):
         
@@ -81,10 +84,11 @@ class Gymnasium:
 class Medical:
     def __init__(self, rank):
         self.name = "medical"
-        self.rank = rank
+        self.rank = 2
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "MEDICAL"
         
     def visit(player):
         
@@ -112,11 +116,12 @@ class Medical:
 class Library:
     def __init__(self, rank):
         self.name = "the library"
-        self.rank = rank
+        self.rank = 3
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
-        
+        self.input = "LIBRARY"
+
     def visit(player):
         
         #Check Rank
@@ -150,10 +155,11 @@ class Library:
 class Information:
     def __init__(self, rank):
         self.name = "information"
-        self.rank = rank
+        self.rank = 3
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "INFORMATION"
         
     def visit(player, target):
         
@@ -173,10 +179,11 @@ class Information:
 class Bathhouse:
     def __init__(self, rank):
         self.name = "the bathhouse"
-        self.rank = rank
+        self.rank = 4
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "BATHHOUSE"
         
     def visit(player):
 
@@ -197,10 +204,11 @@ class Bathhouse:
 class Communications:
     def __init__(self, rank):
         self.name = "communications"
-        self.rank = rank
+        self.rank = 4
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "COMMUNICATIONS"
         
     def visit(player, target1, target2):
         
@@ -221,10 +229,11 @@ class Communications:
 class Power:
     def __init__(self, rank):
         self.name = "power"
-        self.rank = rank
+        self.rank = 5
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "POWER"
         
     def visit(player):
         
@@ -245,10 +254,11 @@ class Power:
 class Armaments:
     def __init__(self, rank):
         self.name = "armaments"
-        self.rank = rank
+        self.rank = 5
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "ARMAMENTS"
         
     def visit(player, target):
         
@@ -268,56 +278,25 @@ class Armaments:
 class Security:
     def __init__(self, rank):
         self.name = "security"
-        self.rank = rank
+        self.rank = 6
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "SECURITY"
         
     def visit(player, target):
-        
-        #Check Rank
-        location = security
-        locationRank = 6
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
             
-        #Effect
         player.message += str("Around " + time + ", you visit security and search " + target.name + "'s name in the tracking database. On a projected map, you see a blip light up in " + target.location + ". ")
 
 class Command:
     def __init__(self, rank):
         self.name = "command"
-        self.rank = rank
+        self.rank = 6
         self.sabotages = 0
         self.workload = 0
         self.functionality = True
+        self.input = "COMMAND"
         
     def visit(player, target):
-        
-        #Check Rank
-        location = command
-        locationRank = 6
-        Access = rankCheck()
-        if Access is false:
-            return
 
-        #Change Location
-        player.location = location
-
-        #Effect
         player.message += str("Around " + time + ", you visit command to see if the base's highest ranking records might reveal something useful about " + target.name + ". You discover that their rank is " + target.rank + " and their currently assigned to the " + shift + " shift. ")
-
-
-
-
-
-
-def findShifts(players, locations):
-    for p in range(len(players)):
-        for l in range(len(locations)):
-            if locations[l].name is players[p].enteredShift:
-                players[p].shift = locations[l]

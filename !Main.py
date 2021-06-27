@@ -1,6 +1,7 @@
-from Players import addPlayers, askCommands, howMany
-from Weapons import findWeapons, liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
-from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command, findShifts
+import random
+from Functions import addPlayers, askCommands, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate
+from Weapons import liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
+from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
 weapons = []
 weapons.append(liquorHandle)
@@ -60,12 +61,130 @@ for nights in range(days):
     for h in range(0, 7):
         hour = time[h]
 
-        
+        for p in range(len(players)):
+            players[p].located = False
+
+        #We go through and move people around based on their commands
+        for p in range(len(players)):
+            actor = players[p]
+            if actor.alive is False:
+                actor.located = True
+            else:
+                if actor.commands[h][0] is "DEFEND":
+                    actor.located = True
+                    actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
+                if actor.commands[h][0] is "REST":
+                    actor.located = True
+                    actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
+            
+                for r in range(len(locations)):
+                    if locations[r].input is actor.commands[h][0]:
+                        actor.located = True
+                        checkAccess(actor, locations[r], False, hour)
+
+                if actor.commands[h][0] is ("WORK" or "SABOTAGE"):
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.located = True
+                            checkAccess(actor, locations[r], True, hour)
+                if actor.commands[h][0] is ("LOITER" or "AMBUSH" or "INFILTRATOR"):
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.located = True
+                            checkAccess(actor, locations[r], False, hour)
+
+        #We go through and move around the tricky buggers that reference other players locations (KILL, WATCH, STEAL)
+        for p in range(len(players)):
+            inALoop = clearLoop(players, inALoop)
+            if players[p].located is False:
+                outcome = locate(players, players[p], h, inALoop)
+                if outcome is "loop":
+                    clearLoop(players, inALoop)
+                    if players[p].located is False:
+                        locate(players, players[p], h, inALoop)
+
+        #Ok, now for the actions themselves
+        playersRandomized = random.shuffle(players)
+        for pr in range(len(playersRandomized)):
+            actor = playersRandomized[pr]
+            if actor.alive is False:
+                actor.DEAD()
+            else:
+                if actor.commands[h][0] is "DEFEND":
+                    actor.DEFEND()
+                if actor.commands[h][0] is "REST":
+                    actor.REST(locations, players)
+            
+                for r in range(len(locations)):
+                    if locations[r].input is actor.commands[h][0]:
+                        locations[r].visit(actor)
+
+                if actor.commands[h][0] is "WORK":
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.WORK(locations[r], locations, players)
+                if actor.commands[h][0] is "SABOTAGE":
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.SABOTAGE(locations[r])
+                if actor.commands[h][0] is "LOITER":
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.LOITER(locations[r])
+                if actor.commands[h][0] is "AMBUSH":
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            for p in range(len(players)):
+                                if players[p].name is actor.commands[h][2]:
+                                    actor.AMBUSH(locations[r], players[p])
+                if actor.commands[h][0] is "INFILTRATOR":
+                    for r in range(len(locations)):
+                        if locations[r].input is actor.commands[h][1]:
+                            actor.INFILTRATOR(locations[r])
+                
 
 
-'''
-THINGS TO UPDATE EVERY NIGHT
-    moderatorMessage
-    shifts
-    
-'''
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            #No move
+
+                #DEFEND
+                #REST
+                #DEAD
+
+            #The rooms
+                #BARRAKS
+                #SANITATION
+                #GYMNASIUM
+                #MEDICAL
+                #LIBRARY
+                #INFORMATION
+                #BATHHOUSE
+                #COMMUNICATIONS
+                #POWER
+                #ARMAMENTS
+                #SECURITY
+                #COMMAND
+
+            #Need to find room
+
+                #WORK
+                #SABOTAGE
+                #LOITER
+                #AMBUSH
+                #INFILTRATOR
+
+            #The comlicated ones that require tracking
+
+                #WATCH
+                #KILL
+                #STEAL

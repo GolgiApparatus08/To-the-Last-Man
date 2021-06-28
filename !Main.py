@@ -70,9 +70,6 @@ for nights in range(days):
             if actor.alive is False:
                 actor.located = True
             else:
-                if actor.commands[h][0] is "DEFEND":
-                    actor.located = True
-                    actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
                 if actor.commands[h][0] is "REST":
                     actor.located = True
                     actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
@@ -110,8 +107,6 @@ for nights in range(days):
             if actor.alive is False:
                 actor.DEAD(players)
             else:
-                if actor.commands[h][0] is "DEFEND":
-                    actor.DEFEND(players)
                 if actor.commands[h][0] is "REST":
                     actor.REST(locations, players)
             

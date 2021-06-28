@@ -1,6 +1,7 @@
 from Players import Player
 import sys
 import string
+import random
 
 numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
 lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
@@ -116,9 +117,42 @@ def clearLoop(players, inALoop):
                 inALoop = []
                 return inALoop
 
-def whoHere(player, players):
+#Roll that decides if a player learns something about another player
+def doTheyDeduce(seen, deducer, body):
+    rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
+    roll = random.choice(rollOutcomes)
+    if deducer.intellect >= roll:
+        tense = "is"
+        if body is True:
+            tense = "was"
+        thingsToLearn = [
+            "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + seen.strength + ". ",
+            "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + seen.intellect + ". ",
+            "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + seen.nerves + ". ",
+            "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon + ". ",
+            "In the encounter, you notice that " + seen.name + "'s shift " + tense + " " + seen.shift + ". ",
+            "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + seen.rank + ". "
+            ]
+        learned = random.choice(thingsToLearn)
+        deducer.message += learned
+
+#Finds who is in the room with a player and gives them whatever message they need to see
+def whoHere(seen, tell, body, players):
     whoHere = []
     for p in range(len(players)):
-        if players[p].location is player.location:
+        if players[p].location is seen.location:
             whoHere.append(players[p])
-    return whoHere
+    for w in range(len(whoHere)):
+        whoHere[w].message += tell
+        doTheyDeduce(seen, whoHere[w], body)
+
+#Roll that decides if a player defends when they are attacked
+def doTheyDefend(attacker, target):
+    rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
+    difference = target.strength - attacker.strength
+    roll = random.choice(rollOutcomes)
+    if difference >= roll:
+        return "pass"
+    else:
+        return "fail"
+

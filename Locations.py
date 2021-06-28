@@ -8,21 +8,9 @@ class Barraks:
         self.input = "BARRAKS"
 
     def visit(player):
-        
-        #Check Rank
-        location = barraks
-        locationRank = 1
-        Access = rankCheck()
-        if Access is false:
-            return
 
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.sleep = player.sleep + 1
         player.message += str("At " + time + ", you manage to get a good hour of geniune sleep in. You will be able to stave off rest more effectively tomorrow, should the need arise. ")
-        identify()
 
 class Sanitation:
     def __init__(self, rank):
@@ -34,18 +22,9 @@ class Sanitation:
         self.input = "SANITATION"
         
     def visit(player):
-        
-        #Check Rank
-        location = sanitation
-        locationRank = 1
-        Access = rankCheck()
-        if Access is false:
-            return
 
-        #Change Location
-        player.location = location
-            
-        #Effect
+        global moderatorMessage
+        
         if player.weapon is player.currentweapon:
             player.message += str("Around " + time + ", you sneak into sanitation and slip your " + player.weapon + " into the trash. It will never be used again. ")
             player.weapon = nothing
@@ -66,18 +45,7 @@ class Gymnasium:
         self.input = "GYMNASIUM"
         
     def visit(player):
-        
-        #Check Rank
-        location = gymnasium
-        locationRank = 2
-        Access = rankCheck(player)
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
             
-        #Effect
         player.gymnasiumVisits = player.gymnasiumVisits + 1
         player.message += str("At " + time + ", you workout for a good hour in the gym. ")
 
@@ -91,16 +59,7 @@ class Medical:
         self.input = "MEDICAL"
         
     def visit(player):
-        
-        #Check Rank
-        Access = rankCheck(player)
-        if Access is False:
-            return
-
-        #Change Location
-        player.location = location
             
-        #Effect
         if "cuts" in player.marks and "bruises" not in player.marks:
             player.marks.clear()
             player.message += str("Around " + time + ", you use the advanced systems in medical to seal up most of your cuts from the earlier fight. Tomorrow morning, no one will be the wiser. ")
@@ -124,18 +83,6 @@ class Library:
 
     def visit(player):
         
-        #Check Rank
-        location
-        locationRank = 3
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
-            
-        #Effect
-
         bookFacts = []
         bookFacts.append("Fish brought from the bottom most depths of the ocean will literally melt upon reaching the surface, physically incapable of dealing with the lower pressure.")                                   
         bookFacts.append("The distinction between straight and gay individuals was not made at all until the 19th century. Previous to this, only specific sexual acts--not people types--were considered abberations.")   
@@ -162,18 +109,7 @@ class Information:
         self.input = "INFORMATION"
         
     def visit(player, target):
-        
-        #Check Rank
-        location = information
-        locationRank = 3
-        Access = rankCheck()
-        if Access is false:
-            return
 
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.message += str("Around " + time + ", you scour all the files you can find on " + target.name + " in information, and eventually discover their intellect is " + target.intellect + " and their nerves is " + target.nerves + ". ")
 
 class Bathhouse:
@@ -187,17 +123,6 @@ class Bathhouse:
         
     def visit(player):
 
-        #Check Rank
-        location = ba
-        locationRank = 4
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.bathhouseVisits = player.bathhouseVisits + 1
         player.message += str("At " + time + ", you spend an hour plugged into simulated combat in bathhouse. Your reflexes honed, you feel more precise than ever. ")
 
@@ -212,17 +137,6 @@ class Communications:
         
     def visit(player, target1, target2):
         
-        #Check Rank
-        location = communications
-        locationRank = 4
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.message += str("Around " + time + ", you visit communications to audit the comms shared between " + target1.name + " and " + target2.name + " this morning and afternoon. The computer returns that it has noted your attempt and will, if accepted, send you the result of the audit by morning. ")
         moderatorMessage += str("Send " + player.name + " any comms shared between " + target1.name + " and " + target2.name " yesterday. ")
 
@@ -237,17 +151,6 @@ class Power:
         
     def visit(player):
         
-        #Check Rank
-        location = power
-        locationRank = 5
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.power = player.power + 1
         player.message += str("At " + time + ", you spend an hour fueling and watching over the generator, an activiy that will excuse you of some of your responsiblities tomorrow night. ")
 
@@ -262,17 +165,6 @@ class Armaments:
         
     def visit(player, target):
         
-        #Check Rank
-        location = armaments
-        locationRank = 5
-        Access = rankCheck()
-        if Access is false:
-            return
-
-        #Change Location
-        player.location = location
-            
-        #Effect
         player.message += str("Around " + time + ", you stop by armaments to see if you can learn anything useful about " + target.name + ". From the training logs, you discover that their strength is " + target.strength + " and that they have " + target.weapon + " (" + target.weaponType + ") on hand that that they could use to kill. ")
 
 class Security:

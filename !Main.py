@@ -52,7 +52,7 @@ for nights in range(days):
     dayNumberWord = numberWords[nights]
     input("Press ENTER to begin the " + dayNumberWord + "night.")
 
-    moderatorMessage = ""
+    report = ""
     time = ["11 PM", "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"]
 
     askCommands(players)
@@ -108,16 +108,16 @@ for nights in range(days):
         for pr in range(len(playersRandomized)):
             actor = playersRandomized[pr]
             if actor.alive is False:
-                actor.DEAD()
+                actor.DEAD(players)
             else:
                 if actor.commands[h][0] is "DEFEND":
-                    actor.DEFEND()
+                    actor.DEFEND(players)
                 if actor.commands[h][0] is "REST":
                     actor.REST(locations, players)
             
                 for r in range(len(locations)):
                     if locations[r].input is actor.commands[h][0]:
-                        locations[r].visit(actor)
+                        locations[r].visit(actor, hour)
 
                 if actor.commands[h][0] is "WORK":
                     for r in range(len(locations)):
@@ -126,11 +126,11 @@ for nights in range(days):
                 if actor.commands[h][0] is "SABOTAGE":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.SABOTAGE(locations[r])
+                            actor.SABOTAGE(locations[r], locations, players)
                 if actor.commands[h][0] is "LOITER":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.LOITER(locations[r])
+                            actor.LOITER(locations[r], locations, players)
                 if actor.commands[h][0] is "AMBUSH":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
@@ -141,6 +141,17 @@ for nights in range(days):
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
                             actor.INFILTRATOR(locations[r])
+
+                if actor.commands[h][0] is "KILL":
+                    for p in range(len(players)):
+                        if players[p].name is actor.commands[h][1]:
+                            actor.KILL(players[p], report, hour)
+                if actor.commands[h][0] is "STEAL":
+                    for p in range(len(players)):
+                        if players[p].name is actor.commands[h][1]:
+                            actor.STEAL(players[p], locations, players)
+                if actor.commands[h][0] is "WATCH":
+                    actor.WATCH(locations, players)
                 
 
 

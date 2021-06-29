@@ -137,10 +137,12 @@ def doTheyDeduce(seen, deducer, body):
         deducer.message += learned
 
 #Finds who is in the room with a player and gives them whatever message they need to see
-def whoHere(seen, tell, body, players):
+def whoHere(seen, target, tell, body, locations, players):
+    if locations[9].functionality is False:
+        return
     whoHere = []
     for p in range(len(players)):
-        if players[p].location is seen.location:
+        if players[p].location is seen.location and players[p] is not seen and players[p] is not target:
             whoHere.append(players[p])
     for w in range(len(whoHere)):
         whoHere[w].message += tell

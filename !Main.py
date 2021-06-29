@@ -131,7 +131,7 @@ for nights in range(days):
                         if locations[r].input is actor.commands[h][1]:
                             for p in range(len(players)):
                                 if players[p].name is actor.commands[h][2]:
-                                    actor.AMBUSH(locations[r], players[p])
+                                    actor.AMBUSH(locations[r], players[p], locations, players, hour)
                 if actor.commands[h][0] is "INFILTRATOR":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:

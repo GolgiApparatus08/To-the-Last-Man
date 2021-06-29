@@ -25,59 +25,53 @@ class Player:
         self.located = False
         self.visited = False
 
-    def DEAD(self, players):
-        whoHere(self, str(self.name + "'s body lies montionless on the floor. "), True, players)
+    def DEAD(self, locations, players):
+        whoHere(self, "none", str(self.name + "'s body lies montionless on the floor. "), True, locations, players)
 
     def REST(self, locations, players):
         if self.alive is False:
-            self.DEAD(players)
+            self.DEAD(locations, players)
             return
 
         if self.location is locations[0]:   #Barraks
             self.location.visit(self)
         if self.location is locations[1]:   #Sanitation
             self.message += str("You nod off as far from the incinerator as you can get and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping as far from the incinerator as they could get. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping as far from the incinerator as they could get. "), False, locations, players)
         if self.location is locations[2]:   #Gymnasium
             self.message += str("You nod off on one of the weight benches and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping on one of the weight benches. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping on one of the weight benches. "), False, locations, players)
         if self.location is locations[3]:   #Medical
             self.message += str("You nod off on a gurney and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping on a gurney. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping on a gurney. "), False, locations, players)
         if self.location is locations[4]:   #Library
             self.message += str("You nod off behind one of the bookshelves and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping behind one of the bookshelves. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping behind one of the bookshelves. "), False, locations, players)
         if self.location is locations[5]:   #Information
             self.message += str("You nod off between two fileing cabinets and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping between two fileing cabinets. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping between two fileing cabinets. "), False, locations, players)
         if self.location is locations[6]:   #Bathhouse
             self.message += str("You nod off in one of the pool chairs and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping in one of the pool chairs. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping in one of the pool chairs. "), False, locations, players)
         if self.location is locations[7]:   #Communications
             self.message += str("You nod off leaning forward against a communications monitor and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was leaning foward, asleep, against one of the communications monitors. "), False, players)
+            whoHere(self, "none", str(self.name + " was leaning foward, asleep, against one of the communications monitors. "), False, locations, players)
         if self.location is locations[8]:   #Power
             self.message += str("You nod off against the wall as far from the generator as you can get and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping against the wall as far from the generator as they could get. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping against the wall as far from the generator as they could get. "), False, locations, players)
         if self.location is locations[9]:   #Armaments
             self.message += str("You nod off against the glass case that stores the weapons and manage to get a decent hour of rest in. ")
-            whoHere(self, str(self.name + " was sleeping against the glass case that stores the weapons. "), False, players)
+            whoHere(self, "none", str(self.name + " was sleeping against the glass case that stores the weapons. "), False, locations, players)
         if self.location is locations[10]:  #Security
             self.message += str("You nod off in one of the security guard's swiveling chairs and manage to get a decent hour of rest in. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " was sleeping in one of the security guard's swiveling chairs. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " was sleeping in one of the security guard's swiveling chairs. "), False, locations, players)
         if self.location is locations[11]:  #Command
             self.message += str("You nod off in a desk chair and manage to get a decent hour of rest in. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " was sleeping in a desk chair. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " was sleeping in a desk chair. "), False, locations, players)
 
     def WORK(self, room, locations, players):
         if self.alive is False:
-            self.DEAD(players)
+            self.DEAD(locations, players)
             return
         if self.location is not room:
             self.message += str("Instead of working at " + room.name + ", ")
@@ -87,91 +81,55 @@ class Player:
         if self.location is locations[0]:   #Barraks
             locations[0].workload = locations[0].workload - 1
             self.message += str("You spend the hour collecting dirty sheets and restocking sleeping supplies. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour collecting dirty sheet and restocking sleeping supplies. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour collecting dirty sheet and restocking sleeping supplies. "), False, locations, players)
         if self.location is locations[1]:   #Sanitation
             locations[1].workload = locations[1].workload - 1
             self.message += str("You spend the hour throwing piled up garbage into the incinerator. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour throwing piled up garbage into the incinerator. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour throwing piled up garbage into the incinerator. "), False, locations, players)
         if self.location is locations[2]:   #Gymnasium
             locations[2].workload = locations[2].workload - 1
             self.message += str("You spend the hour organzing weights and cleaning debris off the track. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour organzing weights and cleaning debris off the track. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour organzing weights and cleaning debris off the track. "), False, locations, players)
         if self.location is locations[3]:   #Medical
             locations[3].workload = locations[3].workload - 1
             self.message += str("You spend the hour restocking medical supplies and preping the equipment for procedures. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour retsocking medical supplies and preping the equipment for procedures. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour retsocking medical supplies and preping the equipment for procedures. "), False, locations, players)
         if self.location is locations[4]:   #Library
             locations[4].workload = locations[4].workload - 1
             self.message += str("You spend the hour organzing and logging books. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour organzing and logging books. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour organzing and logging books. "), False, locations, players)
         if self.location is locations[5]:   #Information
             locations[5].workload = locations[5].workload - 1
             self.message += str("You spend the hour filing records and debuging the computers. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour filing records and debuging the computers. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour filing records and debuging the computers. "), False, locations, players)
         if self.location is locations[6]:   #Bathhouse
             locations[6].workload = locations[6].workload - 1
             self.message += str("You spend the hour cleaning the sauna and preping the heating systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour cleaning the sauna and preping the heating systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour cleaning the sauna and preping the heating systems. "), False, locations, players)
         if self.location is locations[7]:   #Communications
             locations[7].workload = locations[7].workload - 1
             self.message += str("You spend the hour debuging the communications systems and trying to fix the connection to the capital, to no avail. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour debuging the communications systems and trying to fix the connection to the capital, to no avail. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour debuging the communications systems and trying to fix the connection to the capital, to no avail. "), False, locations, players)
         if self.location is locations[8]:   #Power
             locations[8].workload = locations[8].workload - 1
             self.message += str("You spend the hour working on the generator and wiring the base's electrical systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour working on the generator and wiring the base's electrical systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour working on the generator and wiring the base's electrical systems. "), False, locations, players)
         if self.location is locations[9]:   #Armaments
             locations[9].workload = locations[9].workload - 1
             self.message += str("You spend the hour logging and properly locking up the base's supply of weapons. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour logging and properly locking up the base's supply of weapons. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour logging and properly locking up the base's supply of weapons. "), False, locations, players)
         if self.location is locations[10]:  #Security
             locations[10].workload = locations[10].workload - 1
             self.message += str("You spend the hour working on the base's security systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour working on the base's security systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour working on the base's security systems. "), False, locations, players)
         if self.location is locations[11]:  #Command
             locations[11].workload = locations[11].workload - 1
             self.message += str("You spend the hour allocating shifts and assigning future work. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour allocating shifts and assigning future work. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour allocating shifts and assigning future work. "), False, locations, players)
 
     def SABOTAGE(self, room, locations, players):
         if self.alive is False:
-            self.DEAD(players)
+            self.DEAD(locations, players)
             return
         if self.location is not room:
             self.message += str("Instead of sabotaging " + room.name + ", ")
@@ -181,91 +139,55 @@ class Player:
         if self.location is locations[0]:   #Barraks
             locations[0].sabotages = locations[0].sabotages + 1
             self.message += str("You spend the hour tossing perfectly clean sheets and stocking the supplies incorrectly. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour collecting dirty sheet and restocking sleeping supplies. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour collecting dirty sheet and restocking sleeping supplies. "), False, locations, players)
         if self.location is locations[1]:   #Sanitation
             locations[1].sabotages = locations[1].sabotages + 1
             self.message += str("You spend the hour improperly using the incinerator in an attempt to break it. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour throwing piled up garbage into the incinerator. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour throwing piled up garbage into the incinerator. "), False, locations, players)
         if self.location is locations[2]:   #Gymnasium
             locations[2].sabotages = locations[2].sabotages + 1
             self.message += str("You spend the hour hiding the weights and making a mess of the track. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour organzing weights and cleaning debris off the track. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour organzing weights and cleaning debris off the track. "), False, locations, players)
         if self.location is locations[3]:   #Medical
             locations[3].sabotages = locations[3].sabotages + 1
             self.message += str("You spend the hour replacing the labels on various medical supplies and messing with the procedure equipment. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour restocking medical supplies and preping the equipment for procedures. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour restocking medical supplies and preping the equipment for procedures. "), False, locations, players)
         if self.location is locations[4]:   #Library
             locations[4].sabotages = locations[4].sabotages + 1
             self.message += str("You spend the hour misplacing books and ripping random pages out. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour organzing and logging books. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour organzing and logging books. "), False, locations, players)
         if self.location is locations[5]:   #Information
             locations[5].sabotages = locations[5].sabotages + 1
             self.message += str("You spend the hour messing with the computers and misplacing files. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour filing records and debuging the computers. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour filing records and debuging the computers. "), False, locations, players)
         if self.location is locations[6]:   #Bathhouse
             locations[6].sabotages = locations[6].sabotages + 1
             self.message += str("You spend the hour messing with the heating systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour cleaning the sauna and preping the heating systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour cleaning the sauna and preping the heating systems. "), False, locations, players)
         if self.location is locations[7]:   #Communications
             locations[7].sabotages = locations[7].sabotages + 1
             self.message += str("You spend the hour messing with the communications systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour debuging the communications systems and trying to fix the connection to the capital, to no avail. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour debuging the communications systems and trying to fix the connection to the capital, to no avail. "), False, locations, players)
         if self.location is locations[8]:   #Power
             locations[8].sabotages = locations[8].sabotages + 1
             self.message += str("You spend the hour messing with the generator and trying to screw up the base's electrical systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour working on the generator and wiring the base's electrical systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour working on the generator and wiring the base's electrical systems. "), False, locations, players)
         if self.location is locations[9]:   #Armaments
             locations[9].sabotages = locations[9].sabotages + 1
             self.message += str("You spend the hour improperly locking up weapons. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour logging and properly locking up the base's supply of weapons. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour logging and properly locking up the base's supply of weapons. "), False, locations, players)
         if self.location is locations[10]:  #Security
             locations[10].sabotages = locations[10].sabotages + 1
             self.message += str("You spend the hour messing with the base's security systems. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour working on the base's security systems. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour working on the base's security systems. "), False, locations, players)
         if self.location is locations[11]:  #Command
             locations[11].sabotages = locations[11].sabotages + 1
             self.message += str("You spend the hour misallocating shifts and misplacing important work documents. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour allocating shifts and assigning future work. ")
-                doTheyDeduce(self, witnesses[w])
+            whoHere(self, "none", str(self.name + " spent the hour allocating shifts and assigning future work. "), False, locations, players)
 
     def LOITER(self, room, locations, players):
         if self.alive is False:
-            self.DEAD(players)
+            self.DEAD(locations, players)
             return
         if self.location is not room:
             self.message += str("Instead of loitering in " + room.name + ", ")
@@ -274,68 +196,106 @@ class Player:
 
         if self.location is locations[0]:   #Barraks
             self.message += str("You spend the hour lying in bed, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour lying in bed, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour lying in bed, relaxing. "), False, locations, players)
         if self.location is locations[1]:   #Sanitation
             self.message += str("You spend the hour leaning against the incinerator, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour leaning against the incinerator, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour leaning against the incinerator, relaxing. "), False, locations, players)
         if self.location is locations[2]:   #Gymnasium
             self.message += str("You spend the hour relaxing on weight bench, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour relaxing on weight bench. ")
+            whoHere(self, "none", str(self.name + " spent the hour relaxing on weight bench. "), False, locations, players)
         if self.location is locations[3]:   #Medical
             self.message += str("You spend the hour relaxing on a gurney, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour relaxing on a gurney. ")
+            whoHere(self, "none", str(self.name + " spent the hour relaxing on a gurney. "), False, locations, players)
         if self.location is locations[4]:   #Library
             self.message += str("You spend the hour casually perusing bookshelves, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour casually perusing bookshelves. ")
+            whoHere(self, "none", str(self.name + " spent the hour casually perusing bookshelves. "), False, locations, players)
         if self.location is locations[5]:   #Information
             self.message += str("You spend the hour perched ontop of a filing cabinet, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour perched ontop of a filing cabinet, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour perched ontop of a filing cabinet, relaxing. "), False, locations, players)
         if self.location is locations[6]:   #Bathhouse
             self.message += str("You spend the hour floating relaxingly in the pool, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour floating in the pool, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour floating in the pool, relaxing. "), False, locations, players)
         if self.location is locations[7]:   #Communications
             self.message += str("You spend the hour admiring the complicated display of communcation data and watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour admiring the complicated display of communcation data, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour admiring the complicated display of communcation data, relaxing. "), False, locations, players)
         if self.location is locations[8]:   #Power
             self.message += str("You spend the hour listening to the relaxing hum of the generator, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour listening to the relaxing hum of the generator. ")
+            whoHere(self, "none", str(self.name + " spent the hour listening to the relaxing hum of the generator. "), False, locations, players)
         if self.location is locations[9]:   #Armaments
             self.message += str("You spend the hour admiring the base's large collection of deadly weapons, watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour admiring the base's large collection of deadly weapons. ")
+            whoHere(self, "none", str(self.name + " spent the hour admiring the base's large collection of deadly weapons. "), False, locations, players)
         if self.location is locations[10]:  #Security
             self.message += str("You spend the hour fiddling aimlessly with camera equipment and watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour fiddling aimlessly with camera equipment, relaxing. ")
+            whoHere(self, "none", str(self.name + " spent the hour fiddling aimlessly with camera equipment, relaxing. "), False, locations, players)
         if self.location is locations[11]:  #Command
             self.message += str("You spend the hour relaxing in a desk chair and watching to see if you can spot anything intresting. ")
-            witnesses = whoHere(self, players)
-            for w in range(len(witnesses)):
-                witnesses[w].message += str(self.name + " spent the hour relaxing in a desk chair. ")
+            whoHere(self, "none", str(self.name + " spent the hour relaxing in a desk chair. "), False, locations, players)
+
+    def AMBUSH(self, room, target, locations, players, time):
+        if self.alive is False:
+            self.DEAD(locations, players)
+            return
+        if self.location is not room:
+            self.message += str("Instead of ambushing " + target.name + " in " + room.name + ", ")
+            self.LOITER(self.location, locations, players)
+            return
+        if self.location is not target.location:
+            self.message += str("You prepare to ambush " + target.name + ", but they never shows. ")
+            self.LOITER(self.location, locations, players)
+            return
+
+        if self.location is locations[0]:   #Barraks
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and smother them to death with a pillow. ")
+            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and smothers you to death with a pillow. ")
+            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and smothers them to death with a pillow. "), False, locations, players)
+        if self.location is locations[1]:   #Sanitation
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push them into the incinerator. ")
+            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and pushes you into the incinerator. ")
+            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and pushes them into the incinerator. "), False, locations, players)
+        if self.location is locations[2]:   #Gymnasium
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and trick them into using an exercise machine you have rigged to break their bones. Keeled over on the ground, you finish them off with a weight to the head. ")
+            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and tricks you into using an exercise machine they have rigged to break your bones. Keeled over on the ground, they finish you off with a weight to the head. ")
+            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and tricks them into using an exercise machine they have rigged to break their bones. Keeled over on the ground, they finish them off with a weight to the head. "), False, locations, players)
+        if self.location is locations[3]:   #Medical
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and stick them with a lethal syringe. The begin throwing up and die within minutes. ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[4]:   #Library
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push a bookshelf over one them. You hear their bones crunch under the weight, killing them. ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[5]:   #Information
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and smash a computer monitor over their head and it totally kills them trust me (death message subject to revision). ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[6]:   #Bathhouse
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and lock them in one of the sauna from the outside. Within the hour they've sweat to death. ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[7]:   #Communications
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and run them through with the attenna? (Death message subject to change) ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[8]:   #Power
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard electricuting them with wiring you staged to kill them. ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[9]:   #Armaments
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push them into a case of sharp weapons, killing them. ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[10]:  #Security
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard you smash a camera over their head? (Death message subject to change) ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
+        if self.location is locations[11]:  #Command
+            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard kill them in some really clever way involving the location (death message subject to revision). ")
+            target.message += str()
+            whoHere(self, target, str(), False, locations, players)
 
     def WATCH(self, locations, players):
         if self.alive is False:
-            self.DEAD(players)
+            self.DEAD(locations, players)
             return
         self.LOITER(self.location, locations, players)
         
@@ -368,16 +328,12 @@ class Player:
                     self.honor = -1
                 self.message += str("You catch " + target.name + " off guard and bash their skull in with " + self.currentWeapon + ". ")
                 target.message += str(self.name + " catches you off guard and bashes your skull in with " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon + ", killing them. ")
+                whoHere(self, target, str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon + ", killing them. "), False, locations, players)
                 return
             else:
                 target.message += str(self.name + " comes at you with " + self.currentWeapon + " in an attempt to bash your head in. Stronger than them, you survive the scuffle that follows, albeit with a few bruises.")
                 self.message += str("You attempt to bash " + target.name + "'s head in with your " + self.currentWeapon + ", but their too strong and survive the scuffle that follows with only a few bruises.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " attempts to bash " + target.name + "'s skull in with " + self.currentWeapon + ", but their strong enough to resist and make it out with only a few bruises. ")
+                whoHere(self, target, str(self.name + " attempts to bash " + target.name + "'s skull in with " + self.currentWeapon + ", but their strong enough to resist and make it out with only a few bruises. "), False, locations, players)
                 return
 
         elif self.currentWeapon.type is "medical":  #Medical weapon fight
@@ -393,16 +349,12 @@ class Player:
                     self.honor = -1
                 self.message += str("You outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", ending in their death. ")
                 target.message += str(self.name + " outsmarts you in a game of wits involving " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon + ", killing them. ")
+                whoHere(self, target, str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon + ", killing them. "), False, locations, players)
                 return
             else:
                 target.message += str(self.name + " attempts to outsmart you in a game of wits involving " + self.currentWeapon + ", but your smarter than them and manage to survive the challenge, though visibly exhausted.")
                 self.message += str("You attempt outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", but their too smart and survive the challenge, though visibly exhausted.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " attempts to outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", but their smart enough to win and make it out alive. ")
+                whoHere(self, target, str(self.name + " attempts to outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", but their smart enough to win and make it out alive. "), False, locations, players)
                 return
 
         elif self.currentWeapon.type is "sharp":    #Sharp weapon fight
@@ -418,14 +370,10 @@ class Player:
                     self.honor = -1
                 self.message += str("You slice " + target.name + " open with " + self.currentWeapon + ", and they bleed to death. ")
                 target.message += str(self.name + " slices you open with " + self.currentWeapon + ", and you bleed to death. Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " slices " + target.name + " open with " + self.currentWeapon + ", and they bleed to death. ")
+                whoHere(self, target, str(self.name + " slices " + target.name + " open with " + self.currentWeapon + ", and they bleed to death. "), False, locations, players)
                 return
             else:
                 target.message += str(self.name + " attempts to slice you open with " + self.currentWeapon + ", but your reflexes are faster than theirs and you manage to survive the ordeal with only some cuts.")
                 self.message += str("You attempt to slice " + target.name + " open with " + self.currentWeapon + ", but their reflexes are faster than yours and they manage to survive the ordeal with only some cuts.")
-                witnesses = whoHere(self, players)
-                for w in range(len(witnesses)):
-                    witnesses[w].message += str(self.name + " attempts to slice " + target.name + " open with " + self.currentWeapon + ", but their reflexes are faster than theirs and they manage to survive the ordeal with only some cuts.")
+                whoHere(self, target, str(self.name + " attempts to slice " + target.name + " open with " + self.currentWeapon + ", but their reflexes are faster than theirs and they manage to survive the ordeal with only some cuts."), False, locations, players)
                 return

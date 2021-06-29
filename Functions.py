@@ -17,8 +17,10 @@ def findShifts(players, locations):
 def findWeapons(players, weapons):
     for p in range(len(players)):
         for i in range(len(weapons)):
-            if weapons[i].name is players[p].weapons:
-                players[p].weapons = weapons[i]
+            if weapons[i].name is players[p].weapon:
+                players[p].weapon = weapons[i]
+                weapons[i].present = True
+                weapons[i].owner = players[p]
 
 #Asks how many players there will be and returns the value as amount
 def howMany():

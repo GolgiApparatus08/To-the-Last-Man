@@ -24,6 +24,7 @@ class Player:
         self.commands = []
         self.located = False
         self.visited = False
+        self.weaponDestroyed = False
 
     def DEAD(self, locations, players):
         whoHere(self, "none", str(self.name + "'s body lies montionless on the floor. "), True, locations, players)
@@ -231,7 +232,7 @@ class Player:
             self.message += str("You spend the hour relaxing in a desk chair and watching to see if you can spot anything intresting. ")
             whoHere(self, "none", str(self.name + " spent the hour relaxing in a desk chair. "), False, locations, players)
 
-    def AMBUSH(self, room, target, locations, players, time):
+    def AMBUSH(self, room, target, locations, players, time, report):
         if self.alive is False:
             self.DEAD(locations, players)
             return
@@ -244,54 +245,16 @@ class Player:
             self.LOITER(self.location, locations, players)
             return
 
-        if self.location is locations[0]:   #Barraks
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and smother them to death with a pillow. ")
-            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and smothers you to death with a pillow. ")
-            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and smothers them to death with a pillow. "), False, locations, players)
-        if self.location is locations[1]:   #Sanitation
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push them into the incinerator. ")
-            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and pushes you into the incinerator. ")
-            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and pushes them into the incinerator. "), False, locations, players)
-        if self.location is locations[2]:   #Gymnasium
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and trick them into using an exercise machine you have rigged to break their bones. Keeled over on the ground, you finish them off with a weight to the head. ")
-            target.message += str("Predicting that you would be in " + room.name + " at precisely " + time + ", " + self.name + " catches you completly off guard and tricks you into using an exercise machine they have rigged to break your bones. Keeled over on the ground, they finish you off with a weight to the head. ")
-            whoHere(self, target, str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", " + self.name + " catches them completly off guard and tricks them into using an exercise machine they have rigged to break their bones. Keeled over on the ground, they finish them off with a weight to the head. "), False, locations, players)
-        if self.location is locations[3]:   #Medical
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and stick them with a lethal syringe. The begin throwing up and die within minutes. ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[4]:   #Library
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push a bookshelf over one them. You hear their bones crunch under the weight, killing them. ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[5]:   #Information
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and smash a computer monitor over their head and it totally kills them trust me (death message subject to revision). ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[6]:   #Bathhouse
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and lock them in one of the sauna from the outside. Within the hour they've sweat to death. ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[7]:   #Communications
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and run them through with the attenna? (Death message subject to change) ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[8]:   #Power
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard electricuting them with wiring you staged to kill them. ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[9]:   #Armaments
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard and push them into a case of sharp weapons, killing them. ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[10]:  #Security
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard you smash a camera over their head? (Death message subject to change) ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
-        if self.location is locations[11]:  #Command
-            self.message += str("Predicting that " + target.name + " would be in " + room.name + " at precisely " + time + ", you catch them completly off guard kill them in some really clever way involving the location (death message subject to revision). ")
-            target.message += str()
-            whoHere(self, target, str(), False, locations, players)
+        self.message += str("Predicting that " + target.name + " would be in " + target.location.name + " at precisely " + time + ", you use your surrondings to set a trap ahead of their arrival, killing them without any struggle or chance of defense. ")
+        target.message += str("Seemingly predicting that you would be in " + target.location.name + " at percisely " + time + ", " + self.name + " set a trap ahead of your arrival, killing you without any struggle or chance of defence. You are now dead, and may no longer talk to other players about the game or communicate any game relavent information. ")
+        report += str(target.name + " has been ambushed by " + self.name + " in " + target.location.name + " at " + time + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon.name + ", and their shift was " + target.shift.name + ". ")
+        self.honor = self.honor - target.honor
+        if self.honor is 0 and target.honor < 0:
+            self.honor = 1
+        if self.honor is 0 and target.honor > 0:
+            self.honor = -1
+        whoHere(self, target, str("You witness " + self.name + " spring a trap on " + target.name + ", killing them without any struggle or chance of defense, seemingly having predicted they would be in " + target.location.name + " at precisely " + time + ". "), False, locations, players)
+        return
 
     def WATCH(self, locations, players):
         if self.alive is False:
@@ -320,20 +283,20 @@ class Player:
             target.marks.append("bruises")
             if self.strength > target.strength:
                 target.alive = False
-                report += str(target.name + " has been killed by " + self.name + " in " + target.location + " at " + time + " with " + self.currentWeapon + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon + ", and their shift was " + target.shift + ". ")
+                report += str(target.name + " has been killed by " + self.name + " in " + target.location.name + " at " + time + " with " + self.currentWeapon.name + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon.name + ", and their shift was " + target.shift.name + ". ")
                 self.honor = self.honor - target.honor
                 if self.honor is 0 and target.honor < 0:
                     self.honor = 1
                 if self.honor is 0 and target.honor > 0:
                     self.honor = -1
-                self.message += str("You catch " + target.name + " off guard and bash their skull in with " + self.currentWeapon + ". ")
-                target.message += str(self.name + " catches you off guard and bashes your skull in with " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                whoHere(self, target, str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon + ", killing them. "), False, locations, players)
+                self.message += str("You catch " + target.name + " off guard and bash their skull in with " + self.currentWeapon.name + ". ")
+                target.message += str(self.name + " catches you off guard and bashes your skull in with " + self.currentWeapon.name + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
+                whoHere(self, target, str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon.name + ", killing them. "), False, locations, players)
                 return
             else:
-                target.message += str(self.name + " comes at you with " + self.currentWeapon + " in an attempt to bash your head in. Stronger than them, you survive the scuffle that follows, albeit with a few bruises.")
-                self.message += str("You attempt to bash " + target.name + "'s head in with your " + self.currentWeapon + ", but their too strong and survive the scuffle that follows with only a few bruises.")
-                whoHere(self, target, str(self.name + " attempts to bash " + target.name + "'s skull in with " + self.currentWeapon + ", but their strong enough to resist and make it out with only a few bruises. "), False, locations, players)
+                target.message += str(self.name + " comes at you with " + self.currentWeapon.name + " in an attempt to bash your head in. Stronger than them, you survive the scuffle that follows, albeit with a few bruises.")
+                self.message += str("You attempt to bash " + target.name + "'s head in with your " + self.currentWeapon.name + ", but their too strong and survive the scuffle that follows with only a few bruises.")
+                whoHere(self, target, str(self.name + " attempts to bash " + target.name + "'s skull in with " + self.currentWeapon.name + ", but their strong enough to resist and make it out with only a few bruises. "), False, locations, players)
                 return
 
         elif self.currentWeapon.type is "medical":  #Medical weapon fight
@@ -341,20 +304,20 @@ class Player:
             target.marks.append("tired")
             if self.intellect > target.intellect:
                 target.alive = False
-                report += str(target.name + " has been killed by " + self.name + " in " + target.location + " at " + time + " with " + self.currentWeapon + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon + ", and their shift was " + target.shift + ". ")
+                report += str(target.name + " has been killed by " + self.name + " in " + target.location.name + " at " + time + " with " + self.currentWeapon.name + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon + ", and their shift was " + target.shift + ". ")
                 self.honor = self.honor - target.honor
                 if self.honor is 0 and target.honor < 0:
                     self.honor = 1
                 if self.honor is 0 and target.honor > 0:
                     self.honor = -1
-                self.message += str("You outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", ending in their death. ")
-                target.message += str(self.name + " outsmarts you in a game of wits involving " + self.currentWeapon + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                whoHere(self, target, str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon + ", killing them. "), False, locations, players)
+                self.message += str("You outsmart " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", ending in their death. ")
+                target.message += str(self.name + " outsmarts you in a game of wits involving " + self.currentWeapon.name + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
+                whoHere(self, target, str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", killing them. "), False, locations, players)
                 return
             else:
-                target.message += str(self.name + " attempts to outsmart you in a game of wits involving " + self.currentWeapon + ", but your smarter than them and manage to survive the challenge, though visibly exhausted.")
-                self.message += str("You attempt outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", but their too smart and survive the challenge, though visibly exhausted.")
-                whoHere(self, target, str(self.name + " attempts to outsmart " + target.name + " in a game of wits involving " + self.currentWeapon + ", but their smart enough to win and make it out alive. "), False, locations, players)
+                target.message += str(self.name + " attempts to outsmart you in a game of wits involving " + self.currentWeapon.name + ", but your smarter than them and manage to survive the challenge, though visibly exhausted.")
+                self.message += str("You attempt outsmart " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", but their too smart and survive the challenge, though visibly exhausted.")
+                whoHere(self, target, str(self.name + " attempts to outsmart " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", but their smart enough to win and make it out alive. "), False, locations, players)
                 return
 
         elif self.currentWeapon.type is "sharp":    #Sharp weapon fight
@@ -362,18 +325,21 @@ class Player:
             target.marks.append("cuts")
             if self.nerves > target.nerves:
                 target.alive = False
-                report += str(target.name + " has been killed by " + self.name + " in " + target.location + " at " + time + " with " + self.currentWeapon + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon + ", and their shift was " + target.shift + ". ")
+                report += str(target.name + " has been killed by " + self.name + " in " + target.location.name + " at " + time + " with " + self.currentWeapon.name + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon + ", and their shift was " + target.shift + ". ")
                 self.honor = self.honor - target.honor
                 if self.honor is 0 and target.honor < 0:
                     self.honor = 1
                 if self.honor is 0 and target.honor > 0:
                     self.honor = -1
-                self.message += str("You slice " + target.name + " open with " + self.currentWeapon + ", and they bleed to death. ")
-                target.message += str(self.name + " slices you open with " + self.currentWeapon + ", and you bleed to death. Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                whoHere(self, target, str(self.name + " slices " + target.name + " open with " + self.currentWeapon + ", and they bleed to death. "), False, locations, players)
+                self.message += str("You slice " + target.name + " open with " + self.currentWeapon.name + ", and they bleed to death. ")
+                target.message += str(self.name + " slices you open with " + self.currentWeapon.name + ", and you bleed to death. Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
+                whoHere(self, target, str(self.name + " slices " + target.name + " open with " + self.currentWeapon.name + ", and they bleed to death. "), False, locations, players)
                 return
             else:
-                target.message += str(self.name + " attempts to slice you open with " + self.currentWeapon + ", but your reflexes are faster than theirs and you manage to survive the ordeal with only some cuts.")
-                self.message += str("You attempt to slice " + target.name + " open with " + self.currentWeapon + ", but their reflexes are faster than yours and they manage to survive the ordeal with only some cuts.")
-                whoHere(self, target, str(self.name + " attempts to slice " + target.name + " open with " + self.currentWeapon + ", but their reflexes are faster than theirs and they manage to survive the ordeal with only some cuts."), False, locations, players)
+                target.message += str(self.name + " attempts to slice you open with " + self.currentWeapon.name + ", but your reflexes are faster than theirs and you manage to survive the ordeal with only some cuts.")
+                self.message += str("You attempt to slice " + target.name + " open with " + self.currentWeapon.name + ", but their reflexes are faster than yours and they manage to survive the ordeal with only some cuts.")
+                whoHere(self, target, str(self.name + " attempts to slice " + target.name + " open with " + self.currentWeapon.name + ", but their reflexes are faster than theirs and they manage to survive the ordeal with only some cuts."), False, locations, players)
                 return
+            
+        else:
+            

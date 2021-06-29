@@ -1,5 +1,7 @@
+from Functions import whoHere
+
 class Barraks:
-    def __init__(self, rank):
+    def __init__(self):
         self.name = "the barraks"
         self.rank = 1
         self.sabotages = 0
@@ -7,13 +9,24 @@ class Barraks:
         self.functionality = True
         self.input = "BARRAKS"
 
-    def visit(player):
+    def visit(player, locations, players):
+        if player.alive is False:
+            player.DEAD(locations, players)
+            return
+        if player.location is not locations[0]:
+            player.LOITER(player.location, locations, players)
+            return
+        if locations[0].functionality is False:
+            player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
+            player.LOITER(player.location, locations, players)
+            return
 
         player.sleep = player.sleep + 1
-        player.message += str("At " + time + ", you manage to get a good hour of geniune sleep in. You will be able to stave off rest more effectively tomorrow, should the need arise. ")
+        player.message += str("You manage to get a good hour of geniune sleep in. You will be able to stave off rest more effectively tomorrow, should the need arise. ")
+        whoHere(player, "none", str(player.name + " is sleeping soundly in his bed. "), False, locations, players)
 
 class Sanitation:
-    def __init__(self, rank):
+    def __init__(self):
         self.name = "sanitation"
         self.rank = 1
         self.sabotages = 0
@@ -21,19 +34,34 @@ class Sanitation:
         self.functionality = True
         self.input = "SANITATION"
         
-    def visit(player):
-
-        global moderatorMessage
+    def visit(player, locations, players):
+        if player.alive is False:
+            player.DEAD(locations, players)
+            return
+        if player.location is not locations[1]:
+            player.LOITER(player.location, locations, players)
+            return
+        if locations[1].functionality is False:
+            player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
+            player.LOITER(player.location, locations, players)
+            return
+        if player.currentWeapon is "none":
+            player.LOITER(player.location, locations, players)
+            return
         
         if player.weapon is player.currentweapon:
-            player.message += str("Around " + time + ", you sneak into sanitation and slip your " + player.weapon + " into the trash. It will never be used again. ")
-            player.weapon = nothing
-            player.currentweapon = nothing
+            player.message += str("You sneak into sanitation and slip " + player.weapon.name + " into the trash. It will never be used again. ")
+            player.weapon.owner = "no one"
+            player.weapon.present = False
+            player.weapon = "none"
+            player.currentWeapon = "none"
         else:
-            player.message += str("Around " + time + ", you sneak into sanitation and slip " + player.owner.name + "'s " + player.currentweapon + " into the trash. It will never be used again. ")
-            player.owner.weapon = nothing
-            player.currentweapon = nothing
-            moderatorMessage += str("Tell " + player.owner.name + " that someone trashed their weapon last night. ")
+            player.message += str("You sneak into sanitation and slip " + player.owner.name + "'s " + player.currentWeapon.name + " into the trash. It will never be used again. ")
+            player.currentWeapon.owner.weaponDestroyed = True
+            player.currentWeapon.owner = "no one"
+            player.currentWeapon.present = False
+            player.owner.weapon = "none"
+            player.currentWeapon = "none"
 
 class Gymnasium:
     def __init__(self, rank):

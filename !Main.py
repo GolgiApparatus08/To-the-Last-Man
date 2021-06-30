@@ -112,7 +112,14 @@ for nights in range(days):
             
                 for r in range(len(locations)):
                     if locations[r].input is actor.commands[h][0]:
-                        locations[r].visit(actor, locations, players)
+                        if locations[r] is locations[7]:
+                            locations[r].visit(actor, actor.commands[h][1], actor.commands[h][2], locations, players, report)
+                        if actor.commands[h][1] is "learn":
+                            locations[r].learn(actor, locations, players)
+                        if actor.commands[h][1] is "use":
+                            locations[r].use(actor, locations, players)
+                        else:
+                            locations[r].visit(actor, locations, players)
 
                 if actor.commands[h][0] is "WORK":
                     for r in range(len(locations)):
@@ -140,7 +147,7 @@ for nights in range(days):
                 if actor.commands[h][0] is "KILL":
                     for p in range(len(players)):
                         if players[p].name is actor.commands[h][1]:
-                            actor.KILL(players[p], report, hour)
+                            actor.KILL(players[p], report, hour, locations, players)
                 if actor.commands[h][0] is "STEAL":
                     for p in range(len(players)):
                         if players[p].name is actor.commands[h][1]:
@@ -157,40 +164,3 @@ for nights in range(days):
             
             
             
-            
-            
-            
-            
-            #No move
-
-                #DEFEND
-                #REST
-                #DEAD
-
-            #The rooms
-                #BARRAKS
-                #SANITATION
-                #GYMNASIUM
-                #MEDICAL
-                #LIBRARY
-                #INFORMATION
-                #BATHHOUSE
-                #COMMUNICATIONS
-                #POWER
-                #ARMAMENTS
-                #SECURITY
-                #COMMAND
-
-            #Need to find room
-
-                #WORK
-                #SABOTAGE
-                #LOITER
-                #AMBUSH
-                #INFILTRATOR
-
-            #The comlicated ones that require tracking
-
-                #WATCH
-                #KILL
-                #STEAL

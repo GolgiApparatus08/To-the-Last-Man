@@ -263,8 +263,37 @@ class Player:
         self.LOITER(self.location, locations, players)
         
     def STEAL(self, target, locations, players):
+        if self.alive is False:
+            self.DEAD(locations, players)
+            return
+        if self.location is not target.location:
+            self.message += str("Instead of stealing from " + target.name + ", ")
+            self.LOITER(self.location, locations, players)
+            return
+        if target.alive is False and target.currentWeapon is not "none":
+            self.message += str("You find " + target.name + " dead, and slip " + target.currentWeapon + " off of them. They won't be needing it now. ")
+            self.LOITER(self.location, locations, players)
+            return
+        if target.alive is False:
+            self.message += str("You find " + target.name + " dead, which makes the job of stealing from them easier--except when you search them for a weapon you find none. Someone must have beat you to it. ")
+            self.LOITER(self.location, locations, players)
+            return
+        if target.currentWeapon is "none":
+            self.message += str("You approach " + target.name + "carefully, hoping to slip away with their weapon when their not looking. Unfortunatly, you find nothing on them and slip away just in time not to be caught in the attempt. ")
+            self.LOITER(self.location, locations, players)
+            return
 
-    def KILL(self, target, report, time):
+        if self.nerves > target.nerves:
+            self.message += str("Due to your greater finess, you manage to slip " + target.currentWeapon + " away from " + target.name + " You'll have to return it by morning to avoid trouble, but its yours in the meantime. ")
+            self.currentWeapon = target.currentWeapon
+            target.currentWeapon = "none"
+            self.LOITER(self.location, locations, players)
+        else:
+            self.message += str("Unfortunatly, " + target.name + " has greater finess than you and catches you in the act of trying to slip a potencial weapon away from them. They make a scene, hoping someone will take notice, and you shuffle away embarrased. ")
+            target.message += str("At some point, you catch " + self.name + " trying to steal your weapon, as your nerves are better than theres. You scold them loudly, hoping someone will take notice of their betrayal. ")
+            whoHere(self, target, str("At some point there's a loud altercation. Apparently, " + self.name + " tried to steal something from " + target.name + " but was caught in the act. "), False, locations, players)
+
+    def KILL(self, target, report, time, locations, players):
         if self.location is not target.location:    #In the right place?
             self.LOITER(self.location, locations, players)
             return
@@ -342,4 +371,5 @@ class Player:
                 return
             
         else:
-            
+            self.message += str("Just as you're approaching " + target.name + " to attempt to kill them, you reach into your pocket and realize you have no weapon! ")
+            self.LOITER(self.location, locations, players)

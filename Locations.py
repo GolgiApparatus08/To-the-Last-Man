@@ -62,6 +62,7 @@ class Sanitation:
             player.currentWeapon.present = False
             player.owner.weapon = "none"
             player.currentWeapon = "none"
+            "dummy"
 
 class Gymnasium:
     def __init__(self, rank):

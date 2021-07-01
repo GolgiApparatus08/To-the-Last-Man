@@ -2,6 +2,7 @@ from Players import Player
 import sys
 import string
 import random
+import math
 
 numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
 lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
@@ -160,3 +161,50 @@ def doTheyDefend(attacker, target):
     else:
         return "fail"
 
+#Updates player attributes based on room visits
+def roomPoints(player, playerRoomVisits, attributeString, playerAttribute):
+    if playerRoomVisits > 1:
+        points = math.floor(playerRoomVisits / 2)
+        playerAttribute = playerAttribute + points
+        loss = points * 2
+        playerRoomVisits = playerRoomVisits - loss
+        player.endMessage += str("Your " + attributeString + " is now " + playerAttribute + ". ")
+
+#Decides how much time a player needs to spend doing a thing tommorrow night
+def nightRules(actor, rule):
+    if rule is "work":
+        naturalAmount = 2
+        points = actor.power
+    if rule is "sleep":
+        naturalAmount = 4
+        points = actor.sleep
+    if points <= 0:
+        return
+    actions = naturalAmount - points
+    if actions < 0:
+        actions = 0
+    points = 0
+    actor.endMessage += str("You will have to spend " + actions + " actions working tomorrow night to complete your shift. ")
+
+#Determines what I reveal about dead bodies from the previous night
+def weSeeDeadPeople(players, locations, report):
+    if locations[10].functionality is False:
+        return
+    for p in range(len(players)):
+        actor = players[p]
+        if actor.alive is False:
+            report += str("Alert the group that " + actor.name + " is dead along with their location. ")
+            if locations[2].functionality is True:
+                report += str("Tell the group what their strength was. ")
+            if locations[3].functionality is True:
+                report += str("Tell the group what type of weapon they were killed with. ")
+            if locations[4].functionality is True:
+                report += str("Tell the group what their intellect was. ")
+            if locations[5].functionality is True:
+                report += str("Tell the group what their rank was. ")
+            if locations[6].functionality is True:
+                report += str("Tell the group what their nerves was. ")
+            if locations[9].functionality is True:
+                report += str("Tell the group what their weapon was. ")
+            if locations[11].functionality is True:
+                report += str("Tell the group what their shift was. ")

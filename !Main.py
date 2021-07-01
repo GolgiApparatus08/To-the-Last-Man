@@ -1,5 +1,6 @@
 import random
-from Functions import addPlayers, askCommands, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate
+import math
+from Functions import addPlayers, askCommands, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate, nightRules, roomPoints, weSeeDeadPeople
 from Weapons import liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
@@ -155,12 +156,50 @@ for nights in range(days):
                 if actor.commands[h][0] is "WATCH":
                     actor.WATCH(locations, players)
                 
+        #Now for the bits that have to happen at the end of the night
+            #Stuff that happened to weapons
+        for p in range(len(players)):
+            if players[p].weaponDestroyed is True:
+                players[p].endMessage += str("You weapon is nowhere to be found, and must have been destroyed last night. ")
+                players[p].weaponDestroyed = False
+            elif players[p].weapon.used is True:
+                players[p].endMessage += str("Your weapon was used by someone else to attack last night. ")
+                players[p].weapon.used = False
 
+            #New attributes
+        for p in range(len(players)):
+            actor = players[p]
+            roomPoints(actor, actor.gymnasiumVisits, "strength", actor.strength)
+            roomPoints(actor, actor.libraryVisits, "intellect", actor.intellect)
+            roomPoints(actor, actor.bathhouseVisits, "nerves", actor.nerves)
 
-            
-            
-            
-            
-            
-            
-            
+            #Personal rules for tomorrow night
+        for p in range(len(players)):
+            nightRules(players[p], "work")
+            nightRules(players[p], "sleep")
+
+            #Room functionality
+        for l in range(len(locations)):
+            room = locations[l]
+            room.functionality = True
+            if room.workload > 0:
+                room.functionality = False
+                report += str(room.name + " is disfunctional. ")
+            if room.sabotages > 0:
+                room.workload = room.workload + room.sabotages
+                report += str(room.name + " has " + room.sabotages + " sabotages. ")
+                room.sabotages = 0
+
+            #DEAD PEOPLE
+        weSeeDeadPeople(players, locations, report)
+
+            #And finally, print the messages.
+        print("\n")
+        for p in range(len(players)):
+            actor = players[p]
+            print(actor.name + "\n")
+            print(actor.message + "\n")
+            actor.message = ""
+            print(actor.endMessage + "\n \n")
+            actor.endMessage = ""
+        print(report)

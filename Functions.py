@@ -2,6 +2,8 @@ from Players import Player
 import sys
 import string
 import random
+import math
+import 
 
 numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
 lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
@@ -12,6 +14,7 @@ def findShifts(players, locations):
         for l in range(len(locations)):
             if locations[l].name is players[p].enteredShift:
                 players[p].shift = locations[l]
+                locations[l].workload + 
 
 #Takes the string for "weapon" input by the player and matches it with a real weapon
 def findWeapons(players, weapons):
@@ -160,3 +163,89 @@ def doTheyDefend(attacker, target):
     else:
         return "fail"
 
+#Updates player attributes based on room visits
+def roomPoints(player, playerRoomVisits, attributeString, playerAttribute):
+    if playerRoomVisits > 1:
+        points = math.floor(playerRoomVisits / 2)
+        playerAttribute = playerAttribute + points
+        loss = points * 2
+        playerRoomVisits = playerRoomVisits - loss
+        player.endMessage += str("Your " + attributeString + " is now " + playerAttribute + ". ")
+
+#Decides how much time a player needs to spend doing a thing tommorrow night
+def nightRules(actor, rule):
+    if rule is "work":
+        naturalAmount = 2
+        points = actor.power
+    if rule is "sleep":
+        naturalAmount = 4
+        points = actor.sleep
+    if points <= 0:
+        return
+    actions = naturalAmount - points
+    if actions < 0:
+        actions = 0
+    points = 0
+    actor.endMessage += str("You will have to spend " + actions + " actions working tomorrow night to complete your shift. ")
+
+#Determines what I reveal about dead bodies
+def weSeeDeadPeople(actor, locations, report):
+    if actor.alive is False:
+        report += str("Alert the group that " + actor.name + " is dead along with their last location. ")
+        if locations[2].functionality is True:
+            report += str("Tell the group what their strength was. ")
+        if locations[3].functionality is True:
+            report += str("Tell the group what type of weapon they were killed with (Not applicable if they were killed by the tribunal). ")
+        if locations[4].functionality is True:
+            report += str("Tell the group what their intellect was. ")
+        if locations[5].functionality is True:
+            report += str("Tell the group what their rank was. ")
+        if locations[6].functionality is True:
+            report += str("Tell the group what their nerves was. ")
+        if locations[9].functionality is True:
+            report += str("Tell the group what their weapon was. ")
+        if locations[11].functionality is True:
+            report += str("Tell the group what their shift was. ")
+        list.pop(actor)
+
+def askShifts(players):
+    for p in range(len(players)):
+        actor = players[p]
+        if actor.alive is True:
+            actor.enteredShift = input("What is " + actor.name + "'s new shift? \n")
+
+def theTribunal(players, locations, report):
+    tribunalists = []
+    for p in range(len(players)):
+        answer = input("Is " + players[p].name + "showing up to the tribunal? ")
+        if answer is "Yes":
+            tribunalists.append(players[p])
+    for t in range(len(tribunalists)):
+        x = 0
+        while x is 0:
+            answer = input("Is " + tribunalists[t].name + " voting for anyone not already input? ")
+            if answer is "Yes":
+                accusation = input("Who?")
+                for p in range(len(players)):
+                    if players[p].name is accusation:
+                        if players[p].honor > 0 or players[p].alive is False:
+                            tribunalists[t].honor = tribunalists[t].honor - 1
+                        elif players[p].honor < 0:
+                            tribunalists[t].honor = tribunalists[t].honor + 1
+                        players[p].accusers.append(tribunalists[t])
+            else:
+                x = 1
+    for p in range(len(players)):
+        if len(players[p].accusers) >= len(tribunalists)/2 and players[p].alive is True:
+            print(players[p].name + " has been killed by the tribunal. Soldiers who voted to kill them: \n")
+            print(players[p].accusers + "\n")
+            weSeeDeadPeople(players[p], locations, report)
+            print(report + "\n")
+            report = ""
+        else:
+            players[p].accusers = []
+    for t in range(len(tribunalists)):
+        for t2 in range(len(tribunalists)):
+            doTheyDeduce(t2, t, False)
+        print(tribunalists[t].message + "\n")
+        tribunalists[t].message = ""

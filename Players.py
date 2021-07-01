@@ -25,6 +25,8 @@ class Player:
         self.located = False
         self.visited = False
         self.weaponDestroyed = False
+        self.endMessage = ""
+        self.accusers = []
 
     def DEAD(self, locations, players):
         whoHere(self, "none", str(self.name + "'s body lies montionless on the floor. "), True, locations, players)

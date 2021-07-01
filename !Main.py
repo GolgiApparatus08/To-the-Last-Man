@@ -1,5 +1,6 @@
 import random
-from Functions import addPlayers, askCommands, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate
+import math
+from Functions import addPlayers, askCommands, askShifts, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate, nightRules, roomPoints, theTribunal, weSeeDeadPeople
 from Weapons import liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
@@ -45,15 +46,14 @@ findWeapons(players, weapons)
 
 #################################################################### Day-Night Loop ####################################################################
 
+report = ""
+time = ["11 PM", "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"]
+numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
 days = int(amount/2+1)
-for nights in range(days):
 
-    numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
+for nights in range(days):
     dayNumberWord = numberWords[nights]
     input("Press ENTER to begin the " + dayNumberWord + "night.")
-
-    report = ""
-    time = ["11 PM", "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"]
 
     askCommands(players)
 
@@ -155,12 +155,66 @@ for nights in range(days):
                 if actor.commands[h][0] is "WATCH":
                     actor.WATCH(locations, players)
                 
+        #Now for the bits that have to happen at the end of the night
+            #Stuff that happened to weapons
+        for p in range(len(players)):
+            if players[p].weaponDestroyed is True:
+                players[p].endMessage += str("You weapon is nowhere to be found, and must have been destroyed last night. ")
+                players[p].weaponDestroyed = False
+            elif players[p].weapon.used is True:
+                players[p].endMessage += str("Your weapon was used by someone else to attack last night. ")
+                players[p].weapon.used = False
 
+            #New attributes
+        for p in range(len(players)):
+            actor = players[p]
+            roomPoints(actor, actor.gymnasiumVisits, "strength", actor.strength)
+            roomPoints(actor, actor.libraryVisits, "intellect", actor.intellect)
+            roomPoints(actor, actor.bathhouseVisits, "nerves", actor.nerves)
 
-            
-            
-            
-            
-            
-            
-            
+            #Personal rules for tomorrow night
+        for p in range(len(players)):
+            nightRules(players[p], "work")
+            nightRules(players[p], "sleep")
+
+            #Room functionality
+        for l in range(len(locations)):
+            room = locations[l]
+            room.functionality = True
+            if room.workload > 0:
+                room.functionality = False
+                report += str(room.name + " is disfunctional. ")
+            if room.sabotages > 0:
+                room.workload = room.workload + room.sabotages
+                report += str(room.name + " has " + room.sabotages + " sabotages. ")
+                room.sabotages = 0
+
+            #DEAD PEOPLE
+        if locations[10].functionality is True:
+            for p in range(len(players)):
+                weSeeDeadPeople(players[p], locations, report)
+
+            #And finally, print the messages.
+        print("\n")
+        for p in range(len(players)):
+            actor = players[p]
+            print(actor.name + "\n")
+            print(actor.message + "\n")
+            actor.message = ""
+            print(actor.endMessage + "\n \n")
+            actor.endMessage = ""
+        print(report)
+        report = ""
+
+            #Get people there new random shifts
+        askShifts(players)
+        findShifts(players, locations)
+
+            #Do the tribunal
+        theTribunal(players, locations, report)
+
+        livingPlayers = []
+        for p in range(len(players[p])):
+            if players[p].alive is True:
+                livingPlayers.append(players[p])
+        if len(livingPlayers) is 1

@@ -1,14 +1,14 @@
-class liquorHandle():
+class liftingWeight():
     def __init__(self):
-        self.name = "a liquor handle"
+        self.name = "a lifting weight"
         self.type = "blunt"
         self.present = False
         self.owner = "no one"
         self.used = False
 
-class combatAward():
+class majorAward():
     def __init__(self):
-        self.name = "a combat award"
+        self.name = "a major award"
         self.type = "blunt"
         self.present = False
         self.owner = "no one"

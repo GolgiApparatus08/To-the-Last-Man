@@ -1,3 +1,4 @@
+import random
 from Functions import doTheyDeduce, doTheyDefend, whoHere
 
 class Player:
@@ -130,7 +131,7 @@ class Player:
             self.message += str("You spend the hour allocating shifts and assigning future work. ")
             whoHere(self, "none", str(self.name + " spent the hour allocating shifts and assigning future work. "), False, locations, players)
 
-    def SABOTAGE(self, room, locations, players):
+    def SABOTAGE(self, room, locations, players, weapons):
         if self.alive is False:
             self.DEAD(locations, players)
             return
@@ -295,7 +296,7 @@ class Player:
             target.message += str("At some point, you catch " + self.name + " trying to steal your weapon, as your nerves are better than theres. You scold them loudly, hoping someone will take notice of their betrayal. ")
             whoHere(self, target, str("At some point there's a loud altercation. Apparently, " + self.name + " tried to steal something from " + target.name + " but was caught in the act. "), False, locations, players)
 
-    def KILL(self, target, report, time, locations, players):
+    def KILL(self, target, report, time, locations, players, weapons):
         if self.location is not target.location:    #In the right place?
             self.LOITER(self.location, locations, players)
             return
@@ -308,6 +309,13 @@ class Player:
             self.message += str("You approach " + target.name + " carefully with intent to kill, but suddenly notice how strong they are compared to you. Intimidated, you back off and decide to wait for a better moment. ")
             self.LOITER(self.location, locations, players)
             return
+
+        #LIFTING WEIGHT
+        if self.weapon is weapons[0]:
+            attributes = [self.strength, self.intellect, self.nerves]
+            chosenAttribute = random.choice(attributes)
+            chosenAttribute = chosenAttribute + 1
+            self.message += str("Your " + chosenAttribute + " is made more effective by 1 on account of your weapon bonus. ")
 
         if self.currentWeapon.type is "blunt":      #Blunt weapon fight
             self.marks.append("bruises")

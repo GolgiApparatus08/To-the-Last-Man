@@ -214,12 +214,22 @@ def askShifts(players):
         if actor.alive is True:
             actor.enteredShift = input("What is " + actor.name + "'s new shift? \n")
 
-def theTribunal(players, locations, report):
+def theTribunal(players, weapons):
     tribunalists = []
     for p in range(len(players)):
         answer = input("Is " + players[p].name + "showing up to the tribunal? ")
         if answer is "Yes":
             tribunalists.append(players[p])
+
+    #MAJOR AWARD
+    if weapons[1].present is True:
+        answer = input("Would " + weapons[1].owner.name + " like to demote a player? ")
+        if answer is "Yes":
+            demoted = input("Which player?")
+            for p in range(len(players)):
+                if players[p].name is demoted:
+                    players[p].rank = players[p].rank - 1
+    
     for t in range(len(tribunalists)):
         x = 0
         while x is 0:

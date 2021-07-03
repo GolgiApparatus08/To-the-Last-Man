@@ -1,5 +1,5 @@
 import random
-import math
+import sys
 from Functions import addPlayers, askCommands, askShifts, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate, nightRules, roomPoints, theTribunal, weSeeDeadPeople
 from Weapons import liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
@@ -78,7 +78,10 @@ for nights in range(days):
                     if locations[r].input is actor.commands[h][0]:
                         actor.located = True
                         checkAccess(actor, locations[r], False, hour)
-
+                
+                if actor.commands[h][0] is "SABOTAGE" and actor.weapon is weapons[2]:
+                    actor.located = True
+                    actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
                 if actor.commands[h][0] is ("WORK" or "SABOTAGE"):
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
@@ -128,7 +131,7 @@ for nights in range(days):
                 if actor.commands[h][0] is "SABOTAGE":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.SABOTAGE(locations[r], locations, players)
+                            actor.SABOTAGE(locations[r], locations, players, weapons)
                 if actor.commands[h][0] is "LOITER":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
@@ -147,7 +150,7 @@ for nights in range(days):
                 if actor.commands[h][0] is "KILL":
                     for p in range(len(players)):
                         if players[p].name is actor.commands[h][1]:
-                            actor.KILL(players[p], report, hour, locations, players)
+                            actor.KILL(players[p], report, hour, locations, players, weapons)
                 if actor.commands[h][0] is "STEAL":
                     for p in range(len(players)):
                         if players[p].name is actor.commands[h][1]:
@@ -155,66 +158,89 @@ for nights in range(days):
                 if actor.commands[h][0] is "WATCH":
                     actor.WATCH(locations, players)
                 
-        #Now for the bits that have to happen at the end of the night
-            #Stuff that happened to weapons
+    #Now for the bits that have to happen at the end of the night
+        #Stuff that happened to weapons
+    for p in range(len(players)):
+        if players[p].weaponDestroyed is True:
+            players[p].endMessage += str("You weapon is nowhere to be found, and must have been destroyed last night. ")
+            players[p].weaponDestroyed = False
+        elif players[p].weapon.used is True:
+            players[p].endMessage += str("Your weapon was used by someone else to attack last night. ")
+            players[p].weapon.used = False
+
+        #New attributes
+    for p in range(len(players)):
+        actor = players[p]
+        roomPoints(actor, actor.gymnasiumVisits, "strength", actor.strength)
+        roomPoints(actor, actor.libraryVisits, "intellect", actor.intellect)
+        roomPoints(actor, actor.bathhouseVisits, "nerves", actor.nerves)
+
+        #Personal rules for tomorrow night
+    for p in range(len(players)):
+        nightRules(players[p], "work")
+        nightRules(players[p], "sleep")
+
+        #Room functionality
+    for l in range(len(locations)):
+        room = locations[l]
+        room.functionality = True
+        if room.workload > 0:
+            room.functionality = False
+            report += str(room.name + " is disfunctional. ")
+        if room.sabotages > 0:
+            room.workload = room.workload + room.sabotages
+            report += str(room.name + " has " + room.sabotages + " sabotages. ")
+            room.sabotages = 0
+
+        #DEAD PEOPLE
+    if locations[10].functionality is True:
         for p in range(len(players)):
-            if players[p].weaponDestroyed is True:
-                players[p].endMessage += str("You weapon is nowhere to be found, and must have been destroyed last night. ")
-                players[p].weaponDestroyed = False
-            elif players[p].weapon.used is True:
-                players[p].endMessage += str("Your weapon was used by someone else to attack last night. ")
-                players[p].weapon.used = False
+            weSeeDeadPeople(players[p], locations, report)
 
-            #New attributes
-        for p in range(len(players)):
-            actor = players[p]
-            roomPoints(actor, actor.gymnasiumVisits, "strength", actor.strength)
-            roomPoints(actor, actor.libraryVisits, "intellect", actor.intellect)
-            roomPoints(actor, actor.bathhouseVisits, "nerves", actor.nerves)
+        #And finally, print the messages.
+    print("\n")
+    for p in range(len(players)):
+        actor = players[p]
+        print(actor.name + "\n")
+        print(actor.message + "\n")
+        actor.message = ""
+        print(actor.endMessage + "\n \n")
+        actor.endMessage = ""
+    print(report)
+    report = ""
 
-            #Personal rules for tomorrow night
-        for p in range(len(players)):
-            nightRules(players[p], "work")
-            nightRules(players[p], "sleep")
+        #Get people there new random shifts
+    askShifts(players)
+    findShifts(players, locations)
 
-            #Room functionality
-        for l in range(len(locations)):
-            room = locations[l]
-            room.functionality = True
-            if room.workload > 0:
-                room.functionality = False
-                report += str(room.name + " is disfunctional. ")
-            if room.sabotages > 0:
-                room.workload = room.workload + room.sabotages
-                report += str(room.name + " has " + room.sabotages + " sabotages. ")
-                room.sabotages = 0
+        #Do the tribunal
+    theTribunal(players, weapons)
 
-            #DEAD PEOPLE
-        if locations[10].functionality is True:
-            for p in range(len(players)):
-                weSeeDeadPeople(players[p], locations, report)
-
-            #And finally, print the messages.
-        print("\n")
-        for p in range(len(players)):
-            actor = players[p]
-            print(actor.name + "\n")
-            print(actor.message + "\n")
-            actor.message = ""
-            print(actor.endMessage + "\n \n")
-            actor.endMessage = ""
-        print(report)
-        report = ""
-
-            #Get people there new random shifts
-        askShifts(players)
-        findShifts(players, locations)
-
-            #Do the tribunal
-        theTribunal(players, locations, report)
-
-        livingPlayers = []
-        for p in range(len(players[p])):
-            if players[p].alive is True:
-                livingPlayers.append(players[p])
-        if len(livingPlayers) is 1
+        #Check for game ends
+    livingPlayers = []
+    for p in range(len(players[p])):    
+        if players[p].alive is True:
+            livingPlayers.append(players[p])
+    if len(livingPlayers) is 1:     #Only one player left
+        print(livingPlayers[0] + " is the last player left alive. They have won the game. ")
+        sys.exit()
+    if len(livingPlayers) is 0:     #No players left (can this happen?)
+        print("Everyone died. Nobody wins. ")
+        sys.exit()
+    if nights is days - 1:          #Game time is up
+        honor = False
+        for l in range(len(livingPlayers)):
+            if livingPlayers[l].honor > 0:
+                honor = True
+        if honor is False:
+            print("Nobody left alive has any honor. Everyone loses. ")
+            sys.exit()
+        mostHonor = [livingPlayers[0]]
+        for l in range(len(livingPlayers)):
+            if mostHonor[0].honor < livingPlayers[l].honor:
+                mostHonor = [livingPlayers[l]]
+            if mostHonor[0].honor is livingPlayers[l].honor:
+                mostHonor.append(livingPlayers[l])
+        print("The game is over. Players that have the most honor and therefore win: \n")
+        print(mostHonor)
+        sys.exit()

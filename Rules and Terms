@@ -1,20 +1,24 @@
-Weapons
+Weapon Bonuses
 
-    Lifting Weight              One of your attributes improves by 1 everytime you instigate a fight.                   
-    Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.
+    Lifting Weight              One of your attributes improves by 1 everytime you instigate a fight.                           IN        
+    Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.                     IN
     Encrypted Laptop            You don't have to visit a room to sabotage it.
-    Heavy Briefcase             You can use evidence a second time.     
+    Heavy Briefcase             You can use evidence a second time.                                                             IN    
     The Prince                  If someone witnesses you kill, you will instantly attempt to kill them.
     Alarm Clock                 Halfway through the night you can reselect actions.     
-    Strong Bourbon              You deduce at double the rate.    
-    Aggressive Stimulants       A single work action completes any workload.
-    Pet Snake                   Each hour, you are told the location of a random player.    
-    First Aid                   You never show marks.     
-    Sleeping Pills              Your rests all have the effect of using the barraks.        
+    Strong Bourbon              You deduce at double the rate.                                                                  IN
+    Aggressive Stimulants       A single work action completes any workload.                                                    IN
+    Pet Snake                   Each hour, you are told the location of a random player.                                        IN
+    First Aid                   You never show marks.                                                                           IN
+    Sleeping Pills              Your rests all have the effect of using the barraks.                                            IN
     Neurotoxic Gas              You don't have to visit a room to ambush it.
     Official Weapon             You'll know the infiltrator when you see them.
-    Antique Sword               A player dies if they fail to kill you and your honor is adjusted as if they had succeeded.
-    Forged Keycard              You can choose your shift.
-    Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.
-    Throwing Shurikens          Other players can't deduce things about you.
-    Improvised Shiv             You leave signs of struggle if attacked while defending.
+    Antique Sword               A player dies if they fail to kill you and your honor is adjusted as if they had succeeded.     IN
+    Forged Keycard              You can choose your shift.                                                                      IN
+    Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.       
+    Throwing Shurikens          Other players can't deduce things about you.                                                    IN
+    Improvised Shiv             You leave signs of struggle if attacked while defending.                                        IN                        
+
+Location Dysfunctionality
+
+    Barraks                     Players must sleep an extra hour the following night.       IN

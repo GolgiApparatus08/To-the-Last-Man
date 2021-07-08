@@ -11,7 +11,7 @@ class Barraks:
         self.input = "BARRAKS"
         self.blips = 0
 
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -25,7 +25,7 @@ class Barraks:
 
         player.sleep = player.sleep + 1
         player.message += str("You manage to get a good hour of geniune sleep in. You will be able to stave off rest more effectively tomorrow, should the need arise. ")
-        whoHere(player, "none", str(player.name + " is sleeping soundly in his bed. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is sleeping soundly in his bed. "), False, locations, players, weapons)
 
 class Sanitation:
     def __init__(self):
@@ -37,7 +37,7 @@ class Sanitation:
         self.input = "SANITATION"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -58,7 +58,7 @@ class Sanitation:
             player.weapon.present = False
             player.weapon = "none"
             player.currentWeapon = "none"
-            whoHere(player, "none", str(player.name + " throws something into the trash. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " throws something into the trash. "), False, locations, players, weapons)
         else:
             player.message += str("You sneak into sanitation and slip " + player.owner.name + "'s " + player.currentWeapon.name + " into the trash. It will never be used again. ")
             player.currentWeapon.owner.weaponDestroyed = True
@@ -66,7 +66,7 @@ class Sanitation:
             player.currentWeapon.present = False
             player.owner.weapon = "none"
             player.currentWeapon = "none"
-            whoHere(player, "none", str(player.name + " throws something into the trash. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " throws something into the trash. "), False, locations, players, weapons)
 
 class Gymnasium:
     def __init__(self):
@@ -78,7 +78,7 @@ class Gymnasium:
         self.input = "GYMNASIUM"
         self.blips = 0
         
-    def use(self, player, locations, players):
+    def use(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -92,9 +92,9 @@ class Gymnasium:
 
         player.gymnasiumVisits = player.gymnasiumVisits + 1
         player.message += str("You workout for a good hour in the gym. You feel stronger than ever. ")
-        whoHere(player, "none", str(player.name + " is lifting weights. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is lifting weights. "), False, locations, players, weapons)
 
-    def learn(self, player, locations, players):
+    def learn(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -111,7 +111,7 @@ class Gymnasium:
             strengths += str(players[p].strength + ", ")
         strengths += str("and " + players[len(players)-1].strength)
         player.message += str("You look through the gym's profile logs and find that the strengths of the base's soldiers are: " + strengths + ". ")
-        whoHere(player, "none", str(player.name + " is looking through the gym's profile logs. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through the gym's profile logs. "), False, locations, players, weapons)
 
 class Medical:
     def __init__(self):
@@ -123,7 +123,7 @@ class Medical:
         self.input = "MEDICAL"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -138,31 +138,31 @@ class Medical:
         if "cuts" in player.marks and "bruises" not in player.marks and "tired" not in player.marks:
             player.marks.clear()
             player.message += str("You use the advanced systems to seal up most of your cuts from the earlier fight. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" not in player.marks and "bruises" in player.marks and "tired" not in player.marks:
             player.marks.clear()
             player.message += str("You use the advanced systems to rapidly heal most of your bruises from the earlier fight. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" not in player.marks and "bruises" not in player.marks and "tired" in player.marks:
             player.marks.clear()
             player.message += str("You use the coffee machine to ensure that your exhaustion from that early ordeal doesn't show. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" in player.marks and "bruises" in player.marks and "tired" not in player.marks:
             player.marks.clear()
             player.message += str("You use the advanced systems to rapidly heal all of your cuts and bruises from those earlier fights. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" in player.marks and "bruises" not in player.marks and "tired" in player.marks:
             player.marks.clear()
             player.message += str("You use the coffee machine and advanced systems to ensure that your exhaustion and cuts from those early ordeals don't show. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" not in player.marks and "bruises" in player.marks and "tired" in player.marks:
             player.marks.clear()
             player.message += str("You use the coffee machine and advanced systems to ensure that your exhaustion and bruises from those early ordeals don't show. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons)
         elif "cuts" in player.marks and "bruises" in player.marks and "tired" in player.marks:
             player.marks.clear()
             player.message += str("You use the coffee machine and advanced systems to ensure that your exhaustion, bruises, and cuts from all those early ordeals don't show. Tomorrow morning, no one will be the wiser. ")
-            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players)
+            whoHere(player, "none", str(player.name + " used the advanced medical systems. "), False, locations, players, weapons),
         else:
             player.LOITER(player.location, locations, players)
 
@@ -176,7 +176,7 @@ class Library:
         self.input = "LIBRARY"
         self.blips = 0
 
-    def use(self, player, locations, players):
+    def use(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -203,9 +203,9 @@ class Library:
 
         player.libraryVisits = player.libraryVisits + 1
         player.message += str("You spend the hour scouring the shelves for useful information. Deep in the shelves, you find an old book that explains: '" + random.choice(bookFacts) + "' Inspiration strikes, and you suddenly get a wonderful idea of how to deal with your current predicament. ")
-        whoHere(player, "none", str(player.name + " is scouring the shelves for literary materials. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is scouring the shelves for literary materials. "), False, locations, players, weapons)
 
-    def learn(self, player, locations, players):
+    def learn(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -222,7 +222,7 @@ class Library:
             intellects += str(players[p].intellect + ", ")
         intellects += str("and " + players[len(players)-1].intellect)
         player.message += str("You look through the lists of checked out books and discover that the intellects of the base's soldiers are: " + intellects + ". ")
-        whoHere(player, "none", str(player.name + " is looking through the library's database for information. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through the library's database for information. "), False, locations, players, weapons)
 
 class Information:
     def __init__(self):
@@ -234,7 +234,7 @@ class Information:
         self.input = "INFORMATION"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -251,7 +251,7 @@ class Information:
             ranks += str(players[p].rank + ", ")
         ranks += str("and " + players[len(players)-1].rank)
         player.message += str("You search through all the files you can find and discover that the ranks of the base's soldiers are: " + ranks + ". ")
-        whoHere(player, "none", str(player.name + " is looking through the base's ranking files. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through the base's ranking files. "), False, locations, players, weapons)
 
 class Bathhouse:
     def __init__(self):
@@ -263,13 +263,13 @@ class Bathhouse:
         self.input = "BATHHOUSE"
         self.blips = 0
         
-    def use(self, player, locations, players):
+    def use(self, player, locations, players, weapons):
 
         player.bathhouseVisits = player.bathhouseVisits + 1
         player.message += str("You spend the hour steaming in the sauna, and come out feeling refreshed and calmer than ever.")
-        whoHere(player, "none", str(player.name + " is steaming in the sauna. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is steaming in the sauna. "), False, locations, players, weapons)
 
-    def learn(self, player, locations, players):
+    def learn(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -286,7 +286,7 @@ class Bathhouse:
             nerves += str(players[p].nerves + ", ")
         nerves += str("and " + players[len(players)-1].nerves)
         player.message += str("You look through the bathhouse records and discover that the nerves of the base's soldiers are: " + nerves + ". ")
-        whoHere(player, "none", str(player.name + " is looking through the bathhouse records for information on other soldier's nerves. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through the bathhouse records for information on other soldier's nerves. "), False, locations, players, weapons)
 
 
 class Communications:
@@ -299,13 +299,13 @@ class Communications:
         self.input = "COMMUNICATIONS"
         self.blips = 0
         
-    def visit(self, player, target1, target2, locations, players, report):
+    def visit(self, player, target1, target2, locations, players, report, weapons):
         
         player.message += str("You audit the comms shared between " + target1.name + " and " + target2.name + " this morning and afternoon. The computer returns that it has noted your attempt and will, if accepted, send you the result of the audit by morning. ")
         target1.endMessage += str("At some point during the night, someone audited the comms between " + target2.name + " and you from the previous day. ")
         target2.endMessage += str("At some point during the night, someone audited the comms between " + target1.name + " and you from the previous day. ")
         report += str("Audit the comms between " + target1.name + " and " + target2.name + " for " + player.name + ". ")
-        whoHere(player, "none", str(player.name + " is requesting an audit of someone's communications from the previous day. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is requesting an audit of someone's communications from the previous day. "), False, locations, players, weapons)
 
 class Power:
     def __init__(self):
@@ -317,7 +317,7 @@ class Power:
         self.input = "POWER"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -331,7 +331,7 @@ class Power:
         
         player.power = player.power + 1
         player.message += str("You spend the hour fueling and watching over the generator, an activiy that will excuse you of some of your responsiblities tomorrow night. ")
-        whoHere(player, "none", str(player.name + " is tending to the generator to excuse themselves from future work. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is tending to the generator to excuse themselves from future work. "), False, locations, players, weapons)
 
 class Armaments:
     def __init__(self):
@@ -343,7 +343,7 @@ class Armaments:
         self.input = "ARMAMENTS"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -360,7 +360,7 @@ class Armaments:
             if players[p].weapon is not "none":
                 weapons.append(players[p].weapon)
         player.message += str("You search the combat logs and discover that " + random.choice(weapons) + " is being used as a weapon. ")
-        whoHere(player, "none", str(player.name + " is looking through the base's combat logs. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through the base's combat logs. "), False, locations, players, weapons)
 
 class Security:
     def __init__(self):
@@ -372,7 +372,7 @@ class Security:
         self.input = "SECURITY"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -398,7 +398,7 @@ class Security:
         for l in range(len(locationsWithBlips)-1):
             player.message += str(locationsWithBlips[l].blips + " warm bodies in " + locationsWithBlips[l].name + ", ")
         player.message += str("and " + locationsWithBlips[len(locationsWithBlips)-1].blips + " warm bodies in " + locationsWithBlips[len(locationsWithBlips)-1].name + ". ")
-        whoHere(player, "none", str(player.name + " is checking the security systems to see which rooms are occupied. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is checking the security systems to see which rooms are occupied. "), False, locations, players, weapons)
 
 class Command:
     def __init__(self):
@@ -410,7 +410,7 @@ class Command:
         self.input = "COMMAND"
         self.blips = 0
         
-    def visit(self, player, locations, players):
+    def visit(self, player, locations, players, weapons):
         if player.alive is False:
             player.DEAD(locations, players)
             return
@@ -427,4 +427,4 @@ class Command:
             shifts += str(players[p].shift.name + ", ")
         shifts += str("and " + players[len(players)-1].shift.name)
         player.message += str("You look through command's files and discover that the shifts currently assigned are: " + shifts + ". ")
-        whoHere(player, "none", str(player.name + " is looking through command's files to learn about current shifts. "), False, locations, players)
+        whoHere(player, "none", str(player.name + " is looking through command's files to learn about current shifts. "), False, locations, players, weapons)

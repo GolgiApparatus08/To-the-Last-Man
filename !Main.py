@@ -1,6 +1,6 @@
 import random
 import sys
-from Functions import addPlayers, askCommands, askShifts, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate, nightRules, roomPoints, theTribunal, weSeeDeadPeople
+from Functions import addPlayers, askCommands, askShifts, checkAccess, clearLoop, findShifts, findWeapons, howMany, locate, nightRules, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
 from Weapons import liquorHandle, combatAward, encryptedLaptop, heavyBriefcase, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
@@ -40,7 +40,7 @@ locations.append(Command)
 
 players = []
 amount = howMany()
-addPlayers(players, amount, Barraks)
+addPlayers(players, amount, locations[0])
 findShifts(players, locations)
 findWeapons(players, weapons)
 
@@ -108,26 +108,26 @@ for nights in range(days):
         for pr in range(len(playersRandomized)):
             actor = playersRandomized[pr]
             if actor.alive is False:
-                actor.DEAD(players)
+                actor.DEAD(players, weapons)
             else:
                 if actor.commands[h][0] is "REST":
-                    actor.REST(locations, players)
+                    actor.REST(locations, players, weapons)
             
                 for r in range(len(locations)):
                     if locations[r].input is actor.commands[h][0]:
                         if locations[r] is locations[7]:
-                            locations[r].visit(actor, actor.commands[h][1], actor.commands[h][2], locations, players, report)
+                            locations[r].visit(actor, actor.commands[h][1], actor.commands[h][2], locations, players, report, weapons)
                         if actor.commands[h][1] is "learn":
-                            locations[r].learn(actor, locations, players)
+                            locations[r].learn(actor, locations, players, weapons)
                         if actor.commands[h][1] is "use":
-                            locations[r].use(actor, locations, players)
+                            locations[r].use(actor, locations, players, weapons)
                         else:
-                            locations[r].visit(actor, locations, players)
+                            locations[r].visit(actor, locations, players, weapons)
 
                 if actor.commands[h][0] is "WORK":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.WORK(locations[r], locations, players)
+                            actor.WORK(locations[r], locations, players, weapons)
                 if actor.commands[h][0] is "SABOTAGE":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
@@ -135,17 +135,17 @@ for nights in range(days):
                 if actor.commands[h][0] is "LOITER":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.LOITER(locations[r], locations, players)
+                            actor.LOITER(locations[r], locations, players, weapons)
                 if actor.commands[h][0] is "AMBUSH":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
                             for p in range(len(players)):
                                 if players[p].name is actor.commands[h][2]:
-                                    actor.AMBUSH(locations[r], players[p], locations, players, hour, report)
+                                    actor.AMBUSH(locations[r], players[p], locations, players, hour, report, weapons)
                 if actor.commands[h][0] is "INFILTRATOR":
                     for r in range(len(locations)):
                         if locations[r].input is actor.commands[h][1]:
-                            actor.INFILTRATOR(locations[r])
+                            actor.INFILTRATOR(locations[r], weapons)
 
                 if actor.commands[h][0] is "KILL":
                     for p in range(len(players)):
@@ -154,9 +154,16 @@ for nights in range(days):
                 if actor.commands[h][0] is "STEAL":
                     for p in range(len(players)):
                         if players[p].name is actor.commands[h][1]:
-                            actor.STEAL(players[p], locations, players)
+                            actor.STEAL(players[p], locations, players, weapons)
                 if actor.commands[h][0] is "WATCH":
-                    actor.WATCH(locations, players)
+                    actor.WATCH(locations, players, weapons)
+
+        if weapons[8].present is True:
+            spotter = weapons[8].owner
+            playersWithoutYou = players
+            playersWithoutYou.pop(spotter)
+            spotted = random.choice(playersWithoutYou)
+            spotter.message += str("You learn through your trained pet snake that " + spotted.name + " was in " + spotted.location.name + " during this hour. ")
                 
     #Now for the bits that have to happen at the end of the night
         #Stuff that happened to weapons
@@ -175,11 +182,6 @@ for nights in range(days):
         roomPoints(actor, actor.libraryVisits, "intellect", actor.intellect)
         roomPoints(actor, actor.bathhouseVisits, "nerves", actor.nerves)
 
-        #Personal rules for tomorrow night
-    for p in range(len(players)):
-        nightRules(players[p], "work")
-        nightRules(players[p], "sleep")
-
         #Room functionality
     for l in range(len(locations)):
         room = locations[l]
@@ -187,10 +189,24 @@ for nights in range(days):
         if room.workload > 0:
             room.functionality = False
             report += str(room.name + " is disfunctional. ")
+            for p in range(len(players)):
+                if players[p].shift is room and players[p].rank is not 1:
+                    players[p].rank = players[p].rank - 1
+                    players[p].message += str("Because you failed to complete your shift, you've been demoted to rank " + players[p].rank + ". ")
+        else:
+            for p in range(len(players)):
+                if players[p].shift is room and players[p].rank is not 6:
+                    players[p].rank = players[p].rank + 1
+                    players[p].message += str("Because you completed your shift, you've been promoted to rank " + players[p].rank + ". ")
         if room.sabotages > 0:
             room.workload = room.workload + room.sabotages
             report += str(room.name + " has " + room.sabotages + " sabotages. ")
             room.sabotages = 0
+
+        #Personal rules for tomorrow night
+    for p in range(len(players)):
+        requiredWork(players[p])
+        requiredSleep(players[p], locations)
 
         #DEAD PEOPLE
     if locations[10].functionality is True:
@@ -214,7 +230,7 @@ for nights in range(days):
     findShifts(players, locations)
 
         #Do the tribunal
-    theTribunal(players, weapons)
+    theTribunal(players, locations, weapons)
 
         #Check for game ends
     livingPlayers = []

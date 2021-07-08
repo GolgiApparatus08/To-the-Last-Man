@@ -3,7 +3,6 @@ import sys
 import string
 import random
 import math
-import 
 
 numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
 lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'seventh', "eighth", "ninth", "tenth", "eleventh", "twelfth"]
@@ -14,7 +13,7 @@ def findShifts(players, locations):
         for l in range(len(locations)):
             if locations[l].name is players[p].enteredShift:
                 players[p].shift = locations[l]
-                locations[l].workload + 
+                locations[l].workload = locations[l].workload + players[p].requiredWork
 
 #Takes the string for "weapon" input by the player and matches it with a real weapon
 def findWeapons(players, weapons):
@@ -123,26 +122,33 @@ def clearLoop(players, inALoop):
                 return inALoop
 
 #Roll that decides if a player learns something about another player
-def doTheyDeduce(seen, deducer, body):
-    rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
-    roll = random.choice(rollOutcomes)
-    if deducer.intellect >= roll:
-        tense = "is"
-        if body is True:
-            tense = "was"
-        thingsToLearn = [
-            "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + seen.strength + ". ",
-            "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + seen.intellect + ". ",
-            "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + seen.nerves + ". ",
-            "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon + ". ",
-            "In the encounter, you notice that " + seen.name + "'s shift " + tense + " " + seen.shift + ". ",
-            "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + seen.rank + ". "
-            ]
-        learned = random.choice(thingsToLearn)
-        deducer.message += learned
+def doTheyDeduce(seen, deducer, body, weapons):
+    if deducer.weapon is weapons[16]:
+        return
+    x = 0
+    if deducer.weapon is weapons[6]:
+        x = -1
+    while x <= 0:
+        rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
+        roll = random.choice(rollOutcomes)
+        if deducer.intellect >= roll:
+            tense = "is"
+            if body is True:
+                tense = "was"
+            thingsToLearn = [
+                "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + seen.strength + ". ",
+                "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + seen.intellect + ". ",
+                "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + seen.nerves + ". ",
+                "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon + ". ",
+                "In the encounter, you notice that " + seen.name + "'s shift " + tense + " " + seen.shift + ". ",
+                "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + seen.rank + ". "
+                ]
+            learned = random.choice(thingsToLearn)
+            deducer.message += learned
+        x = x + 1
 
 #Finds who is in the room with a player and gives them whatever message they need to see
-def whoHere(seen, target, tell, body, locations, players):
+def whoHere(seen, target, tell, body, locations, players, weapons):
     if locations[9].functionality is False:
         return
     whoHere = []
@@ -151,7 +157,7 @@ def whoHere(seen, target, tell, body, locations, players):
             whoHere.append(players[p])
     for w in range(len(whoHere)):
         whoHere[w].message += tell
-        doTheyDeduce(seen, whoHere[w], body)
+        doTheyDeduce(seen, whoHere[w], body, weapons)
 
 #Roll that decides if a player defends when they are attacked
 def doTheyDefend(attacker, target):
@@ -172,21 +178,17 @@ def roomPoints(player, playerRoomVisits, attributeString, playerAttribute):
         playerRoomVisits = playerRoomVisits - loss
         player.endMessage += str("Your " + attributeString + " is now " + playerAttribute + ". ")
 
-#Decides how much time a player needs to spend doing a thing tommorrow night
-def nightRules(actor, rule):
-    if rule is "work":
-        naturalAmount = 2
-        points = actor.power
-    if rule is "sleep":
-        naturalAmount = 4
-        points = actor.sleep
-    if points <= 0:
-        return
-    actions = naturalAmount - points
-    if actions < 0:
-        actions = 0
-    points = 0
-    actor.endMessage += str("You will have to spend " + actions + " actions working tomorrow night to complete your shift. ")
+#Decides how much time a player needs to spend working tommorrow night
+def requiredWork(actor):
+    actor.requiredWork = 2 - actor.power
+    actor.message += str("You will have to spend " + actor.requiredWork + " actions tomorrow (plus sabotages) to complete your shift. ")
+
+def requiredSleep(actor, locations):
+    if locations[0].functionality is True:
+        actor.requiredSleep = 4 - actor.sleep
+    else:
+        actor.requiredSleep = 5 - actor.sleep
+    actor.message += str("You will have to spend " + actor.requiredSleep + " actions sleeping tomorrow. ")
 
 #Determines what I reveal about dead bodies
 def weSeeDeadPeople(actor, locations, report):
@@ -214,15 +216,14 @@ def askShifts(players):
         if actor.alive is True:
             actor.enteredShift = input("What is " + actor.name + "'s new shift? \n")
 
-def theTribunal(players, weapons):
+def theTribunal(players, locations, weapons):
     tribunalists = []
     for p in range(len(players)):
         answer = input("Is " + players[p].name + "showing up to the tribunal? ")
         if answer is "Yes":
             tribunalists.append(players[p])
 
-    #MAJOR AWARD
-    if weapons[1].present is True:
+    if weapons[1].present is True:      #MAJOR AWARD
         answer = input("Would " + weapons[1].owner.name + " like to demote a player? ")
         if answer is "Yes":
             demoted = input("Which player?")
@@ -256,6 +257,20 @@ def theTribunal(players, weapons):
             players[p].accusers = []
     for t in range(len(tribunalists)):
         for t2 in range(len(tribunalists)):
-            doTheyDeduce(t2, t, False)
+            doTheyDeduce(t2, t, False, weapons)
         print(tribunalists[t].message + "\n")
         tribunalists[t].message = ""
+
+#Gives someone with sleeping pills a sleep for resting
+def freeRest(actor, weapons):
+    if actor.weapon is weapons[10]:
+        actor.sleep = actor.sleep + 1
+        actor.message += str("The rest was extra refreshing due to the sleeping pills, and you won't have to sleep as much tomorrow.")
+
+#calculates the work done to a location
+def workload(actor, room, weapons):
+    if actor.weapon is weapons[7]:
+        room.workload = 0
+    else:
+        room.workload = room.workload - 1
+

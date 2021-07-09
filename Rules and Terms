@@ -2,7 +2,7 @@ Weapon Bonuses
 
     Lifting Weight              One of your attributes improves by 1 everytime you instigate a fight.                           IN        
     Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.                     IN
-    Encrypted Laptop            You don't have to visit a room to sabotage it.
+    Encrypted Laptop            You don't have to visit a room to sabotage it.                                                  IN
     Heavy Briefcase             You can use evidence a second time.                                                             IN    
     The Prince                  If someone witnesses you kill, you will instantly attempt to kill them.
     Alarm Clock                 Halfway through the night you can reselect actions.     
@@ -21,4 +21,15 @@ Weapon Bonuses
 
 Location Dysfunctionality
 
-    Barraks                     Players must sleep an extra hour the following night.       IN
+    Barraks                     Players must sleep an extra hour.                   IN
+    Sanitation                  Players must work an extra hour.                    IN
+    Gymnasium                   The strength of a corpse is not announced.          IN
+    Medical                     The cause of death of a corpse is not announced.    IN
+    Library                     The intellect of a corpse is not announced.         IN
+    Information                 The rank of a corpse is not announced.              IN
+    Bathhouse                   The nerves of a corpse is not announced.            IN
+    Communications              Players cannot communicate privatly.                IN
+    Power                       Players do not witness other players actions.       IN
+    Armaments                   Players can choose their current weapon.            IN
+    Security                    Players are not informed of corpses.                IN
+    Commands                    Players cannot access shifts above their rank.      IN                                                

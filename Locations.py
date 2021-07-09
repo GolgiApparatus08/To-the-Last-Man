@@ -12,13 +12,13 @@ class Barraks:
         self.blips = 0
 
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -38,21 +38,21 @@ class Sanitation:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
-        if player.currentWeapon is "none":
+        if player.currentWeapon == "none":
             player.LOITER(player.location, locations, players)
             return
         
-        if player.weapon is player.currentweapon:
+        if player.weapon == player.currentweapon:
             player.message += str("You sneak into sanitation and slip " + player.weapon.name + " into the trash. It will never be used again. ")
             player.weapon.owner = "no one"
             player.weapon.present = False
@@ -79,13 +79,13 @@ class Gymnasium:
         self.blips = 0
         
     def use(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -95,13 +95,13 @@ class Gymnasium:
         whoHere(player, "none", str(player.name + " is lifting weights. "), False, locations, players, weapons)
 
     def learn(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -124,13 +124,13 @@ class Medical:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -177,13 +177,13 @@ class Library:
         self.blips = 0
 
     def use(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -206,13 +206,13 @@ class Library:
         whoHere(player, "none", str(player.name + " is scouring the shelves for literary materials. "), False, locations, players, weapons)
 
     def learn(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -235,13 +235,13 @@ class Information:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -270,13 +270,13 @@ class Bathhouse:
         whoHere(player, "none", str(player.name + " is steaming in the sauna. "), False, locations, players, weapons)
 
     def learn(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -318,13 +318,13 @@ class Power:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -344,13 +344,13 @@ class Armaments:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -373,13 +373,13 @@ class Security:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return
@@ -388,7 +388,7 @@ class Security:
             locations[l].blips = 0
         for p in range(len(players)):
             for l in range(len(locations)):
-                if players[p].location is locations[l]:
+                if players[p].location == locations[l]:
                     locations[l].blips = locations[l].blips + 1
         player.message += "You check the security systems and discover that there are: "
         locationsWithBlips = []
@@ -411,13 +411,13 @@ class Command:
         self.blips = 0
         
     def visit(self, player, locations, players, weapons):
-        if player.alive is False:
+        if player.alive == False:
             player.DEAD(locations, players)
             return
-        if player.location is not self:
+        if player.location != self:
             player.LOITER(player.location, locations, players)
             return
-        if self.functionality is False:
+        if self.functionality == False:
             player.message += str("Unfortunatly, " + player.location.name + " is not currently functional, so instead, ")
             player.LOITER(player.location, locations, players)
             return

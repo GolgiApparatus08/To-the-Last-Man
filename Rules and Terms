@@ -33,3 +33,29 @@ Location Dysfunctionality
     Armaments                   Players can choose their current weapon.            IN
     Security                    Players are not informed of corpses.                IN
     Commands                    Players cannot access shifts above their rank.      IN                                                
+
+Things to Enter
+
+    REST 
+    WORK (LOCATION)
+    SABOTAGE (LOCATION)
+    LOITER (LOCATION)
+    AMBUSH (LOCATION) (Player)
+    INFILTRATOR (LOCATION)
+
+    KILL (Player)
+    STEAL (Player)
+    WATCH (Player)
+
+    BARRAKS 
+    SANITATION 
+    GYMNASIUM ("learn" or "use")
+    MEDICAL 
+    LIBRARY ("learn" or "use")
+    INFORMATION
+    BATHHOUSE ("learn" or "use")
+    COMMUNICATIONS 
+    POWER 
+    ARMAMENTS 
+    SECURITY 
+    COMMAND 

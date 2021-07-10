@@ -1,0 +1,39 @@
+Jack
+2
+3
+1
+4
+an improvised shiv
+armaments
+
+Scott
+1
+7
+1
+1
+a lifting weight
+medical
+
+Ryan
+3
+3
+3
+1
+strong bourbon
+the bathhouse
+
+Sebby
+1
+1
+7
+1
+neurotoxic gas
+security
+
+Paul
+3
+4
+2
+1
+a major award
+the gymnasium

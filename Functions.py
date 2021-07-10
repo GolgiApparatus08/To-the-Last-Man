@@ -1,5 +1,4 @@
 import sys
-import string
 import random
 import math
 
@@ -18,11 +17,15 @@ def findShifts(players, locations):
 #Takes the string for "weapon" input by the player and matches it with a real weapon
 def findWeapons(players, weapons):
     for p in range(len(players)):
+        x = 0
         for i in range(len(weapons)):
-            if weapons[i].name == players[p].weapon:
+            if weapons[i].name is players[p].weapon:
                 players[p].weapon = weapons[i]
                 weapons[i].present = True
                 weapons[i].owner = players[p]
+                x = 1
+        if x == 0:
+            print("Error: Weapon not found for " + players[p].name + ". ")
 
 #Asks how many players there will be and returns the value as amount
 def howMany():
@@ -36,21 +39,23 @@ def howMany():
     else:
         return amount
 
-#Is called each night to ask what players will be doing for each action
-def askCommands(players):
+#Is called each night to read what players will be doing for each action
+def readCommands(players):
+    input("Press ENTER when commands are ready to be read. \n")
+    contents = open('playerDataCommands.txt').readlines()
     for p in range(len(players)):
-        players[p].commands.append(
-            input("What is " + players[p].name + "'s first command? \n"),
-            input("What is " + players[p].name + "'s second command? \n"),
-            input("What is " + players[p].name + "'s third command? \n"),
-            input("What is " + players[p].name + "'s fourth command? \n"),
-            input("What is " + players[p].name + "'s fifth command? \n"),
-            input("What is " + players[p].name + "'s sixth command? \n"),
-            input("What is " + players[p].name + "'s seventh command? \n"),
-            input("What is " + players[p].name + "'s eighth command? \n")
-        )
+        players[p].commands = []
+        players[p].commands.append(contents[(p * 17) + 8].strip())
+        players[p].commands.append(contents[(p * 17) + 9].strip())
+        players[p].commands.append(contents[(p * 17) + 10].strip())
+        players[p].commands.append(contents[(p * 17) + 11].strip())
+        players[p].commands.append(contents[(p * 17) + 12].strip())
+        players[p].commands.append(contents[(p * 17) + 13].strip())
+        players[p].commands.append(contents[(p * 17) + 14].strip())
+        players[p].commands.append(contents[(p * 17) + 15].strip())
         for c in range(len(players[p].commands)):
-            players[p].commands[c] = string.split(players[p].commands)
+            players[p].commands[c].split(' ')
+        print("The commands of " + players[p].name + " have been read! ")
 
 #Attempts to send a player to a room. Is called anytime a players location might require updating. Checks if they can access the room, sends them to a location accordingly and tells them about it.
 def checkAccess(player, room, WORK, hour, locations):
@@ -97,10 +102,10 @@ def locate(players, player, time, inALoop, locations):
 
 #Resets the loop list and visited attribute at the end of a locate attempt
 def clearLoop(players, inALoop):
-            for p in range(len(players)):
-                players[p].visited = False
-                inALoop = []
-                return inALoop
+    for p in range(len(players)):
+        players[p].visited = False
+        inALoop = []
+        return inALoop
 
 #Roll that decides if a player learns something about another player
 def doTheyDeduce(seen, deducer, body, weapons):

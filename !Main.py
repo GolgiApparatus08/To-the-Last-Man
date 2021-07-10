@@ -1,47 +1,47 @@
-from Players import addPlayers
+from Players import readPlayerData
 import random
 import sys
-from Functions import askCommands, askShifts, checkAccess, chooseYourWeapon, clearLoop, findShifts, findWeapons, howMany, locate, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
+from Functions import askShifts, checkAccess, chooseYourWeapon, clearLoop, findShifts, findWeapons, howMany, locate, readCommands, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
 from Weapons import liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
 weapons = []
-weapons.append(liftingWeight)
-weapons.append(majorAward)
-weapons.append(encryptedLaptop)
-weapons.append(heavyBriefcase)
-weapons.append(thePrince)
-weapons.append(alarmClock)
-weapons.append(exoticPoison)
-weapons.append(aggressiveStimulants)
-weapons.append(petSnake)
-weapons.append(firstAid)
-weapons.append(sleepingPills)
-weapons.append(neurotoxicGas)
-weapons.append(kitchenKnife)
-weapons.append(decorativeSword)
-weapons.append(forgedKeycard)
-weapons.append(sacredDagger)
-weapons.append(throwingShurikens)
-weapons.append(improvisedShiv)
+weapons.append(liftingWeight())
+weapons.append(majorAward())
+weapons.append(encryptedLaptop())
+weapons.append(heavyBriefcase())
+weapons.append(thePrince())
+weapons.append(alarmClock())
+weapons.append(exoticPoison())
+weapons.append(aggressiveStimulants())
+weapons.append(petSnake())
+weapons.append(firstAid())
+weapons.append(sleepingPills())
+weapons.append(neurotoxicGas())
+weapons.append(kitchenKnife())
+weapons.append(decorativeSword())
+weapons.append(forgedKeycard())
+weapons.append(sacredDagger())
+weapons.append(throwingShurikens())
+weapons.append(improvisedShiv())
 
 locations = []
-locations.append(Barraks)
-locations.append(Sanitation)
-locations.append(Gymnasium)
-locations.append(Medical)
-locations.append(Library)
-locations.append(Information)
-locations.append(Bathhouse)
-locations.append(Communications)
-locations.append(Power)
-locations.append(Armaments)
-locations.append(Security)
-locations.append(Command)
+locations.append(Barraks())
+locations.append(Sanitation())
+locations.append(Gymnasium())
+locations.append(Medical())
+locations.append(Library())
+locations.append(Information())
+locations.append(Bathhouse())
+locations.append(Communications())
+locations.append(Power())
+locations.append(Armaments())
+locations.append(Security())
+locations.append(Command())
 
 players = []
 amount = howMany()
-addPlayers(players, amount, locations[0])
+readPlayerData(players, amount, locations[0])
 findShifts(players, locations)
 findWeapons(players, weapons)
 
@@ -56,7 +56,7 @@ for nights in range(days):
     dayNumberWord = numberWords[nights]
     input("Press ENTER to begin the " + dayNumberWord + "night.")
 
-    askCommands(players)
+    readCommands(players)
     chooseYourWeapon(players, locations, weapons)
     
     #Hour Cycle
@@ -72,7 +72,7 @@ for nights in range(days):
             if actor.alive == False:
                 actor.located = True
             else:
-                if actor.commands[h][0] == "REST":
+                if actor.commands[h][0] is "REST":
                     actor.located = True
                     actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
             
@@ -97,7 +97,9 @@ for nights in range(days):
 
         #We go through and move around the tricky buggers that reference other players locations (KILL, WATCH, STEAL)
         for p in range(len(players)):
-            inALoop = clearLoop(players, inALoop)
+            for p in range(len(players)):
+                players[p].visited = False
+            inALoop = []
             if players[p].located == False:
                 outcome = locate(players, players[p], h, inALoop, locations)
                 if outcome == "loop":
@@ -106,7 +108,11 @@ for nights in range(days):
                         locate(players, players[p], h, inALoop, locations)
 
         #Ok, now for the actions themselves
-        playersRandomized = random.shuffle(players)
+        playersRandomized = []
+        while len(playersRandomized) < len(players):
+            choice = random.choice(players)
+            if choice not in playersRandomized:
+                playersRandomized.append(choice)
         for pr in range(len(playersRandomized)):
             actor = playersRandomized[pr]
             if actor.alive == False:

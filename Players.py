@@ -467,22 +467,21 @@ class Player:
             self.message += str("Just as you're approaching " + target.name + " to attempt to kill them, you reach into your pocket and realize you have no weapon! ")
             self.LOITER(self.location, locations, players, weapons)
 
-numberWords = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", 'Seventh', "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth"]
-#Uses the amount of players to ask for information about each
-def addPlayers(players, amount, startingLocation):    
 
+#Is called to insert players into the game by reading their data of of playerData.txt
+def readPlayerData(players, amount, startingLocation):
+    contents = open('playerData.txt').readlines()
     for p in range(amount):
         players.append(
             Player(
-                input(numberWords[p] + " soldier's name: \n"),
-                input(numberWords[p] + " soldier's rank: \n"),
-                input(numberWords[p] + " soldier's strength: \n"),
-                input(numberWords[p] + " soldier's intellect: \n"),       
-                input(numberWords[p] + " soldier's nerves: \n"),
-                input(numberWords[p] + " soldier's weapon: \n"),
-                input(numberWords[p] + " soldier's shift: \n"),
+                contents[p * 8].strip(),
+                int(contents[(p * 8) + 1]),
+                int(contents[(p * 8) + 2]),
+                int(contents[(p * 8) + 3]),
+                int(contents[(p * 8) + 4]),
+                contents[(p * 8) + 5].strip(),
+                contents[(p * 8) + 6].strip(),
                 startingLocation
-            )
-        )
-
+        ))
         print(players[p].name + " logged! \n")
+        print(players[p].strength)

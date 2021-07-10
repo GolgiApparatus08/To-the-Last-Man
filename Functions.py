@@ -19,10 +19,11 @@ def findWeapons(players, weapons):
     for p in range(len(players)):
         x = 0
         for i in range(len(weapons)):
-            if weapons[i].name is players[p].weapon:
+            if weapons[i].name == players[p].weapon:
                 players[p].weapon = weapons[i]
                 weapons[i].present = True
                 weapons[i].owner = players[p]
+                print(weapons[i].name + " has been successfully assinged too " + players[p].name + "! \n")
                 x = 1
         if x == 0:
             print("Error: Weapon not found for " + players[p].name + ". ")
@@ -62,11 +63,14 @@ def checkAccess(player, room, WORK, hour, locations):
     if (player.location.rank >= room.rank) or (player.rank >= room.rank) or ((player.shift == room) and (WORK == True) and (locations[11].functionality == True)):
         if player.location == room:
             player.message += str("At " + hour + " you stay in " + room.name + ". ")
+            print("DEBUG: " + player.name + " has remained in " + room.name + ". ")
         else:
             player.location = room
             player.message += str("Around " + hour + " you make your way to " + room.name + ". ")
+            print("DEBUG: " + player.name + " has been moved to " + room.name + ". ")
     else:
         player.message += str("Around " + hour + " you fail to access " + room.name + ", and return to " + player.location.name + ". ")
+        print("DEBUG: " + player.name + " failed to access " + room.name + ". ")
 
 #If the locate function gets caught in a loop, this fixes it and then abandons the function so it can try again
 def resolveLoop(inALoop, time, locations):
@@ -122,12 +126,12 @@ def doTheyDeduce(seen, deducer, body, weapons):
             if body == True:
                 tense = "was"
             thingsToLearn = [
-                "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + seen.strength + ". ",
-                "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + seen.intellect + ". ",
-                "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + seen.nerves + ". ",
+                "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + str(seen.strength) + ". ",
+                "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + str(seen.intellect) + ". ",
+                "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + str(seen.nerves) + ". ",
                 "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon + ". ",
                 "In the encounter, you notice that " + seen.name + "'s shift " + tense + " " + seen.shift + ". ",
-                "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + seen.rank + ". "
+                "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + str(seen.rank) + ". "
                 ]
             learned = random.choice(thingsToLearn)
             deducer.message += learned
@@ -162,19 +166,19 @@ def roomPoints(player, playerRoomVisits, attributeString, playerAttribute):
         playerAttribute = playerAttribute + points
         loss = points * 2
         playerRoomVisits = playerRoomVisits - loss
-        player.endMessage += str("Your " + attributeString + " is now " + playerAttribute + ". ")
+        player.endMessage += str("Your " + attributeString + " is now " + str(playerAttribute) + ". ")
 
 #Decides how much time a player needs to spend working tommorrow night
 def requiredWork(actor):
     actor.requiredWork = 2 - actor.power
-    actor.message += str("You will have to spend " + actor.requiredWork + " actions tomorrow (plus sabotages) to complete your shift. ")
+    actor.message += str("You will have to spend " + str(actor.requiredWork) + " actions tomorrow (plus sabotages) to complete your shift. ")
 
 def requiredSleep(actor, locations):
     if locations[0].functionality == True:
         actor.requiredSleep = 4 - actor.sleep
     else:
         actor.requiredSleep = 5 - actor.sleep
-    actor.message += str("You will have to spend " + actor.requiredSleep + " actions sleeping tomorrow. ")
+    actor.message += str("You will have to spend " + str(actor.requiredSleep) + " actions sleeping tomorrow. ")
 
 #Determines what I reveal about dead bodies
 def weSeeDeadPeople(actor, locations, report):

@@ -484,4 +484,3 @@ def readPlayerData(players, amount, startingLocation):
                 startingLocation
         ))
         print(players[p].name + " logged! \n")
-        print(players[p].strength)

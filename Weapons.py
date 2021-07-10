@@ -46,9 +46,9 @@ class alarmClock():
         self.owner = "no one"
         self.used = False
 
-class exoticPoison():
+class strongBourbon():
     def __init__(self):
-        self.name = "exotic poison"
+        self.name = "strong bourbon"
         self.type = "medical"
         self.present = False
         self.owner = "no one"

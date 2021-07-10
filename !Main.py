@@ -2,7 +2,7 @@ from Players import readPlayerData
 import random
 import sys
 from Functions import askShifts, checkAccess, chooseYourWeapon, clearLoop, findShifts, findWeapons, howMany, locate, readCommands, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
-from Weapons import liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, thePrince, alarmClock, exoticPoison, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
+from Weapons import liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, alarmClock, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
 weapons = []
@@ -12,7 +12,7 @@ weapons.append(encryptedLaptop())
 weapons.append(heavyBriefcase())
 weapons.append(thePrince())
 weapons.append(alarmClock())
-weapons.append(exoticPoison())
+weapons.append(strongBourbon())
 weapons.append(aggressiveStimulants())
 weapons.append(petSnake())
 weapons.append(firstAid())
@@ -54,7 +54,7 @@ days = int(amount/2+1)
 
 for nights in range(days):
     dayNumberWord = numberWords[nights]
-    input("Press ENTER to begin the " + dayNumberWord + "night.")
+    input("Press ENTER to begin the " + dayNumberWord + " night.")
 
     readCommands(players)
     chooseYourWeapon(players, locations, weapons)
@@ -200,15 +200,15 @@ for nights in range(days):
             for p in range(len(players)):
                 if players[p].shift == room and players[p].rank != 1:
                     players[p].rank = players[p].rank - 1
-                    players[p].message += str("Because you failed to complete your shift, you've been demoted to rank " + players[p].rank + ". ")
+                    players[p].message += str("Because you failed to complete your shift, you've been demoted to rank " + str(players[p].rank) + ". ")
         else:
             for p in range(len(players)):
                 if players[p].shift == room and players[p].rank != 6:
                     players[p].rank = players[p].rank + 1
-                    players[p].message += str("Because you completed your shift, you've been promoted to rank " + players[p].rank + ". ")
+                    players[p].message += str("Because you completed your shift, you've been promoted to rank " + str(players[p].rank) + ". ")
         if room.sabotages > 0:
             room.workload = room.workload + room.sabotages
-            report += str(room.name + " has " + room.sabotages + " sabotages. ")
+            report += str(room.name + " has " + str(room.sabotages) + " sabotages. ")
             room.sabotages = 0
 
         #Personal rules for tomorrow night

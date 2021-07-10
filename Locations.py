@@ -108,8 +108,8 @@ class Gymnasium:
 
         strengths = ""
         for p in range(len(players) - 1):
-            strengths += str(players[p].strength + ", ")
-        strengths += str("and " + players[len(players)-1].strength)
+            strengths += str(str(players[p].strength) + ", ")
+        strengths += str("and " + str(players[len(players)-1].strength))
         player.message += str("You look through the gym's profile logs and find that the strengths of the base's soldiers are: " + strengths + ". ")
         whoHere(player, "none", str(player.name + " is looking through the gym's profile logs. "), False, locations, players, weapons)
 

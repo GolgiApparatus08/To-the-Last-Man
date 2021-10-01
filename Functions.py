@@ -7,6 +7,8 @@ lowerNumberWords = ["first", "second", "third", "fourth", "fifth", "sixth", 'sev
 #Takes the string for "shift" input by the player and matches it with a location
 def findShifts(players, locations):
     for p in range(len(players)):
+        if players[p].enteredShift == "none":
+            return
         for l in range(len(locations)):
             if locations[l].name == players[p].enteredShift:
                 players[p].shift = locations[l]
@@ -44,7 +46,7 @@ def howMany():
 def readCommands(players):
     input("Press ENTER when commands are ready to be read. \n")
     contents = open('playerDataCommands.txt').readlines()
-    for p in range(len(players)):
+    for p in range(len(players) - 1):
         players[p].commands = []
         players[p].commands.append(contents[(p * 17) + 8].strip())
         players[p].commands.append(contents[(p * 17) + 9].strip())
@@ -57,6 +59,15 @@ def readCommands(players):
         for c in range(len(players[p].commands)):
             players[p].commands[c].split(' ')
         print("The commands of " + players[p].name + " have been read! ")
+
+#To randomize the list of players
+def randomize(players):
+    playersRandomized = []
+    while len(playersRandomized) < len(players):
+        choice = random.choice(players)
+        if choice not in playersRandomized:
+            playersRandomized.append(choice)
+    return playersRandomized
 
 #Attempts to send a player to a room. Is called anytime a players location might require updating. Checks if they can access the room, sends them to a location accordingly and tells them about it.
 def checkAccess(player, room, WORK, hour, locations):
@@ -113,7 +124,7 @@ def clearLoop(players, inALoop):
 
 #Roll that decides if a player learns something about another player
 def doTheyDeduce(seen, deducer, body, weapons):
-    if deducer.weapon == weapons[16]:
+    if seen.weapon == weapons[16]:
         return
     x = 0
     if deducer.weapon == weapons[6]:
@@ -129,17 +140,19 @@ def doTheyDeduce(seen, deducer, body, weapons):
                 "In the encounter, you notice that " + seen.name + "'s strength " + tense + " " + str(seen.strength) + ". ",
                 "In the encounter, you notice that " + seen.name + "'s intellect " + tense + " " + str(seen.intellect) + ". ",
                 "In the encounter, you notice that " + seen.name + "'s nerves " + tense + " " + str(seen.nerves) + ". ",
-                "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon + ". ",
+                "In the encounter, you notice that " + seen.name + "'s weapon " + tense + " " + seen.currentWeapon.type + ". ",
                 "In the encounter, you notice that " + seen.name + "'s shift " + tense + " " + seen.shift + ". ",
                 "In the encounter, you notice that " + seen.name + "'s rank " + tense + " " + str(seen.rank) + ". "
                 ]
+            if deducer.weapon == weapons[5]:
+                thingsToLearn.append("In the encounter, you notice that " + seen.name + "'s honor " + tense + " " + str(seen.honor) + ". ")
             learned = random.choice(thingsToLearn)
             deducer.message += learned
         x = x + 1
 
 #Finds who is in the room with a player and gives them whatever message they need to see
 def whoHere(seen, target, tell, body, locations, players, weapons):
-    if locations[9].functionality == False:
+    if locations[8].functionality == False:
         return
     whoHere = []
     for p in range(len(players)):
@@ -148,6 +161,7 @@ def whoHere(seen, target, tell, body, locations, players, weapons):
     for w in range(len(whoHere)):
         whoHere[w].message += tell
         doTheyDeduce(seen, whoHere[w], body, weapons)
+    return whoHere
 
 #Roll that decides if a player defends when they are attacked
 def doTheyDefend(attacker, target):
@@ -201,14 +215,13 @@ def weSeeDeadPeople(actor, locations, report):
         list.pop(actor)
 
 def askShifts(players):
-    for p in range(len(players)):
-        actor = players[p]
-        if actor.alive == True:
-            actor.enteredShift = input("What is " + actor.name + "'s new shift? \n")
+    for p in range(len(players) - 1):
+        if players[p].alive == True:
+            players[p].enteredShift = input("What is " + players[p].name + "'s new shift? \n")
 
 def theTribunal(players, locations, weapons):
     tribunalists = []
-    for p in range(len(players)):
+    for p in range(len(players) - 1):
         answer = input("Is " + players[p].name + "showing up to the tribunal? ")
         if answer == "Yes":
             tribunalists.append(players[p])
@@ -217,7 +230,7 @@ def theTribunal(players, locations, weapons):
         answer = input("Would " + weapons[1].owner.name + " like to demote a player? ")
         if answer == "Yes":
             demoted = input("Which player?")
-            for p in range(len(players)):
+            for p in range(len(players) - 1):
                 if players[p].name == demoted:
                     players[p].rank = players[p].rank - 1
     
@@ -227,7 +240,7 @@ def theTribunal(players, locations, weapons):
             answer = input("Is " + tribunalists[t].name + " voting for anyone not already input? ")
             if answer == "Yes":
                 accusation = input("Who?")
-                for p in range(len(players)):
+                for p in range(len(players) - 1):
                     if players[p].name == accusation:
                         if players[p].honor > 0 or players[p].alive == False:
                             tribunalists[t].honor = tribunalists[t].honor - 1
@@ -236,10 +249,11 @@ def theTribunal(players, locations, weapons):
                         players[p].accusers.append(tribunalists[t])
             else:
                 x = 1
-    for p in range(len(players)):
+    for p in range(len(players) - 1):
         if len(players[p].accusers) >= len(tribunalists)/2 and players[p].alive == True:
             print(players[p].name + " has been killed by the tribunal. Soldiers who voted to kill them: \n")
             print(players[p].accusers + "\n")
+            report += str(players[p].name + " has been killed by the tribunal. Their rank was " + players[p].rank + ", their strength was " + players[p]t.strength + ", their intellect was " + players[p].intellect + ", their nerves was " + players[p].nerves + ", their weapon was " + players[p].weapon.name + ", and their shift was " + players[p].shift.name + ". ")
             weSeeDeadPeople(players[p], locations, report)
             print(report + "\n")
             report = ""
@@ -266,9 +280,52 @@ def workload(actor, room, weapons):
 
 #Asks players what weapon they would like to use if Armaments is down.
 def chooseYourWeapon(players, locations, weapons):
-    if locations[9].functionality == False:
-        for p in range(len(players)):
-            chosenWeapon = input("Which weapon would you like to use? \n")
+    for p in range(len(players) - 1):
+        if players[p].weapon == weapons[3] or locations[9].functionality == False:
+            chosenWeapon = input("Which weapon would " + players[p].name + " like to use? \n")
             for w in range(len(weapons)):
                 if weapons[w].name == chosenWeapon:
                     players[p].currentWeapon = weapons[w]
+
+#Finds out if anyone attacks in response to a murder or witnessing of a murder
+def bloodFeud(attacker, target, present, players, weapons, report, time, locations):
+    playersRandomized = randomize(players)
+    presentRandomized = randomize(present)
+    for p in range(len(playersRandomized)):
+        for i in range(len(presentRandomized)):
+            if attacker.weapon == weapons[4] and playersRandomized[p] == presentRandomized[i] and playersRandomized[p].alive == True and attacker.alive == True and playersRandomized[p] != playersRandomized[-1]:
+                attacker.message += str("You decide that it is better to be feared than loved and attack " + playersRandomized[p].name + " in order to silence a witness. ")
+                attacker.KILL(playersRandomized[p], report, time, locations, playersRandomized, weapons)
+            if playersRandomized[p] == presentRandomized[i] and playersRandomized[p].weapon == weapons[16] and playersRandomized[p].alive == True and attacker.alive == True and attacker != playersRandomized[-1]:
+                playersRandomized[p].message += str("In righteous fury, you decide to avenge " + target.name + " by attacking " + attacker.name + ". ")
+                playersRandomized[p].KILL(attacker, report, time, locations, playersRandomized, weapons)
+
+#The Infiltrator's Brain
+def infiltratorPlans(players, locations):
+    players[-1].commands = ["none", "none", "none", "none", "none", "none", "none", "none"]
+
+    #Pick Rest Hours randomly
+    x = infiltratorSleeps
+    commandHours = [0, 1, 2, 3, 4, 5, 6, 7]
+    while x > 0:
+        restHour = random.choice(commandHours)
+        players[-1].commands[restHour] = "REST"
+        commandHours = commandHours.pop(restHour)
+        x = x - 1
+    x = 0
+
+    #Loiter in highest ranking room at first opportunity
+    x = 0
+    for c in range(len(players[-1].commands)):
+        if players[-1].commands[c] != "REST" and x == 0:
+            rank = players[-1].rank
+            highestLocations = []
+            for l in range(len(locations)):
+                if locations[l].rank == rank:
+                    highestLocations.append(locations[l])
+            loiterChoice = random.choice(highestLocations)
+            players[-1].commands[c] = str("LOITER " + loiterChoice.input)
+            x = x + 1
+
+    #Should we try to kill someone?
+    

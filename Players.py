@@ -1,17 +1,23 @@
 import random
-from Functions import doTheyDefend, freeRest, whoHere, workload
+from Functions import doTheyDefend, freeRest, whoHere, workload, bloodFeud
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, enteredShift, location):
         self.name = name
         self.rank = rank
+        self.infRank = "none"
         self.strength = strength
+        self.infStrength = "none"
         self.intellect = intellect
+        self.infIntellect = "none"
         self.nerves = nerves
+        self.infNerves = "none"
         self.weapon = weapon
+        self.infWeapon = "none"
         self.enteredShift = enteredShift
         self.location = location
         self.shift = "shift"
+        self.infShift = "none"
         self.honor = 1
         self.alive = True
         self.message = ""
@@ -149,9 +155,10 @@ class Player:
             self.DEAD(locations, players, weapons)
             return
         if self.weapon == weapons[2]:
-            self.message += str("You hack into " + room.name + "'s hardware screw around with it. ")
+            self.message += str("You hack into " + room.name + "'s hardware and screw around with it. ")
             room.sabotages = room.sabotages + 1
             self.LOITER(self.location, locations, players, weapons)
+            return
         if self.location != room:
             self.message += str("Instead of sabotaging " + room.name + ", ")
             self.LOITER(self.location, locations, players, weapons)
@@ -256,12 +263,24 @@ class Player:
         if self.alive == False:
             self.DEAD(locations, players, weapons)
             return
+        if self.weapon == weapons[11]:
+            self.message += str("You flood " + room.name + " with a deadly gas designed specifically to kill " + target.name + ". ")
+            target.message += str("You have been killed by neurotoxic gas, because the player with that weapon successfully predicted you would be in " + room.name + " at " + time + ". ")
+            target.alive = False
+            report += str(target.name + " has been ambushed by " + self.name + " in " + target.location.name + " at " + time + ". Their rank was " + target.rank + ", their strength was " + target.strength + ", their intellect was " + target.intellect + ", their nerves was " + target.nerves + ", their weapon was " + target.weapon.name + ", and their shift was " + target.shift.name + ". ")
+            self.honor = self.honor - target.honor
+            if self.honor == 0 and target.honor < 0:
+                self.honor = 1
+            if self.honor == 0 and target.honor > 0:
+                self.honor = -1
+            self.LOITER(self.location, locations, players, weapons)
+            return
         if self.location != room:
             self.message += str("Instead of ambushing " + target.name + " in " + room.name + ", ")
             self.LOITER(self.location, locations, players, weapons)
             return
         if self.location != target.location:
-            self.message += str("You prepare to ambush " + target.name + ", but they never shows. ")
+            self.message += str("You prepare to ambush " + target.name + ", but they never show. ")
             self.LOITER(self.location, locations, players, weapons)
             return
 
@@ -273,7 +292,9 @@ class Player:
             self.honor = 1
         if self.honor == 0 and target.honor > 0:
             self.honor = -1
-        whoHere(self, target, str("You witness " + self.name + " spring a trap on " + target.name + ", killing them without any struggle or chance of defense, seemingly having predicted they would be in " + target.location.name + " at precisely " + time + ". "), False, locations, players, weapons)
+        there = []
+        there = whoHere(self, target, str("You witness " + self.name + " spring a trap on " + target.name + ", killing them without any struggle or chance of defense, seemingly having predicted they would be in " + target.location.name + " at precisely " + time + ". "), False, locations, players, weapons)
+        bloodFeud(self, target, there, players, weapons, report, time, locations)
         return
 
     def WATCH(self, locations, players, weapons):
@@ -355,10 +376,12 @@ class Player:
                     self.honor = -1
                 self.message += str("You catch " + target.name + " off guard and bash their skull in with " + self.currentWeapon.name + ". ")
                 target.message += str(self.name + " catches you off guard and bashes your skull in with " + self.currentWeapon.name + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details. ")
-                whoHere(self, target, str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon.name + ", killing them. "), False, locations, players, weapons)
+                there = []
+                there = whoHere(self, target, str(self.name + " bashes " + target.name + "'s skull in with " + self.currentWeapon.name + ", killing them. "), False, locations, players, weapons)
+                bloodFeud(self, target, there, players, weapons, report, time, locations)
                 return
             else:
-                if target.weapon == weapons[13]:
+                if target.weapon == weapons[13] and self != players[-1]:
                     self.alive = False
                     report += str(self.name + " has been killed by " + target.name + " in " + self.location.name + " at " + time + " by the antique sword bonus. Their rank was " + self.rank + ", their strength was " + self.strength + ", their intellect was " + self.intellect + ", their nerves was " + self.nerves + ", their weapon was " + self.weapon.name + ", and their shift was " + self.shift.name + ". ")
                     self.honor = self.honor - target.honor
@@ -396,10 +419,12 @@ class Player:
                     self.honor = -1
                 self.message += str("You outsmart " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", ending in their death. ")
                 target.message += str(self.name + " outsmarts you in a game of wits involving " + self.currentWeapon.name + ". Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                whoHere(self, target, str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", killing them. "), False, locations, players, weapons)
+                there = []
+                there = whoHere(self, target, str(self.name + " outsmarts " + target.name + " in a game of wits involving " + self.currentWeapon.name + ", killing them. "), False, locations, players, weapons)
+                bloodFeud(self, target, there, players, weapons, report, time, locations)
                 return
             else:
-                if target.weapon == weapons[13]:
+                if target.weapon == weapons[13] and self != players[-1]:
                     self.alive = False
                     report += str(self.name + " has been killed by " + target.name + " in " + self.location.name + " at " + time + " by the antique sword bonus. Their rank was " + self.rank + ", their strength was " + self.strength + ", their intellect was " + self.intellect + ", their nerves was " + self.nerves + ", their weapon was " + self.weapon.name + ", and their shift was " + self.shift.name + ". ")
                     self.honor = self.honor - target.honor
@@ -437,10 +462,12 @@ class Player:
                     self.honor = -1
                 self.message += str("You slice " + target.name + " open with " + self.currentWeapon.name + ", and they bleed to death. ")
                 target.message += str(self.name + " slices you open with " + self.currentWeapon.name + ", and you bleed to death. Unless contradicted by future information, you are dead. You may no longer discuss the game with other players or communicate any game relevant details.")
-                whoHere(self, target, str(self.name + " slices " + target.name + " open with " + self.currentWeapon.name + ", and they bleed to death. "), False, locations, players, weapons)
+                there = []
+                there = whoHere(self, target, str(self.name + " slices " + target.name + " open with " + self.currentWeapon.name + ", and they bleed to death. "), False, locations, players, weapons)
+                bloodFeud(self, target, there, players, weapons, report, time, locations)
                 return
             else:
-                if target.weapon == weapons[13]:
+                if target.weapon == weapons[13] and self != players[-1]:
                     self.alive = False
                     report += str(self.name + " has been killed by " + target.name + " in " + self.location.name + " at " + time + " by the antique sword bonus. Their rank was " + self.rank + ", their strength was " + self.strength + ", their intellect was " + self.intellect + ", their nerves was " + self.nerves + ", their weapon was " + self.weapon.name + ", and their shift was " + self.shift.name + ". ")
                     self.honor = self.honor - target.honor
@@ -464,7 +491,7 @@ class Player:
                     return
             
         else:
-            self.message += str("Just as you're approaching " + target.name + " to attempt to kill them, you reach into your pocket and realize you have no weapon! ")
+            self.message += str("Just as you're approaching " + target.name + " to attack them, you reach into your pocket and realize you have no weapon! ")
             self.LOITER(self.location, locations, players, weapons)
 
 
@@ -484,3 +511,30 @@ def readPlayerData(players, amount, startingLocation):
                 startingLocation
         ))
         print(players[p].name + " logged! \n")
+
+#Creates the infiltrator
+def spawnInfiltrator(players, weapons, startingLocation):
+    infiltratorRanks = [1, 2, 3, 4, 5, 6]
+    infiltratorStats = [1, 2, 3, 4, 5, 6, 7, 8]
+    infiltratorWeapons = []
+    for w in range(len(weapons)):
+        x = 0
+        for p in range(len(players)):
+            if players[p].weapon == weapons[w]:
+                x = x + 1
+        if x == 0:
+            infiltratorWeapons.append(weapons[w])
+
+    players.append(
+        Player(
+            "Infiltrator",
+            random.choice(infiltratorRanks),
+            random.choice(infiltratorStats),
+            random.choice(infiltratorStats),
+            random.choice(infiltratorStats),
+            random.choice(infiltratorWeapons),
+            "none",
+            startingLocation
+        ))
+
+

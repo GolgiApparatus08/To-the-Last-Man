@@ -1,21 +1,21 @@
-Weapon Bonuses
+Weapons
 
     Lifting Weight              One of your attributes improves by 1 everytime you instigate a fight.                           IN        
     Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.                     IN
     Encrypted Laptop            You don't have to visit a room to sabotage it.                                                  IN
-    Heavy Briefcase             You can use evidence a second time.                                                             IN    
-    The Prince                  If someone witnesses you kill, you will instantly attempt to kill them.
-    Alarm Clock                 Halfway through the night you can reselect actions.     
+    Heavy Briefcase             You choose the type of weapon you would like to use each night.                                 IN    
+    The Prince                  If someone witnesses you kill, you will instantly attempt to kill them.                         IN
+    Human Skull                 You can deduce other players honor.                                                             IN
     Strong Bourbon              You deduce at double the rate.                                                                  IN
     Aggressive Stimulants       A single work action completes any workload.                                                    IN
     Pet Snake                   Each hour, you are told the location of a random player.                                        IN
     First Aid                   You never show marks.                                                                           IN
     Sleeping Pills              Your rests all have the effect of using the barraks.                                            IN
-    Neurotoxic Gas              You don't have to visit a room to ambush it.
-    Official Weapon             You'll know the infiltrator when you see them.
+    Neurotoxic Gas              You don't have to visit a room to ambush it.                                                    IN
+    Captain's Pistol            You'll know the infiltrator when you see them.
     Antique Sword               A player dies if they fail to kill you and your honor is adjusted as if they had succeeded.     IN
     Forged Keycard              You can choose your shift.                                                                      IN
-    Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.       
+    Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.                           IN
     Throwing Shurikens          Other players can't deduce things about you.                                                    IN
     Improvised Shiv             You leave signs of struggle if attacked while defending.                                        IN                        
 
@@ -36,26 +36,38 @@ Location Dysfunctionality
 
 Things to Enter
 
-    REST 
-    WORK (LOCATION)
-    SABOTAGE (LOCATION)
-    LOITER (LOCATION)
-    AMBUSH (LOCATION) (Player)
-    INFILTRATOR (LOCATION)
+    REST                                You must do this a certain number of hours each night (4 by default).
+    WORK (LOCATION)                     You must do this at your assigned shift a certain number of hours to complete it (2 by default).
+    SABOTAGE (LOCATION)                 Increases the amount of times a room must be worked at the following night to stay functional/complete its shift.
+    LOITER (LOCATION)                   You vibe at a given location.
+    AMBUSH (LOCATION) (Player)          If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
+    INFILTRATOR (LOCATION)              If you correctly match the infiltrator to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY.
 
-    KILL (Player)
-    STEAL (Player)
-    WATCH (Player)
+    KILL (Player)                       Attacks a player.                   
+    STEAL (Player)                      Attempts to take a player's current weapon.
+    WATCH (Player)                      Follows a player to wherever they end up during the hour.
 
-    BARRAKS 
-    SANITATION 
-    GYMNASIUM ("learn" or "use")
-    MEDICAL 
-    LIBRARY ("learn" or "use")
-    INFORMATION
-    BATHHOUSE ("learn" or "use")
-    COMMUNICATIONS 
-    POWER 
-    ARMAMENTS 
-    SECURITY 
-    COMMAND 
+    BARRAKS                             For every hour the barraks is used, a player must sleep one less hour the following night.
+    SANITATION                          Removes current weapon from the game.
+    GYMNASIUM ("use" or "learn")        "use":  For every two visits raises your strength by 1.     "learn":    Reports all players strengths anonymously.
+    MEDICAL                             Heals all signs of struggle.
+    LIBRARY ("use" or "learn")          "use":  For every two visits raises your intellect by 1.    "learn":    Reports all players intellects anonymously.
+    INFORMATION                         Reports all players ranks anonymously.
+    Bathhouse ("use" or "learn")        "use":  For every two visits raises your nerves by 1.       "learn":    Reports all players nerves anonymously.
+    COMMUNICATIONS (Player) (Player)    Reports all communications shared between two specific players the following day.
+    POWER                               For every hour power is used, a player must work one less hour the following night to complete their shift.
+    ARMAMENTS                           Reports one weapon currently in use anonymously.
+    SECURITY                            Reports the locations of all players anonymously.
+    COMMAND                             Reports the shifts of all players anonymously.
+
+///
+can use barraks
+could use medical after kill
+
+must rest 4 times (usually), will do so randomly
+can sabotage
+can kill if it "believes" chance of success is likely
+will try to steal before kill if chance is made better
+will loiter in highest available room early in night
+///
+

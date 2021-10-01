@@ -104,7 +104,7 @@ class kitchenKnife():
 
 class decorativeSword():
     def __init__(self):
-        self.name = "a decorative sword"
+        self.name = "an antique sword"
         self.type = "sharp"
         self.present = False
         self.owner = "no one"

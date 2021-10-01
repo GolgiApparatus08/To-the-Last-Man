@@ -1,4 +1,4 @@
-from Functions import whoHere
+from Functions import randomize, whoHere
 import random
 
 class Barraks:
@@ -107,9 +107,10 @@ class Gymnasium:
             return
 
         strengths = ""
-        for p in range(len(players) - 1):
-            strengths += str(str(players[p].strength) + ", ")
-        strengths += str("and " + str(players[len(players)-1].strength))
+        playersRandomized = randomize(players)
+        for p in range(len(playersRandomized)-1):
+            strengths += str(playersRandomized[p].strength + ", ")
+        strengths += str("and " + str(playersRandomized[len(players)-1].strength))
         player.message += str("You look through the gym's profile logs and find that the strengths of the base's soldiers are: " + strengths + ". ")
         whoHere(player, "none", str(player.name + " is looking through the gym's profile logs. "), False, locations, players, weapons)
 
@@ -218,9 +219,10 @@ class Library:
             return
 
         intellects = ""
-        for p in range(len(players) - 1):
-            intellects += str(players[p].intellect + ", ")
-        intellects += str("and " + players[len(players)-1].intellect)
+        playersRandomized = randomize(players)
+        for p in range(len(playersRandomized)-1):
+            intellects += str(playersRandomized[p].intellect + ", ")
+        intellects += str("and " + playersRandomized[len(playersRandomized)-1].intellect)
         player.message += str("You look through the lists of checked out books and discover that the intellects of the base's soldiers are: " + intellects + ". ")
         whoHere(player, "none", str(player.name + " is looking through the library's database for information. "), False, locations, players, weapons)
 
@@ -247,9 +249,10 @@ class Information:
             return
 
         ranks = ""
-        for p in range(len(players) - 1):
-            ranks += str(players[p].rank + ", ")
-        ranks += str("and " + players[len(players)-1].rank)
+        playersRandomized = randomize(players)
+        for p in range(len(playersRandomized)-1):
+            ranks += str(playersRandomized[p].rank + ", ")
+        ranks += str("and " + playersRandomized[len(playersRandomized)-1].rank)
         player.message += str("You search through all the files you can find and discover that the ranks of the base's soldiers are: " + ranks + ". ")
         whoHere(player, "none", str(player.name + " is looking through the base's ranking files. "), False, locations, players, weapons)
 
@@ -282,9 +285,10 @@ class Bathhouse:
             return
 
         nerves = ""
-        for p in range(len(players) - 1):
-            nerves += str(players[p].nerves + ", ")
-        nerves += str("and " + players[len(players)-1].nerves)
+        playersRandomized = randomize(players)
+        for p in range(len(playersRandomized)-1):
+            nerves += str(playersRandomized[p].nerves + ", ")
+        nerves += str("and " + playersRandomized[len(playersRandomized)-1].nerves)
         player.message += str("You look through the bathhouse records and discover that the nerves of the base's soldiers are: " + nerves + ". ")
         whoHere(player, "none", str(player.name + " is looking through the bathhouse records for information on other soldier's nerves. "), False, locations, players, weapons)
 
@@ -396,8 +400,8 @@ class Security:
             if locations[l].blips > 0:
                 locationsWithBlips.append(locations[l])
         for l in range(len(locationsWithBlips)-1):
-            player.message += str(locationsWithBlips[l].blips + " warm bodies in " + locationsWithBlips[l].name + ", ")
-        player.message += str("and " + locationsWithBlips[len(locationsWithBlips)-1].blips + " warm bodies in " + locationsWithBlips[len(locationsWithBlips)-1].name + ". ")
+            player.message += str(locationsWithBlips[l].blips + " bodies (alive or dead) in " + locationsWithBlips[l].name + ", ")
+        player.message += str("and " + locationsWithBlips[len(locationsWithBlips)-1].blips + " bodies (alive or dead) in " + locationsWithBlips[len(locationsWithBlips)-1].name + ". ")
         whoHere(player, "none", str(player.name + " is checking the security systems to see which rooms are occupied. "), False, locations, players, weapons)
 
 class Command:
@@ -423,8 +427,9 @@ class Command:
             return
 
         shifts = ""
-        for p in range(len(players) - 1):
-            shifts += str(players[p].shift.name + ", ")
-        shifts += str("and " + players[len(players)-1].shift.name)
+        playersRandomized = randomize(players)
+        for p in range(len(playersRandomized) - 1):
+            shifts += str(playersRandomized[p].shift.name + ", ")
+        shifts += str("and " + playersRandomized[len(playersRandomized)-1].shift.name)
         player.message += str("You look through command's files and discover that the shifts currently assigned are: " + shifts + ". ")
         whoHere(player, "none", str(player.name + " is looking through command's files to learn about current shifts. "), False, locations, players, weapons)

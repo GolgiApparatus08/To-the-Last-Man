@@ -1,7 +1,7 @@
-from Players import readPlayerData
+from Players import readPlayerData, spawnInfiltrator
 import random
 import sys
-from Functions import askShifts, checkAccess, chooseYourWeapon, clearLoop, findShifts, findWeapons, howMany, locate, readCommands, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
+from Functions import askShifts, checkAccess, chooseYourWeapon, clearLoop, findShifts, findWeapons, howMany, locate, randomize, readCommands, requiredSleep, requiredWork, roomPoints, theTribunal, weSeeDeadPeople
 from Weapons import liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, alarmClock, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, kitchenKnife, decorativeSword, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
@@ -44,6 +44,7 @@ amount = howMany()
 readPlayerData(players, amount, locations[0])
 findShifts(players, locations)
 findWeapons(players, weapons)
+spawnInfiltrator(players, weapons, locations[0])
 
 #################################################################### Day-Night Loop ####################################################################
 
@@ -65,6 +66,13 @@ for nights in range(days):
 
         for p in range(len(players)):
             players[p].located = False
+
+        #Infiltrator takes a name
+        namesToCopy = []
+        for p in range(len(players) - 1):
+            namesToCopy.append(players[p])
+        chosenName = random.choice(namesToCopy)
+        players[-1].name = chosenName.name
 
         #We go through and move people around based on their commands
         for p in range(len(players)):
@@ -89,7 +97,10 @@ for nights in range(days):
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
                             checkAccess(actor, locations[r], True, hour, locations)
-                if actor.commands[h][0] == ("LOITER" or "AMBUSH" or "INFILTRATOR"):
+                if actor.commands[h][0] == "AMBUSH" and actor.weapon == weapons[11]:
+                    actor.located = True
+                    actor.message += str("At " + hour + " you stay in " + actor.location + ". ")
+                elif actor.commands[h][0] == ("LOITER" or "AMBUSH" or "INFILTRATOR"):
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
@@ -108,11 +119,7 @@ for nights in range(days):
                         locate(players, players[p], h, inALoop, locations)
 
         #Ok, now for the actions themselves
-        playersRandomized = []
-        while len(playersRandomized) < len(players):
-            choice = random.choice(players)
-            if choice not in playersRandomized:
-                playersRandomized.append(choice)
+        playersRandomized = randomize(players)
         for pr in range(len(playersRandomized)):
             actor = playersRandomized[pr]
             if actor.alive == False:
@@ -212,7 +219,7 @@ for nights in range(days):
             room.sabotages = 0
 
         #Personal rules for tomorrow night
-    for p in range(len(players)):
+    for p in range(len(players) - 1):
         requiredWork(players[p])
         requiredSleep(players[p], locations)
 
@@ -242,7 +249,7 @@ for nights in range(days):
 
         #Check for game ends
     livingPlayers = []
-    for p in range(len(players[p])):    
+    for p in range(len(players[p]) - 1):    
         if players[p].alive == True:
             livingPlayers.append(players[p])
     if len(livingPlayers) == 1:     #Only one player left

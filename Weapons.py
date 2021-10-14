@@ -1,4 +1,11 @@
-class liftingWeight():
+class Weapon:
+    def __init__(self):
+        self.name = "none"
+
+    def __str__(self):
+        return self.name
+
+class liftingWeight(Weapon):
     def __init__(self):
         self.name = "a lifting weight"
         self.type = "blunt"
@@ -6,7 +13,7 @@ class liftingWeight():
         self.owner = "no one"
         self.used = False
 
-class majorAward():
+class majorAward(Weapon):
     def __init__(self):
         self.name = "a major award"
         self.type = "blunt"
@@ -14,7 +21,7 @@ class majorAward():
         self.owner = "no one"
         self.used = False
 
-class encryptedLaptop():
+class encryptedLaptop(Weapon):
     def __init__(self):
         self.name = "an encrypted laptop"
         self.type = "blunt"
@@ -22,7 +29,7 @@ class encryptedLaptop():
         self.owner = "no one"
         self.used = False
 
-class heavyBriefcase():
+class heavyBriefcase(Weapon):
     def __init__(self):
         self.name = "a heavy briefcase"
         self.type = "blunt"
@@ -30,7 +37,7 @@ class heavyBriefcase():
         self.owner = "no one"
         self.used = False
 
-class thePrince():
+class thePrince(Weapon):
     def __init__(self):
         self.name = "a copy of 'The Prince'"
         self.type = "blunt"
@@ -38,15 +45,15 @@ class thePrince():
         self.owner = "no one"
         self.used = False
 
-class alarmClock():
+class humanSkull(Weapon):
     def __init__(self):
-        self.name = "an alarm clock"
+        self.name = "a human skull"
         self.type = "blunt"
         self.present = False
         self.owner = "no one"
         self.used = False
 
-class strongBourbon():
+class strongBourbon(Weapon):
     def __init__(self):
         self.name = "strong bourbon"
         self.type = "medical"
@@ -54,7 +61,7 @@ class strongBourbon():
         self.owner = "no one"
         self.used = False
 
-class aggressiveStimulants():
+class aggressiveStimulants(Weapon):
     def __init__(self):
         self.name = "aggressive stimulants"
         self.type = "medical"
@@ -62,7 +69,7 @@ class aggressiveStimulants():
         self.owner = "no one"
         self.used = False
 
-class petSnake():
+class petSnake(Weapon):
     def __init__(self):
         self.name = "a pet snake"
         self.type = "medical"
@@ -70,7 +77,7 @@ class petSnake():
         self.owner = "no one"
         self.used = False
 
-class firstAid():
+class firstAid(Weapon):
     def __init__(self):
         self.name = "a first aid kit"
         self.type = "medical"
@@ -78,7 +85,7 @@ class firstAid():
         self.owner = "no one"
         self.used = False
 
-class sleepingPills():
+class sleepingPills(Weapon):
     def __init__(self):
         self.name = "sleeping pills"
         self.type = "medical"
@@ -86,7 +93,7 @@ class sleepingPills():
         self.owner = "no one"
         self.used = False
 
-class neurotoxicGas():
+class neurotoxicGas(Weapon):
     def __init__(self):
         self.name = "neurotoxic gas"
         self.type = "medical"
@@ -94,15 +101,15 @@ class neurotoxicGas():
         self.owner = "no one"
         self.used = False
 
-class kitchenKnife():
+class captainsKnife(Weapon):
     def __init__(self):
-        self.name = "a kitchen knife"
+        self.name = "the captain's knife"
         self.type = "sharp"
         self.present = False
         self.owner = "no one"
         self.used = False
 
-class decorativeSword():
+class antiqueSword(Weapon):
     def __init__(self):
         self.name = "an antique sword"
         self.type = "sharp"
@@ -110,7 +117,7 @@ class decorativeSword():
         self.owner = "no one"
         self.used = False
 
-class forgedKeycard():
+class forgedKeycard(Weapon):
     def __init__(self):
         self.name = "a forged keycard"
         self.type = "sharp"
@@ -118,7 +125,7 @@ class forgedKeycard():
         self.owner = "no one"
         self.used = False
 
-class sacredDagger():
+class sacredDagger(Weapon):
     def __init__(self):
         self.name = "a sacred dagger"
         self.type = "sharp"
@@ -126,7 +133,7 @@ class sacredDagger():
         self.owner = "no one"
         self.used = False
 
-class throwingShurikens():
+class throwingShurikens(Weapon):
     def __init__(self):
         self.name = "throwing shurikens"
         self.type = "sharp"
@@ -134,7 +141,7 @@ class throwingShurikens():
         self.owner = "no one"
         self.used = False
 
-class improvisedShiv():
+class improvisedShiv(Weapon):
     def __init__(self):
         self.name = "an improvised shiv"
         self.type = "sharp"

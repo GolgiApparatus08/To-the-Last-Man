@@ -608,12 +608,20 @@ def whoHere(seen, target, players, locations):
             whoHere.append(players[p])
     return whoHere
 
+#Update Knowledge
+def knowBank(bank, target, learned, players):
+    for p in range(len(players)):
+        if players[p].name == target.name:
+            index = p
+    if bank[index][-1] == " ":
+        bank[index][-1] = learned
+    else:
+        bank[index].append(learned)
+
 #Someone has been seen, this will show their wounds and any deductions
 def seen(seen, witness, players, traits):
-
-    for p in range(len(players)):
-        if players[p] == seen:
-            playerIndex = p
+    if seen == witness:
+        return
 
     #Do they deduce and how much
     howMuch = 0
@@ -703,26 +711,26 @@ def seen(seen, witness, players, traits):
                 beginning = "their"
             if deduced[d] == "rank":
                 witness.message += str(beginning + " rank " + tense + " " + str(seen.rank) + end)
-                witness.otherRanks[playerIndex].append(seen.rank)
+                knowBank(witness.otherRanks, seen, seen.rank, players)
             if deduced[d] == "strength":
                 witness.message += str(beginning + " strength " + tense + " " + str(seen.strength) + end)
-                witness.otherStrengths[playerIndex].append(seen.strength)
+                knowBank(witness.otherStrengths, seen, seen.strength, players)
             if deduced[d] == "intellect":
                 witness.message += str(beginning + " intellect " + tense + " " + str(seen.intellect) + end)
-                witness.otherIntellects[playerIndex].append(seen.intellect)
+                knowBank(witness.otherIntellects, seen, seen.intellect, players)
             if deduced[d] == "nerves":
                 witness.message += str(beginning + " nerves " + tense + " " + str(seen.nerves) + end)
-                witness.otherNerves[playerIndex].append(seen.nerves)
+                knowBank(witness.otherNerves, seen, seen.nerves, players)
             if deduced[d] == "weapon":
                 if seen.currentWeapon != "none":
                     witness.message += str(beginning + " weapon " + tense + " " + str(seen.currentWeapon) + end)
-                    witness.otherWeapons[playerIndex].append(seen.currentWeapon)
+                    knowBank(witness.otherWeapons, seen, seen.currentWeapon, players)
                 else:
                     beginning = name
                     if secondTense == "have":
                         secondTense = "has"
                     witness.message += str(beginning + " " + secondTense + " no weapon" + end)
-                    witness.otherWeapons[playerIndex].append("none")
+                    knowBank(witness.otherWeapons, seen, "none", players)
             if deduced[d] == "shift":
                 if seen.shift != "shift":
                     witness.message += str(beginning + " shift " + tense + " " + str(seen.shift) + end)
@@ -733,11 +741,11 @@ def seen(seen, witness, players, traits):
                     witness.message += str(beginning + " " + secondTense + " no shift" + end)
             if deduced[d] == "honor":
                 witness.message += str(beginning + " honor " + tense + " " + str(seen.honor) + end)
-                witness.otherHonors[playerIndex].append(seen.honor)
+                knowBank(witness.otherHonors, seen, seen.honor, players)
             if deduced[d] == "traits":
                 traitToLearn = random.choice(seen.traits)
                 witness.message += str("one of " + beginning + " traits " + tense + " " + traitToLearn.name.upper() + end)
-                witness.otherTraits[playerIndex].append(traitToLearn.name)
+                knowBank(witness.otherTraits, seen, traitToLearn.name, players)
 
 #Roll that decides if a player defends when they are attacked
 def doTheyDefend(attacker, target):

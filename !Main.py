@@ -44,7 +44,7 @@ locations.append(Security())
 locations.append(Command())
 
 traits = []
-traits.append(Trait("Honest", "", -1))
+traits.append(Trait("Synthetic", "", -1))
 
 traits.append(Trait("Arrogant", "", 1))
 traits.append(Trait("Heavyset", "", 1))
@@ -113,14 +113,14 @@ shifts(players, locations, traits)
 
 #Set up knowledge banks
 for p in range(len(players)):
-    for o in range(len(players)):
-        players[p].otherRanks.append(["?"])
-        players[p].otherStrengths.append(["?"])
-        players[p].otherIntellects.append(["?"])
-        players[p].otherNerves.append(["?"])
-        players[p].otherWeapons.append(["?"])
-        players[p].otherTraits.append(["?"])
-        players[p].otherHonors.append(["?"])
+    for o in range(len(players)-1):
+        players[p].otherRanks.append([" "])
+        players[p].otherStrengths.append([" "])
+        players[p].otherIntellects.append([" "])
+        players[p].otherNerves.append([" "])
+        players[p].otherWeapons.append([" "])
+        players[p].otherTraits.append([" "])
+        players[p].otherHonors.append([" "])
 
 #################################################################### Day-Night Loop ####################################################################
 
@@ -327,35 +327,44 @@ while nights < days:
 
 
     #Now for the bits that have to happen at the end of the night
-
-    for p in range(len(players)):
+    for p in range(len(players)-1):
         playerDocument = open(str(players[p].name + ".txt"), "w")
 
-        for o in range(len(players)):
+        for o in range(len(players)-1):
             playerDocument.write(players[o].name)
             playerDocument.write("\n")
-            string = listToString(players[p].otherRanks[p])
+            string = listToString(players[p].otherRanks[o])
+            playerDocument.write("Rank: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherStrengths[p])
+            string = listToString(players[p].otherStrengths[o])
+            playerDocument.write("Strength: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherIntellects[p])
+            string = listToString(players[p].otherIntellects[o])
+            playerDocument.write("Intellect: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherNerves[p])
+            string = listToString(players[p].otherNerves[o])
+            playerDocument.write("Nerves: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherWeapons[p])
+            string = listToString(players[p].otherWeapons[o])
+            playerDocument.write("Weapons: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherTraits[p])
+            string = listToString(players[p].otherTraits[o])
+            playerDocument.write("Traits: ")
             playerDocument.write(string)
             playerDocument.write("\n")
-            string = listToString(players[p].otherHonors[p])
-            playerDocument.write(string)
+            if traits[18] in players[p].traits:
+                string = listToString(players[p].otherHonors[o])
+                playerDocument.write("Honor: ")
+                playerDocument.write(string)
+                playerDocument.write("\n")
             playerDocument.write("\n")
-            playerDocument.write("\n")
+
+        playerDocument.close()
 
         #Stuff that happened to weapons
     for p in range(len(players)):

@@ -1,0 +1,20 @@
+NIGHT 1
+Nate kills Sheogoth_the_Unborn: 1 -> 1 (INNOCENT)
+
+THE TRIBUNAL
+Eddie voted Scott: 1 -> -1
+Eddie voted Nate: -1 -> -2
+Eddie voted The_Buddha: -2 -> -3
+Scott voted Eddie: 1 -> -1
+Scott voted Nate: -1 -> -2
+Scott voted The_Buddha: -2 -> -3
+Nate voted Scott: 1 -> 1 (INNOCENT)
+Nate voted The_Buddha: 1 -> 1 (INNOCENT)
+
+FINAL HONORS
+Eddie: -3
+Scott: -3
+Nate: 1
+The_Buddha: 1
+Sheogoth_the_Unborn: 1
+The Enemy: 1

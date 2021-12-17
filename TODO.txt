@@ -1,0 +1,6 @@
+-Traits and honorMessage do not currently save
+-update weapons
+-add weapon spawning
+-ensure that bloodfeud works with new system
+-Report "rowdy" stat increases at end of nights
+-Maybe add auto-updating notes for players?

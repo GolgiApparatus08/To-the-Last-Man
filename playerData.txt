@@ -1,39 +1,39 @@
 Jack
-2
 3
-1
-4
-an improvised shiv
-armaments
-
-Scott
-1
-7
+5
 1
 1
-a lifting weight
-medical
+sleeping pills
+trait1 trait2 trait3
 
 Ryan
-3
-3
-3
 1
-strong bourbon
-the bathhouse
+6
+1
+2
+a forged keycard
+trait1 trait2 trait3
 
-Sebby
+Nate
 1
+2
+3
+4
+the captain's knife
+trait1 trait2 trait3
+
+Zack
 1
-7
+4
+4
 1
-neurotoxic gas
-security
+an encrypted laptop
+trait1 trait2 trait3
 
 Paul
 3
-4
 2
+4
 1
-a major award
-the gymnasium
+a first aid kit
+trait1 trait2 trait3

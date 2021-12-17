@@ -1,6 +1,60 @@
+Traits
+
+    Bad (+1 Point)
+        Innocent          You never lose honor but you cannot tell a lie.                                           IN
+        
+    Good (-1 Point)
+    1   Arrogant        Players can never deduce your rank.                                                         IN
+    2   Heavyset        Players can never deduce your strength.                                                     IN
+    3   Eccentric       Players can never deduce your intellect.                                                    IN
+    4   Stuttering      Players can never deduce your nerves.                                                       IN
+    5   Hoarder         Players can never deduce your weapons.                                                      IN
+    6   Lazy            Players can never deduce your shift.                                                        IN
+        Fickle          Players can never deduce your traits.
+        Technician      You can see when people are sabotaging.
+        Detective       You can deduce a player's previous location.
+        Bodyguard       Players in your location must pass an intimidation check against you to kill someone.
+        Drunk           You never have to sleep but cannot work.                  
+        Depressive      Before the tribunal, you can gain any marks of your choice. 
+        Vindictive      Players that vote against you cannot intimidate you the following night.  
+        Drama Queen     In the second half of the night you look like a body whenever you arn't doing something.
+        Prying          You know who decides not to show up at the tribunal.
+    16  Rowdy           One of your attributes improves by 1 everytime you attempt to kill.                         IN
+        Patriotic       You will know The Enemy when you see them.                                                  IN               
+    18  Philosophical   You can deduce a player's honor.                                                            IN
+        Mysterious      Your information does not show up in the room records.
+        Suspicious      You can see players successfully stealing weapons.
+
+    Great (-2 Points)
+        Charming        You choose your shift each night.                                                           IN           
+    22  Highborn        Once per day, you can privatly threaten to lower another players rank by 1.                 IN
+        Heroic          If you witness someone kill, you will instantly attempt to kill them.                       IN
+        Productive      A single work action completes any workload.                                                IN
+    25  Hacker          You don't have to visit a room to sabotage it.                                              IN
+        Sociable        Your rank is ignored when you WATCH someone.
+        Chemist         You don't have to visit a room to ambush it.                                                IN
+        Doctor          You never show marks from fights.                                                           IN
+        Bodybuilder     It only takes 1 action to gain strength from the gym.
+        Bookworm        It only takes 1 action to gain intellect from the library.
+        Relaxed         It only takes 1 action to gain nerves from the bathhouse.
+
+    Incredible (-3 Points)
+    32  Curious         You deduce at double the rate.                                                              IN
+    33  Ruthless        If someone witnesses you kill, you will instantly attempt to kill them.                     IN
+        Martial Artist  You kill a player if they fail to kill you.                                                 IN
+        Deep Sleeper    Your rests all have the effect of using the barraks.                                        IN
+        Mercenary       You can produce a weapon in one action.
+        Ambitious       Everytime you gain an attribute, a random attribute improves by 1.
+
+
+
+
+
+
+
 Weapons
 
-    Lifting Weight              One of your attributes improves by 1 everytime you instigate a fight.                           IN        
+    Lifting Weight              One of your attributes improves by 1 everytime you attempt to kill.                             IN        
     Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.                     IN
     Encrypted Laptop            You don't have to visit a room to sabotage it.                                                  IN
     Heavy Briefcase             You choose the type of weapon you would like to use each night.                                 IN    
@@ -15,32 +69,31 @@ Weapons
     Neurotoxic Gas              You don't have to visit a room to ambush it.                                                    IN
 
     Captain's Knife             You'll know The Enemy when you see them.							                            IN
-    Antique Sword               A player dies if they fail to kill you and your honor is adjusted as if they had succeeded.     IN
-    Forged Keycard              You can choose your shift.                                                                      IN
+    Antique Sword               You kill a player if they fail to kill you.                                                     IN
+    Forged Keycard              You can choose your shift each night.                                                           IN
     Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.                           IN
-    Throwing Shurikens          Other players can't deduce things about you.                                                    IN
-    Improvised Shiv             You leave signs of struggle if attacked while defending.                                        IN                        
+    Throwing Shurikens          Other players can't deduce things about you.                                                    IN       
 
 Location Dysfunctionality
 
-    Barraks                     Players must sleep an extra hour.                   IN
-    Sanitation                  Players must work an extra hour.                    IN
-    Gymnasium                   The strength of a corpse is not announced.          IN
-    Medical                     The cause of death of a corpse is not announced.    IN
-    Library                     The intellect of a corpse is not announced.         IN
-    Information                 The rank of a corpse is not announced.              IN
-    Bathhouse                   The nerves of a corpse is not announced.            IN
-    Communications              Players cannot communicate privatly.                IN
-    Power                       Players do not witness other players actions.       IN
-    Armaments                   Players can choose their current weapon.            IN
-    Security                    Players are not informed of corpses.                IN
-    Commands                    Players cannot access shifts above their rank.      IN                                                
+    Barraks                     Players must spend an extra action resting the following night.             IN
+    Sanitation                  Players must spend an extra action to finish shifts the following night.    IN
+    Gymnasium                   The strength of corpses are not announced.          				        IN
+    Medical                     Causes of death are not announced.                 				            IN
+    Library                     The intellects of corpses are not announced.         				        IN
+    Information                 The ranks of corpses are not announced.              				        IN
+    Bathhouse                   The nerves of corpses are not announced.            				        IN
+    Communications              Players cannot communicate privatly.                				        IN
+    Power                       Players do not witness other players actions.       				        IN
+    Armaments                   Players can choose their current weapon.            				        IN
+    Security                    Corpses are not announced.                          				        IN
+    Commands                    Players can access any location regardless of their rank.      		        IN		                                               
 
 Things to Enter
 
     REST                                You must do this a certain number of hours each night (4 by default).
     WORK (LOCATION)                     You must do this at your assigned shift a certain number of hours to complete it (2 by default).
-    SABOTAGE (LOCATION)                 Increases the amount of times a room must be worked at the following night to stay functional/complete its shift.
+    SABOTAGE (LOCATION)                 Increases the amount of times a room must be worked the following night to stay functional/complete its shift.
     LOITER (LOCATION)                   You vibe at a given location.
     AMBUSH (LOCATION) (Player)          If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
     ENEMY (LOCATION)                    If you correctly match The Enemy to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY. They will attempt to kill you back if you fail.
@@ -61,3 +114,116 @@ Things to Enter
     ARMAMENTS                           Reports one weapon currently in use anonymously.
     SECURITY                            Reports the locations of all players anonymously.
     COMMAND                             Reports the shifts of all players anonymously.
+
+
+Possible Event Types
+    "dead" - You see a dead body.
+
+    "watch" - You are watching someone.
+
+    "dysfunctional" - The room you are trying to use is dysfunctional.
+
+    "rest" - You are resting.
+    "rest" - You see someone resting.
+
+    "work" - You are working.
+    "work" - You see someone working.
+
+    "loiter" - You are loitering.
+    "loiter" - You see someone loitering.
+
+    "barraks" - You sleep in the barraks.
+    "barraks" - You see someone sleep in the barraks.
+    "sanitation_noWeapon" - You try to discard about in sanitation, but don't have one.
+    "sanitation" - You discard a weapon in sanitation.
+
+
+
+    "sabotage_hacker" - You sabotage another room.
+    "sabotage_hacker" - You see someone sabotaging another room. (Technician)
+    "sabotage" - You sabotage the room.
+    "sabotage" - You see someone working the room.
+    "sabotage" - You see someone sabotaging the room. (Technician)
+
+    "ambush_chemist" - You attempt to ambush another room.
+    "ambush_chemist" - You are ambushed from another room.
+    "ambush_chemist_fail" - You attempt to ambush another room.
+    "ambush_fail" - You fail to ambush a player.
+    "ambush" - You ambush another player.
+    "ambush" - You are ambushed.
+    "ambush" - You see someone ambush another player.
+
+    "stealBody_Success" - You take a weapon from a body.
+    "stealBody_Success" - You see someone take a weapon from a body. (Suspicious)
+    "stealBody_nothing" - There was nothing on the body.
+    "stealBody_nothing" - You see someone search a body, but find nothing. (Suspicious)
+    "steal_success" - You steal a weapon.
+    "steal_success" - You see someone steal a weapon. (Suspicious)
+    "steal_nothing" - You search for a weapon to steal, but find nothing.
+    "steal_nothing" - You see someone search for a weapon to steal, but find nothing. (Suspicious)
+    "steal_fail" - You are caught trying to steal a weapon.
+    "steal_fail" - You catch someone trying to steal your weapon.
+    "steal_fail" - You see someone strying to steal a weapon.
+
+    "enemy_notPresent" - The enemy doens't show.
+    "enemy_noWeapon" - You try to attack the enemy, but have no weapon.
+    "enemy_bluntSuccess" - You try to kill the enemy with a blunt weapon and succeed.
+    "enemy_bluntSuccess" - You see someone kill another player with a blunt weapon. The enemy is dead.
+    "enemy_bluntFail" - You try to kill the enemy with a blunt weapon and fail.
+    "enemy_bluntFail" - You see someone try to kill another player with a blunt weapon and fail.
+    "enemy_medicalSuccess" - You try to kill the enemy with a medical weapon and succeed.
+    "enemy_medicalSuccess" - You see someone kill another player with a medical weapon. The enemy is dead.
+    "enemy_medicalFail" - You try to kill the enemy with a medical weapon and fail.
+    "enemy_medicalFail" - You see someone try to kill another player with a medical weapon and fail.
+    "enemy_sharpSuccess" - You try to kill the enemy with a sharp weapon and succeed.
+    "enemy_sharpSuccess" - You see someone kill another player with a sharp weapon. The enemy is dead.
+    "enemy_sharpFail" - You try to kill the enemy with a sharp weapon and fail.
+    "enemy_sharpFail" - You see someone try to kill another player with a sharp weapon and fail.
+    "enemyAttack_bluntSuccess" - The enemy attacks you back with a blunt weapon and succeeds.
+    "enemyAttack_bluntSuccess" - You see someone attack another player with a blunt weapon and succeed.
+    "enemyAttack_bluntFail" - The enemy attacks you back with a blunt weapon and fails.
+    "enemyAttack_bluntFail" - You see someone try to kill another player with a blunt weapon and fail.
+    "enemyAttack_medicalSuccess" - The enemy attacks you back with a medical weapon and succeeds.
+    "enemyAttack_medicalSuccess" - You see someone attack another player with a medical weapon and succeed.
+    "enemyAttack_medicalFail" - The enemy attacks you back with a medical weapon and fails.
+    "enemyAttack_medicalFail" - You see someone try to kill another player with a medical weapon and fail.
+    "enemyAttack_sharpSuccess" - The enemy attacks you back with a sharp weapon and succeeds.
+    "enemyAttack_sharpSuccess" - You see someone attack another player with a sharp weapon and succeed.
+    "enemyAttack_sharpFail" - The enemy attacks you back with a sharp weapon and fails.
+    "enemyAttack_sharpFail" - You see someone try to kill another player with a sharp weapon and fail.
+
+    "kill_body" - You find someone's body while looking to kill them.                                       IN
+    "kill_intimidate" - You are intimidated and kept from attempting to kill someone.
+    "kill_intimidate" - Your shear strength has deterred a potencial attacker.
+    "kill_bluntSuccess" - You successfully kill someone with a blunt weapon.
+    "kill_bluntSuccess" - Someone kills you with a blunt weapon.
+    "kill_bluntSuccess" - You see someone kill another player with a blunt weapon.
+    "kill_medicalSuccess" - You successfully kill someone with a medical weapon.
+    "kill_medicalSuccess" - Someone kills you with a medical weapon.
+    "kill_medicalSuccess" - You see someone kill another player with a medical weapon.
+    "kill_sharpSuccess" - You successfully kill someone with a sharp weapon.
+    "kill_sharpSuccess" - Someone kills you with a sharp weapon.
+    "kill_sharpSuccess" - You see someone kill another player with a sharp weapon.
+    "kill_bluntDefense" - You fail to kill someone with a blunt weapon and they beat you to death.
+    "kill_bluntDefense" - Someone fails to kill you with a blunt weapon and you beat them to death. (Martial Artist)
+    "kill_bluntDefense" - You see someone fail to kill another player with a blunt weapon and they are beaten to death.
+    "kill_medicalDefense" - You fail to kill someone with a medical weapon and they beat you to death.
+    "kill_medicalDefense" - Someone fails to kill you with a medical weapon and you beat them to death. (Martial Artist)
+    "kill_medicalDefense" - You see someone fail to kill another player with a medical weapon and they are beaten to death.
+    "kill_sharpDefense" - You fail to kill someone with a sharp weapon and they beat you to death.
+    "kill_sharpDefense" - Someone fails to kill you with a sharp weapon and you beat them to death. (Martial Artist)
+    "kill_sharpDefense" - You see someone fail to kill another player with a sharp weapon and they are beaten to death.
+    "kill_bluntFail" - You fail to kill someone with a blunt weapon.
+    "kill_bluntFail" - Someone fails to kill you with a blunt weapon.
+    "kill_bluntFail" - You see someone fail to kill another player with a blunt weapon.
+    "kill_medicalFail" - You fail to kill someone with a medical weapon.
+    "kill_medicalFail" - Someone fails to kill you with a medical weapon.
+    "kill_medicalFail" - You see someone fail to kill another player with a medical weapon.
+    "kill_sharpFail" - You fail to kill someone with a sharp weapon.
+    "kill_sharpFail" - Someone fails to kill you with a sharp weapon.
+    "kill_sharpFail" - You see someone fail to kill another player with a sharp weapon.
+
+
+
+
+

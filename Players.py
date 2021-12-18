@@ -287,9 +287,7 @@ class Player:
 
         if players[0].debug == True:
             print(self.trueName + " watches " + target.name + " closely. ")
-        witnesses = whoHere(self, "none", players, locations)
-        event(witnesses, self, target, "watch")
-        self.LOITER(self.location, locations, players, weapons, True, traits)
+        self.LOITER(self.location, locations, players, weapons, False, traits)
         
     def STEAL(self, target, locations, players, weapons, traits):
         if self.alive == False:

@@ -303,7 +303,6 @@ while nights < days:
 
         for p in range (len(players)):
             actor = players[p]
-            #THINGSTODO: loiter is not always shown if its you.
 
             #Room Actions
             behaviorLine(actor, "barraks", "the hour sleeping", players, traits)

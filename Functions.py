@@ -527,11 +527,21 @@ def activityString(self, activity, traits):
     for e in range(len(self.events)):
         if activity == "work" and self.events[e].action == "sabotage" and traits[8] not in self.traits and self.events[e].actor != self:
             involved.append(self.events[e].actor)
-        elif self.events[e].action == activity and activity != "sabotage":
+        elif self.events[e].action == activity and activity != "sabotage" and activity != "loiter":
             involved.append(self.events[e].actor)
         elif self.events[e].action == activity and activity == "sabotage":
             if traits[8] in self.traits or self.events[e].actor == self:
                 involved.append(self.events[e].actor)
+        elif activity == self.events[e].action and activity == "loiter" and self.events[e].actor == self:
+            completedTask = False
+            for i in range(len(self.events)):
+                if self.events[i].actor == self:
+                    if self.events[i].action == "stealBody_success" or self.events[i].action == "stealBody_nothing" or self.events[i].action == "steal_success" or self.events[i].action == "steal_nothing" or self.events[i].action == "kill_intimidate" or self.events[i].action == "kill_noWeapon":
+                        completedTask = True
+            if completedTask == False:
+                involved.append(self)
+        elif activity == "loiter" and self.events[e].action == activity:
+            involved.append(self.events[e].actor)
     string = stringList(involved, self)
     return string
 

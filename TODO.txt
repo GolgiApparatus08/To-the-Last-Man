@@ -3,3 +3,8 @@
 -add weapon spawning
 -ensure that bloodfeud works with new system
 -Report "rowdy" stat increases at end of nights
+
+Running 3.0 Dev Log:
+-Added updating player notes
+-Added traits 
+-Integrated text

@@ -608,13 +608,16 @@ def whoHere(seen, target, players, locations):
             whoHere.append(players[p])
     return whoHere
 
-#Update Knowledge
-def knowBank(bank, target, learned, players):
-    for p in range(len(players)):
-        if players[p].name == target.name:
+def knowBank(bank, seen, learned, players):
+    p = 0
+    while p < len(players):
+        if players[p].name == seen.name:
             index = p
-    if bank[index][-1] == " ":
-        bank[index][-1] = learned
+            p = len(players)
+        p = p + 1
+
+    if bank[index][0] == " ":
+        bank[index][0] = learned
     else:
         bank[index].append(learned)
 
@@ -622,6 +625,10 @@ def knowBank(bank, target, learned, players):
 def seen(seen, witness, players, traits):
     if seen == witness:
         return
+
+    for p in range(len(players)):
+        if players[p].name == seen.name:
+            index = p
 
     #Do they deduce and how much
     howMuch = 0

@@ -58,6 +58,7 @@ class Player:
         self.otherTraits = []
         self.otherWeapons = []
         self.otherHonors = []
+        self.previousLocation = location
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -119,7 +120,7 @@ class Player:
         if self.alive == False:
             self.DEAD(locations, players)
             return
-        if room == locations[0] and self.location == locations[0]:
+        if room == locations[0] and self.location == locations[0] and locations[0].functionality == True:
             locations[0].visit(self, locations, players, weapons, traits)
             return
         if self.location != room:
@@ -345,7 +346,7 @@ class Player:
             event(witnesses, self, target, "kill_body")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
-        defend = doTheyDefend(self, target)         #Target defends?
+        defend = doTheyDefend(self, target, traits)         #Target defends?
         if defend == "pass":
             if players[0].debug == True:
                 print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but is scared away. ")
@@ -500,7 +501,18 @@ def randomPlayers(players, amount, weapons, startingLocation, traits):
         playerTraits = []
         points = 12
         for i in range(3):
-            roll = random.randint(0,len(traitsToChoose) - 1)
+            traitNames = []
+            for pt in range(len(playerTraits)):
+                traitNames.append(playerTraits[pt].name)
+            availableTrait = False
+            while availableTrait == False:
+                roll = random.randint(0,len(traitsToChoose) -1)
+                chooseAgain = False
+                for c in range(len(traitsToChoose[roll].contras)):
+                    if traitsToChoose[roll].contras[c] in traitNames:
+                        chooseAgain = True
+                if chooseAgain == False:
+                    availableTrait = True
             playerTraits.append(traitsToChoose[roll])
             points = points - traitsToChoose[roll].value
             traitsToChoose.pop(roll)

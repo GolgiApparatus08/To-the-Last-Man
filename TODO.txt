@@ -1,4 +1,4 @@
--Traits and honorMessage do not currently save
+-lots of player attributes do not currently save
 -update weapons
 -add weapon spawning
 -ensure that bloodfeud works with new system

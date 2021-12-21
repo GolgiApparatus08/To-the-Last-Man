@@ -2,7 +2,7 @@ from Players import randomPlayers, readPlayerData, spawnEnemy
 import random
 import sys
 import glob
-from Functions import activityString, answer, checkAccess, chooseYourWeapon, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, weSeeDeadPeople, enemyPlans
+from Functions import activityString, answer, checkAccess, chooseYourWeapon, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
 from Weapons import antiqueSword, captainsKnife, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
@@ -44,47 +44,50 @@ locations.append(Security())
 locations.append(Command())
 
 traits = []
-traits.append(Trait("Synthetic", "", -1))
+traits.append(Trait("Confessor", "a ", 0, ["Imperial Heir", "Inquisitor"]))
 
-traits.append(Trait("Arrogant", "", 1))
-traits.append(Trait("Heavyset", "", 1))
-traits.append(Trait("Eccentric", "", 1))
-traits.append(Trait("Stuttering", "", 1))
-traits.append(Trait("Hoarder", "", 1))
-traits.append(Trait("Lazy", "", 1))
-traits.append(Trait("Fickle", "", 1))
-traits.append(Trait("Technician", "a ", 1))
-traits.append(Trait("Detective", "a ", 1))
-traits.append(Trait("Bodyguard", "a ", 1))
-traits.append(Trait("Drunk", "a ", 1))
-traits.append(Trait("Depressive", "", 1))
-traits.append(Trait("Vincidtive", "", 1))
-traits.append(Trait("Drama Queen", "a ", 1))
-traits.append(Trait("Prying", "", 1))
-traits.append(Trait("Rowdy", "", 1))
-traits.append(Trait("Patriotic", "", 1))
-traits.append(Trait("Philosophical", "", 1))
-traits.append(Trait("Mysterious", "", 1))
-traits.append(Trait("Suspicious", "", 1))
+traits.append(Trait("Arrogant", "", 1, []))
+traits.append(Trait("Heavyset", "", 1, []))
+traits.append(Trait("Eccentric", "", 1, []))
+traits.append(Trait("Stuttering", "", 1, []))
+traits.append(Trait("Hoarder", "", 1, []))
+traits.append(Trait("Lazy", "", 1, []))
+traits.append(Trait("Fickle", "", 1, []))
+traits.append(Trait("Technician", "a ", 1, []))
+traits.append(Trait("Detective", "a ", 1, []))
+traits.append(Trait("Bodyguard", "a ", 1, []))
+traits.append(Trait("Drunk", "a ", 1, []))
+traits.append(Trait("Depressive", "", 1, []))
+traits.append(Trait("Vindictive", "", 1, []))
+traits.append(Trait("Drama Queen", "a ", 1, []))
+traits.append(Trait("Prying", "", 1, []))
+traits.append(Trait("Rowdy", "", 1, []))
+traits.append(Trait("Patriotic", "", 1, []))
+traits.append(Trait("Philosophical", "", 1, []))
+traits.append(Trait("Mysterious", "", 1, []))
+traits.append(Trait("Suspicious", "", 1, []))
 
-traits.append(Trait("Charming", "", 2))
-traits.append(Trait("Highborn", "", 2))
-traits.append(Trait("Heroic", "", 2))
-traits.append(Trait("Productive", "", 2))
-traits.append(Trait("Hacker", "a ", 2))
-traits.append(Trait("Sociable", "", 2))
-traits.append(Trait("Cunning", "", 2))
-traits.append(Trait("Doctor", "a ", 2))
-traits.append(Trait("Bodybuilder", "a ", 2))
-traits.append(Trait("Bookworm", "a ", 2))
-traits.append(Trait("Relaxed", "", 2))
+traits.append(Trait("Charming", "", 2, []))
+traits.append(Trait("Highborn", "", 2, []))
+traits.append(Trait("Heroic", "", 2, []))
+traits.append(Trait("Productive", "", 2, []))
+traits.append(Trait("Hacker", "a ", 2, []))
+traits.append(Trait("Sociable", "", 2, []))
+traits.append(Trait("Cunning", "", 2, []))
+traits.append(Trait("Doctor", "a ", 2, []))
+traits.append(Trait("Bodybuilder", "a ", 2, []))
+traits.append(Trait("Bookworm", "a ", 2, []))
+traits.append(Trait("Relaxed", "", 2, []))
 
-traits.append(Trait("Curious", "", 3))
-traits.append(Trait("Ruthless", "", 3))
-traits.append(Trait("Martial Artist", "a ", 3))
-traits.append(Trait("Deep Sleeper", "a ", 3))
-traits.append(Trait("Mercenary", "a ", 3))
-traits.append(Trait("Ambitious", "", 3))
+traits.append(Trait("Curious", "", 3, []))
+traits.append(Trait("Ruthless", "", 3, []))
+traits.append(Trait("Martial Artist", "a ", 3, []))
+traits.append(Trait("Deep Sleeper", "a ", 3, []))
+traits.append(Trait("Mercenary", "a ", 3, []))
+traits.append(Trait("Ambitious", "", 3, []))
+
+traits.append(Trait("Imperial Heir", "an ", 0, ["Confessor", "Inquisitor"]))
+traits.append(Trait("Inquisitor", "an ", 0, ["Imperial Heir", "Confessor"]))
 
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"]
 
@@ -114,13 +117,25 @@ shifts(players, locations, traits)
 #Set up knowledge banks
 for p in range(len(players)):
     for o in range(len(players)-1):
-        players[p].otherRanks.append([" "])
-        players[p].otherStrengths.append([" "])
-        players[p].otherIntellects.append([" "])
-        players[p].otherNerves.append([" "])
-        players[p].otherWeapons.append([" "])
-        players[p].otherTraits.append([" "])
-        players[p].otherHonors.append([" "])
+        if players[o] == players[p]:
+            players[p].otherRanks.append([players[p].rank])
+            players[p].otherStrengths.append([players[p].strength])
+            players[p].otherIntellects.append([players[p].intellect])
+            players[p].otherNerves.append([players[p].nerves])
+            players[p].otherWeapons.append([players[p].currentWeapon.name])
+            players[p].otherTraits.append([players[p].traits[0].name, players[p].traits[1].name, players[p].traits[2].name])
+            players[p].otherHonors.append([" "])
+        else:
+            players[p].otherRanks.append([" "])
+            players[p].otherStrengths.append([" "])
+            players[p].otherIntellects.append([" "])
+            players[p].otherNerves.append([" "])
+            players[p].otherWeapons.append([" "])
+            players[p].otherTraits.append([" "])
+            players[p].otherHonors.append([" "])
+        seen(players[o], players[p], True, players, traits)
+        players[p].message = ""
+updateNotes(players, traits)
 
 #################################################################### Day-Night Loop ####################################################################
 
@@ -165,6 +180,7 @@ while nights < days:
 
         for p in range(len(players)):
             players[p].located = False
+            players[p].previousLocation = players[p].location
 
         #We go through and move people around based on their commands
         for p in range(len(players)):
@@ -280,8 +296,8 @@ while nights < days:
                     actor.WATCH(locations, players, weapons, target, traits)
            
         #Create Hourly Messages
-        def behaviorLine(actor, activityInput, activityOutput, players, traits):
-            included = activityString(actor, activityInput, traits)
+        def behaviorLine(actor, activityInput, activityOutput, players, traits, nightPhase):
+            included = activityString(actor, activityInput, traits, nightPhase)
             if included != "":
                 verb = "spend"
                 if activityInput == "dead":
@@ -299,25 +315,25 @@ while nights < days:
                     nameFound = includedList[i].replace(",", "")
                     for p in range(len(players)):
                         if nameFound == players[p].name:
-                            seen(players[p], actor, players, traits)
+                            seen(players[p], actor, False, players, traits)
 
         for p in range (len(players)):
             actor = players[p]
 
             #Room Actions
-            behaviorLine(actor, "barraks", "the hour sleeping", players, traits)
-            behaviorLine(actor, "sanitation", "the hour discarding a weapon", players, traits)
-            behaviorLine(actor, "gymnasium_use", "the hour working out", players, traits)
-            behaviorLine(actor, "gymnasium_learn", "the hour searching the gym records", players, traits)
-            behaviorLine(actor, "library_use", "the hour reading books", players, traits)
-            behaviorLine(actor, "library_learn", "the hour searching the library records", players, traits)
+            behaviorLine(actor, "barraks", "the hour sleeping", players, traits, h)
+            behaviorLine(actor, "sanitation", "the hour discarding a weapon", players, traits, h)
+            behaviorLine(actor, "gymnasium_use", "the hour working out", players, traits, h)
+            behaviorLine(actor, "gymnasium_learn", "the hour searching the gym records", players, traits, h)
+            behaviorLine(actor, "library_use", "the hour reading books", players, traits, h)
+            behaviorLine(actor, "library_learn", "the hour searching the library records", players, traits, h)
 
             #Generic Actions
-            behaviorLine(actor, "work", "the hour working", players, traits)
-            behaviorLine(actor, "sabotage", "the hour sabotaging", players, traits)
-            behaviorLine(actor, "rest", "the hour resting", players, traits)
-            behaviorLine(actor, "loiter", "the hour doing nothing", players, traits)
-            behaviorLine(actor, "dead", "dead on the floor", players, traits)
+            behaviorLine(actor, "work", "the hour working", players, traits, h)
+            behaviorLine(actor, "sabotage", "the hour sabotaging", players, traits, h)
+            behaviorLine(actor, "rest", "the hour resting", players, traits, h)
+            behaviorLine(actor, "loiter", "the hour doing nothing", players, traits, h)
+            behaviorLine(actor, "dead", "dead on the floor", players, traits, h)
 
             #Medical
 
@@ -326,44 +342,6 @@ while nights < days:
 
 
     #Now for the bits that have to happen at the end of the night
-    for p in range(len(players)-1):
-        playerDocument = open(str(players[p].name + ".txt"), "w")
-
-        for o in range(len(players)-1):
-            playerDocument.write(players[o].name.upper())
-            playerDocument.write("\n")
-            string = listToString(players[p].otherRanks[o])
-            playerDocument.write("rnk: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            string = listToString(players[p].otherStrengths[o])
-            playerDocument.write("str: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            string = listToString(players[p].otherIntellects[o])
-            playerDocument.write("int: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            string = listToString(players[p].otherNerves[o])
-            playerDocument.write("nrv: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            string = listToString(players[p].otherWeapons[o])
-            playerDocument.write("wpn: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            string = listToString(players[p].otherTraits[o])
-            playerDocument.write("trt: ")
-            playerDocument.write(string)
-            playerDocument.write("\n")
-            if traits[18] in players[p].traits:
-                string = listToString(players[p].otherHonors[o])
-                playerDocument.write("hnr: ")
-                playerDocument.write(string)
-                playerDocument.write("\n")
-            playerDocument.write("\n")
-
-        playerDocument.close()
 
         #Stuff that happened to weapons
     for p in range(len(players)):
@@ -430,7 +408,7 @@ while nights < days:
     report += "\n"
     report += "REPORTED BODIES: \n"
     for p in range(len(players)):
-        report = weSeeDeadPeople(players[p], locations, report, False)
+        report = weSeeDeadPeople(players[p], locations, report, False, players)
 
         #The Alive the Dead and the Removed
     report += "\n"
@@ -461,6 +439,8 @@ while nights < days:
     print(report)
     report = ""
 
+    updateNotes(players, traits)
+
         #Check for game ends
     livingPlayers = []
     for p in range(len(players) - 1):    
@@ -478,6 +458,7 @@ while nights < days:
         #Do the tribunal
     demotion(players, traits)
     theTribunal(players, locations, weapons, report, traits)
+    updateNotes(players, traits)
 
         #Check for game ends
     livingPlayers = []

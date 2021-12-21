@@ -1,52 +1,92 @@
 Traits
 
+	Inquisitor	A psychological savant trained since birth by the Academy, you always know when you are being lied to (you can privatly demand the truth) but have severly underdeveloped coordination (you cannot use weapons).
+	Imperial Heir	You wanted to see what life was like for the other half. Now that you have, you owe it to your country to survive at all costs (you cannot win by honor). Your royal blood allows you to use The Voice (once per player, you can issue a command which cannot be refused).
+
     Bad (+1 Point)
-        Synthetic          You never lose honor but you cannot tell a lie.                                           IN
+        Confessor      	As a member of the sacred Order of Confession, you are authorized to do whatever you deem fit in service of the Gods (you never lose honor) but have taken a vow of honesty (you cannot lie to other players).                                          IN
         
     Good (-1 Point)
-    1   Arrogant        Players can never deduce your rank.                                                         IN
-    2   Heavyset        Players can never deduce your strength.                                                     IN
-    3   Eccentric       Players can never deduce your intellect.                                                    IN
-    4   Stuttering      Players can never deduce your nerves.                                                       IN
-    5   Hoarder         Players can never deduce your weapons.                                                      IN
-    6   Lazy            Players can never deduce your shift.                                                        IN
-        Fickle          Players can never deduce your traits.
-        Technician      You can see when people are sabotaging.
-        Detective       You can deduce a player's previous location.
+    1   Arrogant        Your rank cannot be deduced.                                                         		IN
+    2   Heavyset        Your strength cannot be deduced.                                                		IN
+    3   Eccentric       Your intellect cannot be deduced.                                                    		IN
+    4   Stuttering      Your nerves cannot be deduced.                                                       		IN
+    5   Hoarder         Your weapons cannot be deduced.			                                            	IN
+    6   Lazy            Your shift cannot be deduced.                                              			IN
+        Fickle          Your traits cannot be deduced.									IN
+        Technician      You will see when players are sabotaging.							IN
+        Detective       You can deduce a player's previous location.							IN
         Bodyguard       Players in your location must pass an intimidation check against you to kill someone.
-        Drunk           You never have to sleep but cannot work.                  
+        Drunk           You never have to sleep but cannot work.  							IN                
         Depressive      Before the tribunal, you can gain any marks of your choice. 
-        Vindictive      Players that vote against you cannot intimidate you the following night.  
-        Drama Queen     In the second half of the night you look like a body whenever you arn't doing something.
-        Prying          You know who decides not to show up at the tribunal.
-    16  Rowdy           One of your attributes improves by 1 everytime you attempt to kill.                         IN
-        Patriotic       You will know The Enemy when you see them.                                                  IN               
-    18  Philosophical   You can deduce a player's honor.                                                            IN
-        Mysterious      Your information does not show up in the room records.
-        Suspicious      You can see players successfully stealing weapons.
+        Vindictive      Players that vote against you cannot intimidate you the following night.  			IN
+        Drama Queen     In the second half of the night you look like a body whenever you arn't doing something.	IN
+        Prying          You know who decides not to show up at the tribunal (when you attend).				IN
+    16  Rowdy           One of your attributes improves by 1 everytime you attempt to kill.                         	IN
+        Patriotic       You will know The Enemy when you see them.                                                  	IN               
+    18  Philosophical   You can deduce a player's honor.                                                            	IN
+        Mysterious      Information about you does not show up when visiting rooms.
+        Suspicious      You will see when players steal weapons successfully.
 
     Great (-2 Points)
-        Charming        You choose your shift each night.                                                           IN           
-    22  Highborn        Once per day, you can privatly threaten to lower another players rank by 1.                 IN
-        Heroic          If you witness someone kill, you will instantly attempt to kill them.                       IN
-        Productive      A single work action completes any workload.                                                IN
-    25  Hacker          You don't have to visit a room to sabotage it.                                              IN
+        Charming        You choose your shift each night.                                                           	IN  
+	Highborn	Once per night, you can demote or promote a player of your choice by 1 rank         
+        Heroic          If you witness someone kill, you will instantly attempt to kill them.                       	IN
+        Productive      A single work action completes any workload.                                                	IN
+    25  Hacker          You don't have to visit a room to sabotage it.                                              	IN
         Sociable        Your rank is ignored when you WATCH someone.
-        Chemist         You don't have to visit a room to ambush it.                                                IN
-        Doctor          You never show marks from fights.                                                           IN
-        Bodybuilder     It only takes 1 action to gain strength from the gym.
+        Chemist         You don't have to visit a room to ambush it.                                                	IN
+        Doctor          You never show marks from fights.                                                           	IN
+        Bodybuilder    	It only takes 1 action to gain strength from the gym.
         Bookworm        It only takes 1 action to gain intellect from the library.
         Relaxed         It only takes 1 action to gain nerves from the bathhouse.
 
     Incredible (-3 Points)
-    32  Curious         You deduce at double the rate.                                                              IN
-    33  Ruthless        If someone witnesses you kill, you will instantly attempt to kill them.                     IN
-        Martial Artist  You kill a player if they fail to kill you.                                                 IN
-        Deep Sleeper    Your rests all have the effect of using the barraks.                                        IN
+    32  Curious         You deduce at double the rate.                                                              	IN
+    33  Ruthless        If someone witnesses you kill, you will instantly attempt to kill them.                     	IN
+        Martial Artist  You kill a player if they fail to kill you.                                                 	IN
+        Deep Sleeper    Your rests all have the effect of using the barraks.                                        	IN
         Mercenary       You can produce a weapon in one action.
         Ambitious       Everytime you gain an attribute, a random attribute improves by 1.
 
 
+ORDER OF OPERATIONS FOR WORDS???
+Curious
+Mysterious
+Depressive
+Ruthless
+Rowdy 
+Arrogant
+Suspicious
+Patriotic
+Sociable
+Lazy
+Cunning
+Productive
+Fickle
+Heroic
+
+Heavyset
+
+Highborn
+Mercenary
+
+Martial Artist
+Deep Sleeper
+Bodyguard
+Inquisitor
+
+
+IMPERIAL HEIR RULES
+To use The Voice say "You Emperor commands you...". It is illegal for any other player to say this under any circumstances.
+Things you can command:
+	-not to vote against... (Indefinite)
+	-to vote against... (Once)
+	-to claim... (Indefinite) 		///The Confessor CAN lie if asked.
+	-to carry out [action]. (Once the following night. They get to choose the hour)
+
+INQUISITOR RULES
+To demand the truth say "An Inquisitor of the Academy asks of you...". It is illegal for any other player to say this under any circumstances.
 
 
 

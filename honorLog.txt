@@ -1,0 +1,125 @@
+NIGHT 1
+Nate kills Skylar: 1 -> -1
+
+THE TRIBUNAL
+Sol_Invictus voted Jack: 1 -> -1
+Sol_Invictus voted Sheogoth_the_Unborn: -1 -> -2
+Sol_Invictus voted Julius_Caesar: -2 -> -3
+Sol_Invictus voted Nate: -3 -> -2
+Jack voted Skylar: 1 -> -1
+Scott voted Paul: 1 -> -1
+Scott voted The_Buddha: -1 -> -2
+Sheogoth_the_Unborn voted Scott: 1 -> -1
+Sheogoth_the_Unborn voted Paul: -1 -> -2
+Sheogoth_the_Unborn voted Julius_Caesar: -2 -> -3
+Sheogoth_the_Unborn voted The_Buddha: -3 -> -4
+Sheogoth_the_Unborn voted Nate: -4 -> -3
+Sheogoth_the_Unborn voted Susu: -3 -> -4
+Paul voted Jack: 1 -> -1
+Paul voted Scott: -1 -> -2
+Paul voted Skylar: -2 -> -3
+Paul voted Sheogoth_the_Unborn: -3 -> -4
+Paul voted Christian: -4 -> -5
+Paul voted Julius_Caesar: -5 -> -6
+Paul voted Susu: -6 -> -7
+Christian voted Sol_Invictus: 1 -> -1
+Christian voted Jack: -1 -> -2
+Christian voted Sheogoth_the_Unborn: -2 -> -3
+Christian voted Julius_Caesar: -3 -> -4
+Julius_Caesar voted Sol_Invictus: 1 -> -1
+Julius_Caesar voted Jack: -1 -> -2
+Julius_Caesar voted Sheogoth_the_Unborn: -2 -> -3
+Julius_Caesar voted Paul: -3 -> -4
+Julius_Caesar voted Christian: -4 -> -5
+The_Buddha voted Sol_Invictus: 1 -> -1
+The_Buddha voted Jack: -1 -> -2
+The_Buddha voted Sheogoth_the_Unborn: -2 -> -3
+The_Buddha voted Nate: -3 -> -2
+The_Buddha voted Susu: -2 -> -3
+Nate voted Sol_Invictus: -1 -> -2
+Nate voted Jack: -2 -> -3
+Nate voted Skylar: -3 -> -4
+Nate voted Paul: -4 -> -5
+Nate voted The_Buddha: -5 -> -6
+Nate voted Susu: -6 -> -7
+Susu voted Sol_Invictus: 1 -> -1
+Susu voted Skylar: -1 -> -2
+Susu voted Paul: -2 -> -3
+Susu voted The_Buddha: -3 -> -4
+
+NIGHT 2
+Sheogoth_the_Unborn kills Nate: -4 -> 3
+
+THE TRIBUNAL
+Sol_Invictus voted Scott: -2 -> -1
+Sol_Invictus voted Sheogoth_the_Unborn: -1 -> -2
+Sol_Invictus voted Paul: -2 -> -1
+Sol_Invictus voted Christian: -1 -> 1
+Sol_Invictus voted Julius_Caesar: 1 -> 2
+Sol_Invictus voted The_Buddha: 2 -> 3
+Sol_Invictus voted Susu: 3 -> 4
+Sheogoth_the_Unborn voted Sol_Invictus: 3 -> 4
+Sheogoth_the_Unborn voted Scott: 4 -> 5
+Sheogoth_the_Unborn voted Paul: 5 -> 6
+Sheogoth_the_Unborn voted Julius_Caesar: 6 -> 7
+Paul voted Sheogoth_the_Unborn: -7 -> -8
+Christian voted Sol_Invictus: -4 -> -3
+Christian voted Scott: -3 -> -2
+Christian voted Paul: -2 -> -1
+Christian voted The_Buddha: -1 -> 1
+Julius_Caesar voted Sol_Invictus: -5 -> -4
+Julius_Caesar voted Scott: -4 -> -3
+Julius_Caesar voted The_Buddha: -3 -> -2
+The_Buddha voted Sheogoth_the_Unborn: -3 -> -4
+The_Buddha voted Paul: -4 -> -3
+The_Buddha voted Julius_Caesar: -3 -> -2
+The_Buddha voted Susu: -2 -> -1
+
+NIGHT 3
+Julius_Caesar kills Susu: -2 -> 2
+Susu kills Julius_Caesar: -4 -> -6
+
+THE TRIBUNAL
+Sol_Invictus voted Sheogoth_the_Unborn: 4 -> 3
+Sol_Invictus voted Christian: 3 -> 2
+Sol_Invictus voted The_Buddha: 2 -> 3
+Sol_Invictus voted Susu: 3 -> 4
+Sheogoth_the_Unborn voted Sol_Invictus: 7 -> 6
+Sheogoth_the_Unborn voted Christian: 6 -> 5
+Sheogoth_the_Unborn voted The_Buddha: 5 -> 6
+Sheogoth_the_Unborn voted Susu: 6 -> 7
+The_Buddha voted Sheogoth_the_Unborn: -1 -> -2
+The_Buddha voted Susu: -2 -> -1
+Susu voted Sol_Invictus: -6 -> -7
+
+NIGHT 4
+The_Buddha kills Christian: -1 -> -2
+
+THE TRIBUNAL
+Sol_Invictus voted Sheogoth_the_Unborn: 4 -> 3
+
+NIGHT 5
+Sheogoth_the_Unborn kills Sol_Invictus: 7 -> 4
+
+THE TRIBUNAL
+Sheogoth_the_Unborn voted Sol_Invictus: 4 -> 3
+
+NIGHT 6
+
+THE TRIBUNAL
+Sheogoth_the_Unborn voted Sol_Invictus: 3 -> 2
+
+
+FINAL HONORS
+Paul: -8
+Nate: -7
+Susu: -7
+Scott: -2
+The_Buddha: -2
+Jack: -1
+Skylar: 1
+Christian: 1
+The Enemy: 1
+Sheogoth_the_Unborn: 2
+Julius_Caesar: 2
+Sol_Invictus: 3

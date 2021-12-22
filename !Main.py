@@ -2,9 +2,9 @@ from Players import randomPlayers, readPlayerData, spawnEnemy
 import random
 import sys
 import glob
-from Functions import activityString, answer, checkAccess, chooseYourWeapon, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
+from Functions import activityString, answer, checkAccess, chooseYourWeapon, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
-from Weapons import antiqueSword, captainsKnife, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, firstAid, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
+from Weapons import antiqueSword, captainsKnife, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
 ran = True
@@ -19,7 +19,7 @@ weapons.append(humanSkull())
 weapons.append(strongBourbon())
 weapons.append(aggressiveStimulants())
 weapons.append(petSnake())
-weapons.append(firstAid())
+weapons.append(exoticPoison())
 weapons.append(sleepingPills())
 weapons.append(neurotoxicGas())
 weapons.append(captainsKnife())
@@ -157,7 +157,7 @@ while nights < days:
         nights = load(response, saveThings, players, weapons, locations)
 
     dayNumberWord = numberWords[nights]
-    print(" ")
+    remind(players, traits, weapons)
     input("Press ENTER to begin the " + dayNumberWord + " night.")
     honorLog(str("NIGHT " + str(nights + 1)), players)
 
@@ -165,7 +165,7 @@ while nights < days:
         readCommands(players)
     else:
         randomCommands(players, locations, weapons)
-    enemyPlans(players, locations, weapons, nights)
+    enemyPlans(players, locations, traits, nights)
     chooseYourWeapon(players, locations)
     
     for p in range(len(players) -1):
@@ -402,7 +402,7 @@ while nights < days:
         #Personal rules for tomorrow night
     for p in range(len(players) - 1):
         requiredWork(players[p], locations)
-        requiredSleep(players[p], locations)
+        requiredSleep(players[p], locations, traits)
 
         #DEAD PEOPLE
     report += "\n"

@@ -4,6 +4,23 @@ import math
 
 from Weapons import aBluntWeapon, aMedicalWeapon, aSharpWeapon
 
+#Reminds the moderator of all unique player command rules
+def remind(players, traits, weapons):
+    print(" ")
+    for p in range(len(players)-1):
+        print(" ")
+        print(players[p].trueName.upper() + " COMMAND RULES")
+        print("they must rest " + str(players[p].requiredSleep) + " hours")
+        if traits[11] in players[p].traits:
+            print("they cannot work")
+        if weapons[0] in players[p].weapons:
+            print("for every KILL they plan they must rest +1")
+        if weapons[7] in players[p].weapons:
+            print("they must work as many hours as they are able toward completing their shift")
+        if weapons[13] in players[p].weapons:
+            print("they must attempt to kill at least one player")
+    print(" ")
+
 #Calculates attacker's new honor after a killing
 def newHonor(attacker, victum, players, traits):
     if victum.honor < 0 or traits[0] not in attacker.traits:
@@ -71,14 +88,14 @@ def save(nights, saveThings, players, locations, weapons):
         saveThings[2] += str(str(players[p].strength) + " ")
         saveThings[3] += str(str(players[p].intellect) + " ")
         saveThings[4] += str(str(players[p].nerves) + " ")
-        weaponIndex = "none"
-        infWeaponIndex = "none"
+        weaponIndexes = ""
         for w in range(len(weapons)):
-            if players[p].weapon == weapons[w]:
-                weaponIndex = w
-            if players[p].infWeapon == weapons[w]:
-                infWeaponIndex = w
-        saveThings[5] += str(str(weaponIndex) + " ")
+            for pw in range(len(players[p].weapons)):
+                if players[p].weapons[pw] == weapons[w]:
+                    weaponIndexes += weapons[w].index
+        if weaponIndexes == "":
+            weaponIndexes = "none"
+        saveThings[5] += str(str(weaponIndexes) + " ")
         infShiftIndex = "none"
         for l in range(len(locations)):
             if players[p].location == locations[l]:
@@ -122,15 +139,14 @@ def save(nights, saveThings, players, locations, weapons):
         saveThings[17] += str(str(players[p].infStrength) + " ")
         saveThings[18] += str(str(players[p].infIntellect) + " ")
         saveThings[19] += str(str(players[p].infNerves) + " ")
-        saveThings[20] += str(str(infWeaponIndex) + " ")
-        saveThings[21] += str(str(infShiftIndex) + " ")
-        saveThings[22] += str(str(players[p].requiredWork) + " ")
-        saveThings[23] += str(str(players[p].requiredSleep) + " ")
+        saveThings[20] += str(str(infShiftIndex) + " ")
+        saveThings[21] += str(str(players[p].requiredWork) + " ")
+        saveThings[22] += str(str(players[p].requiredSleep) + " ")
     for l in range(len(locations)):
-        saveThings[24] += str(str(locations[l].sabotages) + " ")
-        saveThings[25] += str(str(locations[l].workload) + " ")
-        saveThings[26] += str(str(locations[l].functionality) + " ")
-        saveThings[27] += str(str(locations[l].blips) + " ")
+        saveThings[23] += str(str(locations[l].sabotages) + " ")
+        saveThings[24] += str(str(locations[l].workload) + " ")
+        saveThings[25] += str(str(locations[l].functionality) + " ")
+        saveThings[26] += str(str(locations[l].blips) + " ")
 
     save.write(str(nights))
     save.write("\n")
@@ -152,15 +168,15 @@ def listToString(list):
 
 #Asks how many players there will be and returns the value as amount
 def howMany(numbers):
-    amount = int(answer("Number of soldiers (2-11): \n", numbers))
+    amount = int(answer("Number of soldiers (2-12): \n", numbers))
     if amount <= 0:
         input("You don't have a base without soldiers. Come back with some players!\n")
         sys.exit()
     elif amount == 1:
         input("There's already a last man, silly!")
         sys.exit()
-    elif amount > 11:
-        input("There's not enough weapons to play with this many people. Sorry! ")
+    elif amount > 12:
+        input("There's not enough shifts to play with this many people. Sorry! ")
         sys.exit()
     else:
         return amount
@@ -181,11 +197,15 @@ def load(file, saveThings, players, weapons, locations):
         players[p].strength = int(saveThings[2][p])
         players[p].intellect = int(saveThings[3][p])
         players[p].nerves = int(saveThings[4][p])
-        weaponIndex = saveThings[5][p]
-        if weaponIndex == "none":
-            players[p].weapon = "none"
-        else:
-            players[p].weapon = weapons[int(weaponIndex)]
+        weaponIndexes = saveThings[5][p]
+        players[p].weapons = []
+        if weaponIndexes != "none":
+            weaponAmount = len(weaponIndexes)/2
+            for a in range(weaponAmount):
+                weaponIndex = weaponIndexes[a*2:a*2+2]
+                for w in range(len(weapons)):
+                    if weapons[w].index == str(weaponIndex):
+                        players[p].weapons.append(weapons[w])
         players[p].location = locations[int(saveThings[6][p])]
         players[p].shift = locations[int(saveThings[7][p])]
         players[p].honor = int(saveThings[8][p])
@@ -226,26 +246,20 @@ def load(file, saveThings, players, weapons, locations):
         else:
             players[p].infNerves = int(saveThings[19][p])
         if saveThings[20][p] == "none":
-            players[p].infWeapon = "none"
-        else:
-            players[p].infWeapon = weapons[int(saveThings[20][p])]
-        if saveThings[21][p] == "none":
             players[p].infShift = "none"
         else:    
-            players[p].infShift = locations[int(saveThings[21][p])]
-        players[p].requiredWork = int(saveThings[22][p])
-        players[p].requiredSleep = int(saveThings[23][p])
-
-        players[p].currentWeapon = players[p].weapon
+            players[p].infShift = locations[int(saveThings[20][p])]
+        players[p].requiredWork = int(saveThings[21][p])
+        players[p].requiredSleep = int(saveThings[22][p])
 
     for l in range(len(locations)):
-        locations[l].sabotages = int(saveThings[24][p])
-        locations[l].workload = int(saveThings[25][p])
-        if saveThings[26][p] == "True":
+        locations[l].sabotages = int(saveThings[23][p])
+        locations[l].workload = int(saveThings[24][p])
+        if saveThings[25][p] == "True":
             locations[l].functionality = True
-        elif saveThings[26][p] == "False":
+        elif saveThings[25][p] == "False":
             locations[l].functionality = False
-        locations[l].blips = int(saveThings[27][p])
+        locations[l].blips = int(saveThings[26][p])
     return nights
 
 #Splits things :P
@@ -316,8 +330,6 @@ def randomCommands(players, locations, weapons):
             roll = random.choice(outcomes)
             if roll == 1:
                 hoursToWork = players[p].shift.workload
-                if players[p].weapon == weapons[7]:
-                    hoursToWork = 1
                 if len(commandHours) >= hoursToWork:    
                     for i in range(hoursToWork):
                         roll = random.randint(0,len(commandHours) - 1)
@@ -554,13 +566,13 @@ def activityString(self, activity, traits, nightPhase):
     string = stringList(involved, self)
     return string
 
-def stringList(players, self):
+def stringList(objects, self):
     txt = ""
     names = []
-    for p in range(len(players)):
-        if players[p] != self:
-            names.append(players[p].name)
-    if self in players:
+    for i in range(len(objects)):
+        if objects[i] != self:
+            names.append(objects[i].name)
+    if self in objects:
         names.append("you")
     if len(names) == 1:
         names[0] = names[0].capitalize()
@@ -704,6 +716,15 @@ def seen(seen, witness, freebi, players, traits):
         witness.message += str(name + " looks covered in bruises, covered in cuts, and mentally exhausted" + end)
         wounds = True
 
+    #Determine if they have already seen all the weapons to see
+    weaponToFind = False
+    if seen.weapons == []:
+        weaponToFind = True
+    else:
+        for w in range(len(seen.weapons)):
+            if seen.weapons[w].name not in witness.otherWeapons[index]:
+                weaponToFind = True
+
     #Deductions
     if howMuch > 0:
         thingsToLearn = []
@@ -715,8 +736,8 @@ def seen(seen, witness, freebi, players, traits):
             thingsToLearn.append("intellect")
         if traits[4] not in seen.traits:
             thingsToLearn.append("nerves")
-        if traits[5] not in seen.traits:
-            thingsToLearn.append("weapon")
+        if traits[5] not in seen.traits and weaponToFind == True:
+            thingsToLearn.append("weapons")
         if traits[6] not in seen.traits and freebi == False:
             thingsToLearn.append("shift")
         if traits[18] in witness.traits and witness != players[-1]:
@@ -755,10 +776,15 @@ def seen(seen, witness, freebi, players, traits):
             if deduced[d] == "nerves":
                 witness.message += str(beginning + " nerves " + tense + " " + str(seen.nerves) + end)
                 knowBank(witness.otherNerves, seen, seen.nerves, players)
-            if deduced[d] == "weapon":
-                if seen.currentWeapon != "none":
-                    witness.message += str(beginning + " weapon " + tense + " " + str(seen.currentWeapon) + end)
-                    knowBank(witness.otherWeapons, seen, seen.currentWeapon, players)
+            if deduced[d] == "weapons":
+                if seen.weapons != []:
+                    weaponFound = False
+                    while weaponFound == False:
+                        randomWeapon = random.choice(seen.weapons)
+                        if randomWeapon.name not in witness.otherWeapons[index]:
+                            witness.message += str(beginning + " weapon " + tense + " " + str(seen.randomWeapon) + end)
+                            knowBank(witness.otherWeapons, seen, randomWeapon, players)
+                            weaponFound = True
                 else:
                     beginning = name
                     if secondTense == "have":
@@ -861,13 +887,13 @@ def requiredWork(actor, locations):
         actor.requiredWork = 0
     actor.endMessage += str("You will have to spend " + str(actor.requiredWork) + " actions (plus sabotages) to complete your shift, ")
 
-def requiredSleep(actor, locations):
+def requiredSleep(actor, locations, traits):
     if locations[0].functionality == True:
         actor.requiredSleep = 4 - actor.sleep
     else:
         actor.requiredSleep = 5 - actor.sleep
     actor.sleep = 0
-    if int(actor.requiredSleep) < 0:
+    if int(actor.requiredSleep) < 0 or traits[11] in actor.traits:
         actor.requiredSleep = 0
     actor.endMessage += str("and " + str(actor.requiredSleep) + " actions resting tomorrow night. ")
 
@@ -892,7 +918,9 @@ def everyoneLearns(bank, learned, about, players):
         elif bank == "nerves":
             replaceOrAdd(players[p].otherNerves[index], learned)
         elif bank == "weapons":
-            replaceOrAdd(players[p].otherWeapons[index], learned)
+            for w in range(len(about.weapons)):
+                if about.weapons[w].name not in players[p].otherWeapons[index]:
+                    replaceOrAdd(players[p].otherWeapons[index], learned)
         elif bank == "traits":
             for t in range(3):
                 if about.traits[t].name not in players[p].otherTraits[index]:
@@ -923,11 +951,18 @@ def weSeeDeadPeople(actor, locations, report, tribunal, players):
             report += str("Their nerves was " + str(actor.nerves) + ". ")
             everyoneLearns("nerves", actor.nerves, actor, players)
         if locations[9].functionality == True:
-            report += str("Their weapon was " + str(actor.weapon) + ". ")
+            if actor.weapons == []:
+                report += "They had no weapon. "
+            elif len(actor.weapon) == 1:
+                report += "Their weapon was " + actor.weapons[0]
+            else:
+                report += "Their weapons were "
+                report += stringList(actor.weapons, "")
+                report += ". "
             everyoneLearns("weapons", actor.weapon, actor, players)
         if locations[11].functionality == True:
             report += str("Their shift was " + str(actor.shift) + ". ")
-        report += str("They were " + actor.traits[0].name + ", " + actor.traits[1].name + ", and " + actor.traits[2].name + ". ")
+        report += str("Their traits were " + actor.traits[0].name + ", " + actor.traits[1].name + ", and " + actor.traits[2].name + ". ")
         everyoneLearns("traits", "", actor, players)
         if locations[3].functionality == True and actor.causeOfDeath != "the tribunal":
             report += str("They were killed by " + actor.causeOfDeath + ". ")
@@ -1078,22 +1113,6 @@ def workload(actor, room, traits):
     else:
         room.workload = room.workload - 1
 
-#Asks players what weapon they would like to use if Armaments is down.
-def chooseYourWeapon(players, locations):
-    for p in range(len(players) - 1):
-        if locations[9].functionality == False:
-            if players[0].ran == True:
-                weaponsToChoose = [aBluntWeapon(), aMedicalWeapon(), aSharpWeapon()]
-                chosenWeapon = random.choice(weaponsToChoose)
-            else:
-                chosenWeapon = answer("Which type of weapon would " + players[p].name + " like to use for the night (blunt, medical, or sharp)? \n", ["blunt", "medical", "sharp"])
-            if chosenWeapon == "blunt":
-                players[p].currentWeapon = aBluntWeapon()
-            elif chosenWeapon == "medical":
-                players[p].currentWeapon = aMedicalWeapon()
-            elif chosenWeapon == "sharp":
-                players[p].currentWeapon = aSharpWeapon()
-
 #Finds out if anyone attacks in response to a murder or witnessing of a murder
 def bloodFeud(attacker, target, present, players, weapons, time, locations, traits):
     if present != []:
@@ -1109,12 +1128,12 @@ def bloodFeud(attacker, target, present, players, weapons, time, locations, trai
                     playersRandomized[p].KILL(attacker, time, locations, playersRandomized, weapons, traits)
 
 #The Enemy's Brain
-def enemyPlans(players, locations, weapons, nights):
+def enemyPlans(players, locations, traits, nights):
     players[-1].commands = ["none", "none", "none", "none", "none", "none", "none", "none"]
 
     #Pick Rest Hours randomly
     hoursToRest = 4
-    if players[-1].weapon == weapons[10] and nights != 0:
+    if traits[35] in players[-1].traits and nights != 0:
         hoursToRest = 2
     commandHours = [0, 1, 2, 3, 4, 5, 6, 7]
     for i in range(hoursToRest):

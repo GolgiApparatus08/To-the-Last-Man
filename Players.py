@@ -19,8 +19,7 @@ class Player:
         self.infIntellect = "none"
         self.nerves = nerves
         self.infNerves = "none"
-        self.weapon = weapon
-        self.infWeapon = "none"
+        self.weapons = [weapon]
         self.location = location
         self.shift = "none"
         self.infShift = "none"
@@ -32,12 +31,11 @@ class Player:
         self.bathhouseVisits = 0
         self.power = 0
         self.sleep = 0
-        self.currentWeapon = weapon
         self.marks = []
         self.commands = []
         self.located = False
         self.visited = False
-        self.weaponDestroyed = False
+        self.weaponStolen = False
         self.accusers = []
         self.requiredWork = 2
         self.requiredSleep = 4
@@ -554,6 +552,9 @@ def randomPlayers(players, amount, weapons, startingLocation, traits):
         print("WEAPON: " + players[p].weapon.name)
         print("TRAITS: " + players[p].traits[0].name + ", " + players[p].traits[1].name + ", " + players[p].traits[2].name)
         print(12 - points)
+
+        if traits[11] in players[p].traits:
+            players[p].requiredSleep = 0
 
 #Creates the enemy
 def spawnEnemy(players, weapons, startingLocation, traits):

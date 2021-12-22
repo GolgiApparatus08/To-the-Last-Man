@@ -11,7 +11,7 @@ Traits
     2   Heavyset        Your strength cannot be deduced.                                                		IN
     3   Eccentric       Your intellect cannot be deduced.                                                    		IN
     4   Stuttering      Your nerves cannot be deduced.                                                       		IN
-    5   Hoarder         Your weapons cannot be deduced.			                                            	IN
+    5   Hoarder         Your weapons cannot be deduced.	   		                                            	IN
     6   Lazy            Your shift cannot be deduced.                                              			IN
         Fickle          Your traits cannot be deduced.									IN
         Technician      You will see when players are sabotaging.							IN
@@ -50,33 +50,6 @@ Traits
         Ambitious       Everytime you gain an attribute, a random attribute improves by 1.
 
 
-ORDER OF OPERATIONS FOR WORDS???
-Curious
-Mysterious
-Depressive
-Ruthless
-Rowdy 
-Arrogant
-Suspicious
-Patriotic
-Sociable
-Lazy
-Cunning
-Productive
-Fickle
-Heroic
-
-Heavyset
-
-Highborn
-Mercenary
-
-Martial Artist
-Deep Sleeper
-Bodyguard
-Inquisitor
-
-
 IMPERIAL HEIR RULES
 To use The Voice say "You Emperor commands you...". It is illegal for any other player to say this under any circumstances.
 Things you can command:
@@ -88,46 +61,43 @@ Things you can command:
 INQUISITOR RULES
 To demand the truth say "An Inquisitor of the Academy asks of you...". It is illegal for any other player to say this under any circumstances.
 
-
-
-
-
 Weapons
 
-    Lifting Weight              One of your attributes improves by 1 everytime you attempt to kill.                             IN        
-    Major Award                 Once per day, you can privatly threaten to lower another players rank by 1.                     IN
-    Encrypted Laptop            You don't have to visit a room to sabotage it.                                                  IN
-    Heavy Briefcase             You choose the type of weapon you would like to use each night.                                 IN    
-    The Prince                  If someone witnesses you kill, you will instantly attempt to kill them.                         IN
-    Human Skull                 You can deduce other players honor.                                                             IN
-    
-    Strong Bourbon              You deduce at double the rate.                                                                  IN
-    Aggressive Stimulants       A single work action completes any workload.                                                    IN
-    Pet Snake                   Each hour, you are told the location of a random player.                                        IN
-    First Aid                   You never show marks.                                                                           IN
-    Sleeping Pills              Your rests all have the effect of using the barraks.                                            IN
-    Neurotoxic Gas              You don't have to visit a room to ambush it.                                                    IN
+    	Lifting Weight 		You must rest an extra hour for every attack attempt.        			IN      
+    	Major Award             Other players will always succeed in stealing your weapons.  
+    	Encrypted Laptop     	Players can see when you are sabotaging.     
+    	Heavy Briefcase         Players will deduce you having random weapons present in the game.  
+    	The Prince              Every night you hold this lowers your honor by 1.
+    	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.
 
-    Captain's Knife             You'll know The Enemy when you see them.							                            IN
-    Antique Sword               You kill a player if they fail to kill you.                                                     IN
-    Forged Keycard              You can choose your shift each night.                                                           IN
-    Sacred Dagger               If you witness someone kill, you will instantly attempt to kill them.                           IN
-    Throwing Shurikens          Other players can't deduce things about you.                                                    IN       
+    	Strong Bourbon          You cannot deduce anything about other players.
+    	Aggressive Stimulants	You must complete your shift.   						IN 
+    	Pet Snake       	When loitering, you will sometimes attack random players.     
+	Exotic Poison		If you fail to kill someone in combat, you die.     
+    	Sleeping Pills          While resting you can be killed without a fight.  
+    	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  
+
+    	Captain's Knife         Players with a higher rank can kill you without a fight.  
+    	Antique Sword           You must attempt to kill at least one player every night.  			IN
+    	Forged Keycard          You will randomly be denyed entry to rooms you are capable of accessing.  
+    	Sacred Dagger           You cannot hold this weapon with negative honor.                           
+    	Throwing Shurikens      You will fail to kill players if there are witnesses.  
+	Improvised Shiv		You always show up to the tribunal with cuts.                                                         
 
 Location Dysfunctionality
 
-    Barraks                     Players must spend an extra action resting the following night.             IN
-    Sanitation                  Players must spend an extra action to finish shifts the following night.    IN
-    Gymnasium                   The strength of corpses are not announced.          				        IN
-    Medical                     Causes of death are not announced.                 				            IN
-    Library                     The intellects of corpses are not announced.         				        IN
-    Information                 The ranks of corpses are not announced.              				        IN
-    Bathhouse                   The nerves of corpses are not announced.            				        IN
-    Communications              Players cannot communicate privatly.                				        IN
-    Power                       Players do not witness other players actions.       				        IN
-    Armaments                   Players can choose their current weapon.            				        IN
-    Security                    Corpses are not announced.                          				        IN
-    Commands                    Players can access any location regardless of their rank.      		        IN		                                               
+    Barraks      	Players must spend an extra action resting the following night.             	IN
+    Sanitation          Players must spend an extra action to finish shifts the following night.	IN
+    Gymnasium           The strength of corpses are not announced.          				IN
+    Medical             Causes of death are not announced.                 				IN
+    Library             The intellects of corpses are not announced.         				IN
+    Information         The ranks of corpses are not announced.              				IN
+    Bathhouse           The nerves of corpses are not announced.            				IN
+    Communications      Players cannot communicate privatly.                				IN
+    Power               Players do not witness other players actions.       				IN
+    Armaments           Players can choose their current weapon.
+    Security            Corpses are not announced.                          				IN
+    Commands            Players can access any location regardless of their rank.      		        IN		                                               
 
 Things to Enter
 

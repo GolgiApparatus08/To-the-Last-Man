@@ -4,7 +4,6 @@ class Person:
         self.name = name
 
 people = []
-
 people.append(Person("Fred"))
 
 def getName(bank):

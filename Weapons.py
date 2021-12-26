@@ -11,6 +11,7 @@ class liftingWeight(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "00"
+        self.withoutArticle = "lifting weight"
 
 class majorAward(Weapon):
     def __init__(self):
@@ -18,6 +19,7 @@ class majorAward(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "01"
+        self.withoutArticle = "major award"
 
 class encryptedLaptop(Weapon):
     def __init__(self):
@@ -25,6 +27,7 @@ class encryptedLaptop(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "02"
+        self.withoutArticle = "encrypted laptop"
 
 class heavyBriefcase(Weapon):
     def __init__(self):
@@ -32,6 +35,7 @@ class heavyBriefcase(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "03"
+        self.withoutArticle = "heavy briefcase"
 
 class thePrince(Weapon):
     def __init__(self):
@@ -39,6 +43,7 @@ class thePrince(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "04"
+        self.withoutArticle = "copy of 'The Prince'"
 
 class humanSkull(Weapon):
     def __init__(self):
@@ -46,6 +51,7 @@ class humanSkull(Weapon):
         self.type = "blunt"
         self.used = False
         self.index = "05"
+        self.withoutArticle = "human skull"
 
 class strongBourbon(Weapon):
     def __init__(self):
@@ -53,6 +59,7 @@ class strongBourbon(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "06"
+        self.withoutArticle = "strong bourbon"
 
 class aggressiveStimulants(Weapon):
     def __init__(self):
@@ -60,6 +67,7 @@ class aggressiveStimulants(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "07"
+        self.withoutArticle = "aggressive stimulants"
 
 class petSnake(Weapon):
     def __init__(self):
@@ -67,6 +75,7 @@ class petSnake(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "08"
+        self.withoutArticle = "pet snake"
 
 class exoticPoison(Weapon):
     def __init__(self):
@@ -74,6 +83,7 @@ class exoticPoison(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "09"
+        self.withoutArticle = "exotic poison"
 
 class sleepingPills(Weapon):
     def __init__(self):
@@ -81,6 +91,7 @@ class sleepingPills(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "10"
+        self.withoutArticle = "sleeping pills"
 
 class neurotoxicGas(Weapon):
     def __init__(self):
@@ -88,6 +99,7 @@ class neurotoxicGas(Weapon):
         self.type = "medical"
         self.used = False
         self.index = "11"
+        self.withoutArticle = "neurotoxic gas"
 
 class captainsKnife(Weapon):
     def __init__(self):
@@ -95,6 +107,7 @@ class captainsKnife(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "12"
+        self.withoutArticle = "captain's knife"
 
 class antiqueSword(Weapon):
     def __init__(self):
@@ -102,6 +115,7 @@ class antiqueSword(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "13"
+        self.withoutArticle = "antique sword"
 
 class forgedKeycard(Weapon):
     def __init__(self):
@@ -109,6 +123,7 @@ class forgedKeycard(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "14"
+        self.withoutArticle = "forged keycard"
 
 class sacredDagger(Weapon):
     def __init__(self):
@@ -116,6 +131,7 @@ class sacredDagger(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "15"
+        self.withoutArticle = "sacred dagger"
 
 class throwingShurikens(Weapon):
     def __init__(self):
@@ -123,6 +139,7 @@ class throwingShurikens(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "16"
+        self.withoutArticle = "throwing shurikens"
 
 class improvisedShiv(Weapon):
     def __init__(self):
@@ -130,21 +147,4 @@ class improvisedShiv(Weapon):
         self.type = "sharp"
         self.used = False
         self.index = "17"
-
-class aBluntWeapon(Weapon):
-    def __init__(self):
-        self.name = "a blunt weapon"
-        self.type = "blunt"
-        self.used = False
-
-class aMedicalWeapon(Weapon):
-    def __init__(self):
-        self.name = "a medical weapon"
-        self.type = "medical"
-        self.used = False
-
-class aSharpWeapon(Weapon):
-    def __init__(self):
-        self.name = "a sharp weapon"
-        self.type = "sharp"
-        self.used = False
+        self.withoutArticle = "improvised shiv"

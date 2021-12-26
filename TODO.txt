@@ -1,10 +1,12 @@
 -lots of player attributes do not currently save
--update weapons
 -add weapon spawning
--ensure that bloodfeud works with new system
 -Report "rowdy" stat increases at end of nights
+-tribunal text is not integrated 
+-random players dont attack each other for some reason
+-Weapon update notifications for moving cards
 
 Running 3.0 Dev Log:
 -Added updating player notes
 -Added traits 
 -Integrated text
+-Can have multiple weapons

@@ -1,7 +1,7 @@
 from os import name
 import random
 import sys
-from Functions import doTheyDefend, event, freeRest, getHurt, newHonor, printHonor, whoHere, workload, bloodFeud
+from Functions import available, doTheyDefend, event, freeRest, getHurt, highestStat, newHonor, printHonor, whoHere, whoToAttack, workload, bloodFeud
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, location, traits):
@@ -35,7 +35,7 @@ class Player:
         self.commands = []
         self.located = False
         self.visited = False
-        self.weaponStolen = False
+        self.weaponsStolen = []
         self.accusers = []
         self.requiredWork = 2
         self.requiredSleep = 4
@@ -48,7 +48,6 @@ class Player:
         self.changedHonor = self.honor
         self.events = []
         self.initiatedFights = 0            #For the Rowdy trait
-        self.allWeapons = []
         self.otherRanks = []
         self.otherStrengths = []
         self.otherIntellects = []
@@ -57,6 +56,7 @@ class Player:
         self.otherWeapons = []
         self.otherHonors = []
         self.previousLocation = location
+        self.allWeapons = []
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -71,8 +71,7 @@ class Player:
         if players[0].debug == True and self.location != locations[0]:
             print(self.trueName + " is resting in " + self.location.name + ". ")
         
-
-        if self.location == locations[0]:   #Barraks
+        if self.location == locations[0] and locations[0].functionality == True:   #Barraks
             self.location.visit(self, locations, players, weapons, traits)
         else:                               #Anywhere else
             witnesses = whoHere(self, "none", players, locations)
@@ -167,10 +166,10 @@ class Player:
                 print(self.trueName + " ambushes and kills " + target.name + " in " + room.name + ". ")
         witnesses = whoHere(self, target, players, locations)
         event(witnesses, self, target, "ambush")
-        bloodFeud(self, target, witnesses, players, weapons, time, locations, traits)
+        bloodFeud(self, witnesses, players, weapons, time, locations, traits)
         return
 
-    def ENEMY(self, room, locations, players, weapons, traits):
+    def ENEMY(self, weaponType, room, locations, players, weapons, traits):
         if self.alive == False:
             self.DEAD(locations, players)
             return
@@ -184,15 +183,16 @@ class Player:
             return
         
         youFailed = False
+        availableTypes = available(self.weapons, locations)
 
         #Has no weapon
-        if self.currentWeapon == "none":
+        if weaponType not in availableTypes:
             witnesses = whoHere(self, players[-1], players, locations)
-            event(witnesses, self, players[-1], "enemy_noWeapon")
+            event(witnesses, self, players[-1], "enemy_dontHave")
             youFailed = True
 
         #Has blunt weapon
-        if self.currentWeapon.type == "blunt" and youFailed == False:
+        if weaponType == "blunt" and youFailed == False:
             getHurt(self, players[-1], "blunt", traits)
             if self.strength > players[-1].strength:
                 if players[0].debug == True:
@@ -205,8 +205,7 @@ class Player:
                 event(witnesses, self, players[-1], "enemy_bluntFail")
 
         #Has medical weapon
-        if self.currentWeapon.type == "medical" and youFailed == False:
-            self.message += str("You devise a plan to kill them with " + self.currentWeapon.name + ". ")
+        if weaponType == "medical" and youFailed == False:
             getHurt(self, players[-1], "tired", traits)
             if self.intellect > players[-1].intellect:
                 if players[0].debug == True:
@@ -219,7 +218,7 @@ class Player:
                 event(witnesses, self, players[-1], "enemy_medicalFail")
 
         #Has sharp weapon
-        if self.currentWeapon.type == "sharp" and youFailed == False:
+        if weaponType == "sharp" and youFailed == False:
             getHurt(self, players[-1], "cuts", traits)
             if self.nerves > players[-1].nerves:
                 if players[0].debug == True:
@@ -233,7 +232,13 @@ class Player:
 
         #The Enemy's Turn
         if youFailed == True:
-            if players[-1].currentWeapon.type == "blunt":
+            bestAngle = whoToAttack(self, players, locations)
+            if bestAngle == "none":
+                bestType = highestStat(players[-1], locations)
+            else:
+                bestType = bestAngle[0]
+
+            if bestType == "blunt":
                 getHurt(self, players[-1], "bruises", traits)
                 if players[-1].strength > self.strength:
                     if players[0].debug == True:
@@ -247,7 +252,7 @@ class Player:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_bluntFail")
-            if players[-1].currentWeapon.type == "medical":
+            if bestType == "medical":
                 getHurt(self, players[-1], "tired", traits)
                 if players[-1].intellect > self.intellect:
                     if players[0].debug == True:
@@ -261,7 +266,7 @@ class Player:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_medicalFail")
-            if players[-1].currentWeapon.type == "sharp":
+            if bestType == "sharp":
                 getHurt(self, players[-1], "cuts", traits)
                 if players[-1].nerves > self.nerves:
                     if players[0].debug == True:
@@ -275,6 +280,11 @@ class Player:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_sharpFail")
+            if bestType == "":
+                if players[0].debug == True:
+                    print("The enemy has no weapon and thus cannot retaliate. ")
+                witnesses = whoHere(players[-1], self, players, locations)
+                event(witnesses, players[-1], self, "enemyAttack_noWeapon")
 
     def WATCH(self, locations, players, weapons, target, traits):
         if self.alive == False:
@@ -289,17 +299,24 @@ class Player:
         self.LOITER(self.location, locations, players, weapons, False, traits)
         
     def STEAL(self, target, locations, players, weapons, traits):
+        def newOwner(thief, victum):
+            weaponIndex = random.randint(0, len(victum.weapons)-1)
+            weapon = victum.weapons[weaponIndex]
+            thief.weapons.append(weapon)
+            victum.weapons.pop(weaponIndex)
+            victum.weaponsStolen.append(weapon)
+            return weapon
+
         if self.alive == False:
             self.DEAD(locations, players)
             return
         if self.location != target.location:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
-        if target.alive == False and target.currentWeapon != "none":
-            self.currentWeapon = target.currentWeapon
-            target.currentWeapon = "none"
+        if target.alive == False and target.weapons != []:
+            stolen = newOwner(self, target)
             if players[0].debug == True:
-                print(self.trueName + " steals " + self.currentWeapon.name + " off " + target.name + "'s body in " + target.location.name + ". ")
+                print(self.trueName + " steals " + stolen.name + " off " + target.name + "'s body in " + target.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "stealBody_success")
             self.LOITER(self.location, locations, players, weapons, True, traits)
@@ -315,11 +332,10 @@ class Player:
         outcomes = [1, 2, 3, 4, 5, 6, 7, 8]
         roll = random.choice(outcomes)
         if self.nerves >= roll:
-            if target.currentWeapon != "none":
-                self.currentWeapon = target.currentWeapon
-                target.currentWeapon = "none"
+            if target.weapons != []:
+                stolen = newOwner(self, target)
                 if players[0].debug == True:
-                    print(self.trueName + " steals " + self.currentWeapon.name + " off " + target.name + " in " + target.location.name + ". ")
+                    print(self.trueName + " steals " + stolen.name + " off " + target.name + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, "steal_success")
                 self.LOITER(self.location, locations, players, weapons, True, traits)
@@ -335,7 +351,7 @@ class Player:
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "steal_fail")
 
-    def KILL(self, target, time, locations, players, weapons, traits):
+    def KILL(self, target, weaponType, time, locations, players, weapons, traits):
         if self.location != target.location:    #In the right place?
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
@@ -352,6 +368,14 @@ class Player:
             event(witnesses, self, target, "kill_intimidate")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
+        availableTypes = available(self.weapons, locations)
+        if weaponType not in availableTypes:
+            if players[0].debug == True:
+                print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but has no weapon. ")
+            witnesses = whoHere(self, target, players, locations)
+            event(witnesses, self, target, "kill_noWeapon")
+            self.LOITER(self.location, locations, players, weapons, True, traits)
+        
 
         self.initiatedFights = self.initiatedFights + 1
         def fightType(weaponType):
@@ -389,7 +413,7 @@ class Player:
                     print(self.trueName + " kills " + target.name + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, success)
-                bloodFeud(self, target, witnesses, players, weapons, time, locations, traits)
+                bloodFeud(self, witnesses, players, weapons, time, locations, traits)
                 return
             else:
                 if traits[34] in target.traits and self != players[-1]:
@@ -410,17 +434,11 @@ class Player:
                     return
 
         #Attackers Weapon
-        if self.currentWeapon == "none":
-            if players[0].debug == True:
-                print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but has no weapon. ")
-            witnesses = whoHere(self, target, players, locations)
-            event(witnesses, self, target, "kill_noWeapon")
-            self.LOITER(self.location, locations, players, weapons, True, traits)
-        elif self.currentWeapon.type == "blunt":
+        if weaponType == "blunt":
             fightType("blunt")
-        elif self.currentWeapon.type == "medical":
+        elif weaponType == "medical":
             fightType("medical")
-        elif self.currentWeapon.type == "sharp":
+        elif weaponType == "sharp":
             fightType("sharp")
 
 #Is called to insert players into the game by reading their data of of playerData.txt
@@ -440,9 +458,8 @@ def readPlayerData(players, amount, startingLocation, weapons, traits):
                 contents[(p * 8) + 6].split()
         ))
         for w in range(len(weapons)):
-            if players[p].weapon == weapons[w].name:
-                players[p].weapon = weapons[w]
-                players[p].currentWeapon = weapons[w]
+            if players[p].weapons[0] == weapons[w].name:
+                players[p].weapons = [weapons[w]]
         traitValue = 0
         for t in range(len(traits)):
             for pt in range(3):
@@ -457,7 +474,7 @@ def readPlayerData(players, amount, startingLocation, weapons, traits):
         print("str: " + str(players[p].strength))
         print("int: " + str(players[p].intellect))
         print("ner: " + str(players[p].nerves))
-        print("WEAPON: " + players[p].weapon.name)
+        print("WEAPON: " + players[p].weapons[0].name)
         print("TRAITS: " + players[p].traits[0].name + ", " + players[p].traits[1].name + ", " + players[p].traits[2].name)
         print(traitValue)
 
@@ -549,7 +566,7 @@ def randomPlayers(players, amount, weapons, startingLocation, traits):
         print("str: " + str(players[p].strength))
         print("int: " + str(players[p].intellect))
         print("ner: " + str(players[p].nerves))
-        print("WEAPON: " + players[p].weapon.name)
+        print("WEAPON: " + players[p].weapons[0].name)
         print("TRAITS: " + players[p].traits[0].name + ", " + players[p].traits[1].name + ", " + players[p].traits[2].name)
         print(12 - points)
 
@@ -563,7 +580,7 @@ def spawnEnemy(players, weapons, startingLocation, traits):
     for w in range(len(weapons)):
         x = 0
         for p in range(len(players)):
-            if players[p].weapon == weapons[w]:
+            if players[p].weapons[0] == weapons[w]:
                 x = x + 1
         if x == 0:
             weaponsToChoose.append(weapons[w])
@@ -615,7 +632,7 @@ def spawnEnemy(players, weapons, startingLocation, traits):
     print("str: " + str(players[-1].strength))
     print("int: " + str(players[-1].intellect))
     print("ner: " + str(players[-1].nerves))
-    print("WEAPON: " + str(players[-1].weapon.name))
+    print("WEAPON: " + str(players[-1].weapons[0].name))
     print("TRAITS: " + players[-1].traits[0].name + ", " + players[-1].traits[1].name + ", " + players[-1].traits[2].name)
     print(10 - points)
     print(" ")

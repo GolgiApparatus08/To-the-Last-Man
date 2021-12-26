@@ -1,4 +1,4 @@
-from Functions import allInstances, event, randomize, whoHere
+from Functions import allInstances, event, whoHere
 import random
 
 class Location:
@@ -55,33 +55,21 @@ class Sanitation(Location):
         self.input = "SANITATION"
         self.blips = 0
         
-    def visit(self, player, locations, players, weapons, traits):
+    def visit(self, player, weapon, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
         if outcome == False:
             return
-        if player.currentWeapon == "none":
+        if weapons[int(weapon)] not in player.weapons:
             witnesses = whoHere(player, "none", players, locations)
-            event(witnesses, player, "none", "sanitation_noWeapon")
+            event(witnesses, player, "none", "sanitation_dontHave")
             player.LOITER(player.location, locations, players, weapons, False, traits)
             return
 
         if players[0].debug == True:
-            print(player.trueName + " throws " + player.currentWeapon.name + " into the incinerator in sanitation. ")
-        if player.weapon == player.currentWeapon:
-            player.weapon = "none"
-            player.currentWeapon = "none"
-            witnesses = whoHere(player, "none", players, locations)
-            event(witnesses, player, "none", "sanitation")
-        else:
-            for p in range(len(players)):
-                if players[p].weapon == player.currentWeapon:
-                    owner = players[p]
-            owner.weaponDestroyed = True
-            owner.weapon = "none"
-            player.currentWeapon = "none"
-            witnesses = whoHere(player, owner, players, locations)
-            event(witnesses, player, owner, "sanitation")
-            return
+            print(player.trueName + " throws " + weapons[int(weapon)].name + " into the incinerator in sanitation. ")
+        witnesses = whoHere(player, "none", players, locations)
+        event(witnesses, player, "none", "sanitation")
+        return
 
 class Gymnasium(Location):
     def __init__(self):
@@ -293,7 +281,8 @@ class Armaments(Location):
             print(player.trueName + " searches for information in armaments. ")
         player.allWeapons = []
         for p in range(len(players)):
-            player.allWeapons.append(players[p].currentWeapon)
+            for w in range(len(players[p].weapons)):
+                player.allWeapons.append(players[p].weapons[w])
         witnesses = whoHere(player, "none", players, locations)
         event(witnesses, player, "none", "armaments")
 

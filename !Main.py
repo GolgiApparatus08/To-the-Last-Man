@@ -2,7 +2,7 @@ from Players import randomPlayers, readPlayerData, spawnEnemy
 import random
 import sys
 import glob
-from Functions import activityString, answer, checkAccess, chooseYourWeapon, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
+from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
 from Weapons import antiqueSword, captainsKnife, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
@@ -122,7 +122,7 @@ for p in range(len(players)):
             players[p].otherStrengths.append([players[p].strength])
             players[p].otherIntellects.append([players[p].intellect])
             players[p].otherNerves.append([players[p].nerves])
-            players[p].otherWeapons.append([players[p].currentWeapon.name])
+            players[p].otherWeapons.append([players[p].weapons[0].name])
             players[p].otherTraits.append([players[p].traits[0].name, players[p].traits[1].name, players[p].traits[2].name])
             players[p].otherHonors.append([" "])
         else:
@@ -166,7 +166,6 @@ while nights < days:
     else:
         randomCommands(players, locations, weapons)
     enemyPlans(players, locations, traits, nights)
-    chooseYourWeapon(players, locations)
     
     for p in range(len(players) -1):
         players[p].endMessage += "NIGHT END: "
@@ -200,7 +199,7 @@ while nights < days:
                         actor.located = True
                         checkAccess(actor, locations[r], False, hour, locations)
                 
-                if actor.commands[h][0] == "SABOTAGE" and actor.weapon == weapons[2]:
+                if actor.commands[h][0] == "SABOTAGE" and traits[25] in actor.traits:
                     actor.located = True
                     actor.message += str("\n")
                     actor.message += str("At " + hour + " you stay in " + actor.location.name + ". ")
@@ -209,7 +208,7 @@ while nights < days:
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
                             checkAccess(actor, locations[r], True, hour, locations)
-                if actor.commands[h][0] == "AMBUSH" and actor.weapon == weapons[11]:
+                if actor.commands[h][0] == "AMBUSH" and traits[27] in actor.traits:
                     actor.located = True
                     actor.message += str("\n")
                     actor.message += str("At " + hour + " you stay in " + actor.location.name + ". ")
@@ -255,6 +254,8 @@ while nights < days:
                                 locations[r].learn(actor, locations, players, weapons, traits)
                             elif actor.commands[h][1] == "use":
                                 locations[r].use(actor, locations, players, weapons, traits)
+                        elif locations[r] == locations[1]:
+                            locations[r].visit(actor, actor.commands[h][1], locations, players, weapons, traits)
                         else:
                             locations[r].visit(actor, locations, players, weapons, traits)
 
@@ -279,12 +280,12 @@ while nights < days:
                 if actor.commands[h][0] == "ENEMY":
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
-                            actor.ENEMY(locations[r], locations, players, weapons, traits)
+                            actor.ENEMY(actor.commands[h][2], locations[r], locations, players, weapons, traits)
 
                 if actor.commands[h][0] == "KILL":
                     for p in range(len(players)):
                         if players[p].trueName == actor.commands[h][1]:
-                            actor.KILL(players[p], hour, locations, players, weapons, traits)
+                            actor.KILL(players[p], actor.commands[h][2], hour, locations, players, weapons, traits)
                 if actor.commands[h][0] == "STEAL":
                     for p in range(len(players)):
                         if players[p].trueName == actor.commands[h][1]:
@@ -344,15 +345,27 @@ while nights < days:
     #Now for the bits that have to happen at the end of the night
 
         #Stuff that happened to weapons
-    for p in range(len(players)):
-        if players[p].weaponDestroyed == True:
-            players[p].endMessage += str("You weapon is nowhere to be found, and must have been destroyed last night. ")
-            players[p].weaponDestroyed = False
-        elif players[p].weapon == "none":
-            players[p].endMessage += str("You remain without a weapon. ")
-        elif players[p].weapon.used == True:
-            players[p].endMessage += str("Your weapon was used by someone else to attack last night. ")
-            players[p].weapon.used = False
+    for p in range(len(players)-1):
+        if players[p].weaponsStolen != []:
+            weaponsNoArticles = []
+            for w in range(len(players[p].weaponsStolen)):
+                weaponsNoArticles.append(players[p].weaponsStolen[w].withoutArticle)
+            stolen = listToString(weaponsNoArticles)
+            verb = "have"
+            if len(players[p].weaponsStolen) == 1:
+                verb = "has"
+            players[p].endMessage += str("Your " + stolen.capitalize() + " " + verb + " been stolen from you in the night. ")
+        if players[p].weapons == []:
+            players[p].endMessage += str("You have no weapons.") 
+        else:
+            weaponNames = []
+            for w in range(len(players[p].weapons)):
+                weaponNames.append(players[p].weapons[w].name)
+            weaponsOwned = listToString(weaponNames)
+            verb = "s are"
+            if len(weaponNames) == 1:
+                verb = " is"     
+            players[p].endMessage += str("Your current weapon" + verb + " " + weaponsOwned + ". ")     
 
         #New attributes
     for p in range(len(players)):
@@ -404,6 +417,9 @@ while nights < days:
         requiredWork(players[p], locations)
         requiredSleep(players[p], locations, traits)
 
+        #New Weapon Cards
+    
+
         #DEAD PEOPLE
     report += "\n"
     report += "REPORTED BODIES: \n"
@@ -420,6 +436,9 @@ while nights < days:
         elif players[p].alive == False and players[p].reported == False:
             report += str(players[p].trueName + " is ")
             report += str("dead. \n")
+        elif players[p].reported == True:
+            report += str(players[p].trueName + " is ")
+            report += str("reported. \n")
 
         #And finally, print the messages.
     print("\n")

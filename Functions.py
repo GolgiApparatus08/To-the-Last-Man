@@ -2,23 +2,34 @@ import sys
 import random
 import math
 
-from Weapons import aBluntWeapon, aMedicalWeapon, aSharpWeapon
+#Returns which weapons types are available
+def available(owned, locations):
+    availableTypes = []
+    for o in range(len(owned)):
+        availableTypes.append(str(owned[o].type))
+    if locations[9].functionality == False:
+        availableTypes = ["blunt", "medical", "sharp"]
+    return availableTypes
 
 #Reminds the moderator of all unique player command rules
 def remind(players, traits, weapons):
-    print(" ")
+    print("")
+    print("COMMAND RULES: ")
     for p in range(len(players)-1):
-        print(" ")
-        print(players[p].trueName.upper() + " COMMAND RULES")
-        print("they must rest " + str(players[p].requiredSleep) + " hours")
-        if traits[11] in players[p].traits:
-            print("they cannot work")
-        if weapons[0] in players[p].weapons:
-            print("for every KILL they plan they must rest +1")
-        if weapons[7] in players[p].weapons:
-            print("they must work as many hours as they are able toward completing their shift")
-        if weapons[13] in players[p].weapons:
-            print("they must attempt to kill at least one player")
+        if players[p].alive == True:
+            players[p].message += str("must rest " + str(players[p].requiredSleep) + " hours, ")
+            if traits[11] in players[p].traits:
+                players[p].message += str("cannot work, ")
+            if weapons[0] in players[p].weapons:
+                players[p].message += str("must rest +1 for every kill they plan, ")
+            if weapons[7] in players[p].weapons:
+                players[p].message += str("must work as many hours as they are able toward completing their shift, ")
+            if weapons[13] in players[p].weapons:
+                players[p].message += str("must attempt to kill at least one player, ")
+            players[p].message = players[p].message[:-1]
+            players[p].message = players[p].message[:-1]
+            print(players[p].name + ": " + players[p].message)
+            players[p].message = ""
     print(" ")
 
 #Calculates attacker's new honor after a killing
@@ -341,9 +352,6 @@ def randomCommands(players, locations, weapons):
                 "SABOTAGE",
                 "LOITER",
                 "AMBUSH",
-                "KILL",
-                "KILL",
-                "KILL",
                 "WATCH",
                 "STEAL",
                 "BARRAKS",
@@ -359,6 +367,11 @@ def randomCommands(players, locations, weapons):
                 "SECURITY",
                 "COMMAND"
             ]
+            if players[p].weapons != []:
+                actions.append("KILL")
+                actions.append("KILL")
+                actions.append("KILL")
+
             playersToTarget = []
             for i in range(len(players)-1):
                 if players[i].reported == False and players[i] != players[p]:
@@ -373,12 +386,22 @@ def randomCommands(players, locations, weapons):
                         room = random.choice(locations)
                         target = random.choice(playersToTarget)
                         players[p].commands[c] = str(command + " " + room.input + " " + target.name)
-                    if command == "KILL" or command == "WATCH" or command == "STEAL":
+                    if command == "WATCH" or command == "STEAL":
                         target = random.choice(playersToTarget)
                         players[p].commands[c] = str(command + " " + target.name)
+                    if command == "KILL":
+                        target = random.choice(playersToTarget)
+                        bestType = highestStat(players[p], locations)
+                        players[p].commands[c] = str(command + " " + target.name + " " + bestType)
                     for l in range(len(locations)):
                         if locations[l].input == command and (l == 2 or l == 4 or l == 6):
                             players[p].commands[c] = str(command + " use")
+                        elif locations[l].input == command and l == 1:
+                            weaponToChuck = random.choice(players[p].weapons)
+                            for w in range(len(weapons)):
+                                if weaponToChuck == weapons[w]:
+                                    weaponIndex = w
+                            players[p].commands[c] = str(command + " " + str(w))
                         elif locations[l].input == command and l == 7:
                             equal = True
                             while equal == True:
@@ -606,11 +629,11 @@ def getHurt(actor1, actor2, mark, traits):
 
 #Makes an "event" package which is given to every witness of the event, as well as the actor and target
 def event(witnesses, actor, target, action):
-    actorWeapon = actor.currentWeapon
+    actorWeapon = actor.weapons
     targetWeapon = "bite me"
     targetHonor = "bite me"
     if target != "none":
-        targetWeapon = target.currentWeapon
+        targetWeapon = target.weapons
         targetHonor = target.honor
     actorHonor = actor.honor
     
@@ -782,7 +805,7 @@ def seen(seen, witness, freebi, players, traits):
                     while weaponFound == False:
                         randomWeapon = random.choice(seen.weapons)
                         if randomWeapon.name not in witness.otherWeapons[index]:
-                            witness.message += str(beginning + " weapon " + tense + " " + str(seen.randomWeapon) + end)
+                            witness.message += str(beginning + " weapon " + tense + " " + str(randomWeapon) + end)
                             knowBank(witness.otherWeapons, seen, randomWeapon, players)
                             weaponFound = True
                 else:
@@ -920,7 +943,7 @@ def everyoneLearns(bank, learned, about, players):
         elif bank == "weapons":
             for w in range(len(about.weapons)):
                 if about.weapons[w].name not in players[p].otherWeapons[index]:
-                    replaceOrAdd(players[p].otherWeapons[index], learned)
+                    replaceOrAdd(players[p].otherWeapons[index], about.weapons[w].name)
         elif bank == "traits":
             for t in range(3):
                 if about.traits[t].name not in players[p].otherTraits[index]:
@@ -953,13 +976,13 @@ def weSeeDeadPeople(actor, locations, report, tribunal, players):
         if locations[9].functionality == True:
             if actor.weapons == []:
                 report += "They had no weapon. "
-            elif len(actor.weapon) == 1:
-                report += "Their weapon was " + actor.weapons[0]
+            elif len(actor.weapons) == 1:
+                report += "Their weapon was " + actor.weapons[0].name
             else:
                 report += "Their weapons were "
                 report += stringList(actor.weapons, "")
                 report += ". "
-            everyoneLearns("weapons", actor.weapon, actor, players)
+            everyoneLearns("weapons", "", actor, players)
         if locations[11].functionality == True:
             report += str("Their shift was " + str(actor.shift) + ". ")
         report += str("Their traits were " + actor.traits[0].name + ", " + actor.traits[1].name + ", and " + actor.traits[2].name + ". ")
@@ -1007,6 +1030,7 @@ def theTribunal(players, locations, weapons, report, traits):
             extantPlayers.append(players[p])
     if len(extantPlayers) < 3:
         input("There are not enough soldiers left to conduct a tribunal. ")
+        print("")
         return
     tribunalists = []
     print("")
@@ -1114,18 +1138,73 @@ def workload(actor, room, traits):
         room.workload = room.workload - 1
 
 #Finds out if anyone attacks in response to a murder or witnessing of a murder
-def bloodFeud(attacker, target, present, players, weapons, time, locations, traits):
+def bloodFeud(attacker, present, players, weapons, time, locations, traits):
     if present != []:
-        playersRandomized = randomize(players)
+        attackerBestType = highestStat(attacker, locations)
         presentRandomized = randomize(present)
-        for p in range(len(playersRandomized)):
-            for i in range(len(presentRandomized)):
-                if traits[33] in attacker.traits and playersRandomized[p] == presentRandomized[i] and playersRandomized[p].alive == True and attacker.alive == True and playersRandomized[p] != playersRandomized[-1]:
-                    attacker.message += str("You decide that it is better to be feared than loved and attack " + playersRandomized[p].name + " in order to silence a witness. ")
-                    attacker.KILL(playersRandomized[p], time, locations, playersRandomized, weapons, traits)
-                if playersRandomized[p] == presentRandomized[i] and traits[23] in playersRandomized[p].traits and playersRandomized[p].alive == True and attacker.alive == True and attacker != playersRandomized[-1]:
-                    playersRandomized[p].message += str("In righteous fury, you decide to avenge " + target.name + " by attacking " + attacker.name + ". ")
-                    playersRandomized[p].KILL(attacker, time, locations, playersRandomized, weapons, traits)
+        for i in range(len(presentRandomized)):
+            presentBestType = highestStat(presentRandomized[i], locations)
+            #If the witness is Heroic, they attack the attacker
+            if traits[23] in presentRandomized[i].traits and presentRandomized[i].alive == True and attacker.alive == True and attacker != players[-1] and presentBestType != "":
+                presentRandomized[i].KILL(attacker, presentBestType, time, locations, players, weapons, traits)
+            #If the attacker is Ruthless, they attack the witness
+            if traits[33] in attacker.traits and presentRandomized[i].alive == True and attacker.alive == True and presentRandomized[i] != players[-1] and attackerBestType != "":
+                attacker.KILL(presentRandomized[i], attackerBestType, time, locations, players, weapons, traits)
+
+#Finds a player's highest stat for which they own a corresponding weapon
+def highestStat(actor, locations):
+    availableTypes = available(actor.weapons, locations)
+    highestStat = ["", ""]
+    if "blunt" in availableTypes:
+        highestStat = [actor.strength, "blunt"]
+    if "medical" in availableTypes:
+        if actor.intellect > actor.strength or highestStat[1] == "":
+            highestStat = [actor.intellect, "medical"]
+    if "sharp" in availableTypes:
+        if highestStat[1] == "":
+            highestStat = [actor.nerves, "sharp"]
+        elif highestStat[1] == "blunt" and actor.nerves > actor.strength:
+            highestStat = [actor.nerves, "sharp"]
+        elif highestStat[1] == "medical" and actor.nerves > actor.intellect:
+            highestStat = [actor.nerves, "sharp"]
+    bestType = highestStat[1]
+    return bestType
+
+#Determines who to attack given a pool and wether one must be chosen
+def whoToAttack(possibilities, players, locations):
+    availableTypes = available(players[-1].weapons, locations)
+
+    vulnerability = []
+    for p in range(len(possibilities)):
+        if possibilities[p].infStrength != "none":
+            vulnerability.append(["blunt", players[-1].strength - possibilities[p].infStrength, possibilities[p].name])
+        if possibilities[p].infIntellect != "none":
+            vulnerability.append(["medical", players[-1].intellect - possibilities[p].infIntellect, possibilities[p].name])    
+        if possibilities[p].infNerves != "none":
+            vulnerability.append(["sharp", players[-1].nerves - possibilities[p].infNerves, possibilities[p].name])
+
+    if vulnerability != []:
+        sortedVulnerability = []
+        amount = len(vulnerability)
+        while len(sortedVulnerability) < amount:
+            mostVulnerable = vulnerability[0]
+            mostIndex = 0
+            for v in range(len(vulnerability)):
+                if vulnerability[v][1] > mostVulnerable[1]:
+                    mostVulnerable = vulnerability[v]
+                    mostIndex = v
+            sortedVulnerability.append(mostVulnerable)
+            vulnerability.pop(mostIndex)
+
+        search = 0
+        while search < amount:
+            if sortedVulnerability[search][0] in availableTypes and sortedVulnerability[search][1] > 0:
+                mostVulnerable = sortedVulnerability[search]
+                search = search + 100
+            search = search + 1
+        return mostVulnerable
+    else:
+        return "none"
 
 #The Enemy's Brain
 def enemyPlans(players, locations, traits, nights):
@@ -1146,63 +1225,24 @@ def enemyPlans(players, locations, traits, nights):
     x = 0
     for c in range(len(players[-1].commands)):
         if players[-1].commands[c] == "none" and x == 0:
-            rank = players[-1].rank
             highestLocations = []
             for l in range(len(locations)):
-                if locations[l].rank == rank:
+                if locations[l].rank == players[-1].rank:
                     highestLocations.append(locations[l])
             loiterChoice = random.choice(highestLocations)
-            players[-1].commands[c] = str("SABOTAGE " + loiterChoice.input) #Might as well sabotage it while hes there
+            players[-1].commands[c] = str("SABOTAGE " + loiterChoice.input) #Might as well sabotage it while he's there
             x = x + 1
 
-    #Should we try to kill someone?
-    attack = False
-    vulnerable = [players[0]]
-    for p in range(len(players)-1):
-        if players[-1].weapon.type == "blunt":
-            if players[p].infStrength != "none" and vulnerable[0].infStrength == "none":
-                vulnerable = [players[p]]
-            elif players[p].infStrength != "none" and players[p].infStrength < vulnerable[0].infStrength and players[p] != players[0]:
-                vulnerable = [players[p]]
-            elif players[p].infStrength != "none" and players[p].infStrength == vulnerable[0].infStrength and players[p] != players[0]:
-                vulnerable.append(players[p])
-            if players[p].infStrength != "none" and players[p].infStrength < players[-1].strength:
-                attack = True
-        if players[-1].weapon.type == "medical":
-            if players[p].infIntellect != "none" and vulnerable[0].infIntellect == "none":
-                vulnerable = [players[p]]
-            elif players[p].infIntellect != "none" and players[p].infIntellect < vulnerable[0].infIntellect and players[p] != players[0]:
-                vulnerable = [players[p]]
-            elif players[p].infIntellect != "none" and players[p].infIntellect == vulnerable[0].infIntellect and players[p] != players[0]:
-                vulnerable.append(players[p])
-            if players[p].infIntellect != "none" and players[p].infIntellect < players[-1].intellect:
-                attack = True
-        if players[-1].weapon.type == "sharp":
-            if players[p].infNerves != "none" and vulnerable[0].infNerves == "none":
-                vulnerable = [players[p]]
-            if players[p].infNerves != "none" and players[p].infNerves < vulnerable[0].infNerves and players[p] != players[0]:
-                vulnerable = [players[p]]
-            elif players[p].infNerves != "none" and players[p].infNerves == vulnerable[0].infNerves and players[p] != players[0]:
-                vulnerable.append(players[p])
-            if players[p].infNerves != "none" and players[p].infNerves < players[-1].nerves:
-                attack = True
-    if attack == True:
-        randomVulnerable = randomize(vulnerable)
-        mostVulnerable = randomVulnerable[0]
-        for v in range(len(randomVulnerable)):
-            if randomVulnerable[v].infStrength < mostVulnerable.infStrength:
-                mostVulnerable = randomVulnerable[v]
-            
-        #Attack the most vulnerable
+    #Attack someone maybe
+    noEnemy = players.copy()
+    noEnemy.pop(-1)
+    target = whoToAttack(noEnemy, players, locations)
+    if target != "none":
         x = 0
         for c in range(len(players[-1].commands)):
             if players[-1].commands[c][0] == "none" and x == 0:
-                players[-1].commands[c] = str("KILL " + mostVulnerable.name)
+                players[-1].commands[c] = str("KILL " + target[2] + " " + target[0])
                 x = x + 1
-                roll = [1, 2]
-                rollChoice = random.choice(roll)
-                if rollChoice == 1:
-                    players[-1].commands[c+1] = str("MEDICAL")
 
     #Spend the remaining hours training or spying
     outcomes = ["SABOTAGE"]

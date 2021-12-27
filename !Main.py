@@ -2,7 +2,7 @@ from Players import randomPlayers, readPlayerData, spawnEnemy
 import random
 import sys
 import glob
-from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
+from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, freeWeapons, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
 from Weapons import antiqueSword, captainsKnife, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
@@ -133,9 +133,16 @@ for p in range(len(players)):
             players[p].otherWeapons.append([" "])
             players[p].otherTraits.append([" "])
             players[p].otherHonors.append([" "])
-        seen(players[o], players[p], True, players, traits)
+        seen(players[o], players[p], True, players, traits, weapons)
         players[p].message = ""
 updateNotes(players, traits)
+
+#Initial weapon cards
+freeWeapons(locations, weapons, players)
+print("")
+print("WEAPON CHANGES: ")
+print(players[0].weaponChanges)
+players[0].weaponChanges = ""
 
 #################################################################### Day-Night Loop ####################################################################
 
@@ -164,8 +171,8 @@ while nights < days:
     if ran == False:
         readCommands(players)
     else:
-        randomCommands(players, locations, weapons)
-    enemyPlans(players, locations, traits, nights)
+        randomCommands(players, locations, weapons, traits)
+    enemyPlans(players, locations, traits, nights, weapons)
     
     for p in range(len(players) -1):
         players[p].endMessage += "NIGHT END: "
@@ -212,7 +219,7 @@ while nights < days:
                     actor.located = True
                     actor.message += str("\n")
                     actor.message += str("At " + hour + " you stay in " + actor.location.name + ". ")
-                elif actor.commands[h][0] == "LOITER" or actor.commands[h][0] == "AMBUSH" or actor.commands[h][0] == "ENEMY":
+                elif actor.commands[h][0] == "LOITER" or actor.commands[h][0] == "AMBUSH" or actor.commands[h][0] == "ENEMY" or actor.commands[h][0] == "WIELD":
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
@@ -271,6 +278,10 @@ while nights < days:
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.LOITER(locations[r], locations, players, weapons, False, traits)
+                if actor.commands[h][0] == "WIELD":
+                    for r in range(len(locations)):
+                        if locations[r].input == actor.commands[h][1]:
+                            actor.WIELD(locations[r], players, locations, weapons, traits)
                 if actor.commands[h][0] == "AMBUSH":
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
@@ -316,30 +327,31 @@ while nights < days:
                     nameFound = includedList[i].replace(",", "")
                     for p in range(len(players)):
                         if nameFound == players[p].name:
-                            seen(players[p], actor, False, players, traits)
+                            seen(players[p], actor, False, players, traits, weapons)
 
         for p in range (len(players)):
-            actor = players[p]
+            if players[p].alive == True:
+                actor = players[p]
 
-            #Room Actions
-            behaviorLine(actor, "barraks", "the hour sleeping", players, traits, h)
-            behaviorLine(actor, "sanitation", "the hour discarding a weapon", players, traits, h)
-            behaviorLine(actor, "gymnasium_use", "the hour working out", players, traits, h)
-            behaviorLine(actor, "gymnasium_learn", "the hour searching the gym records", players, traits, h)
-            behaviorLine(actor, "library_use", "the hour reading books", players, traits, h)
-            behaviorLine(actor, "library_learn", "the hour searching the library records", players, traits, h)
+                #Room Actions
+                behaviorLine(actor, "barraks", "the hour sleeping", players, traits, h)
+                behaviorLine(actor, "sanitation", "the hour discarding a weapon", players, traits, h)
+                behaviorLine(actor, "gymnasium_use", "the hour working out", players, traits, h)
+                behaviorLine(actor, "gymnasium_learn", "the hour searching the gym records", players, traits, h)
+                behaviorLine(actor, "library_use", "the hour reading books", players, traits, h)
+                behaviorLine(actor, "library_learn", "the hour searching the library records", players, traits, h)
 
-            #Generic Actions
-            behaviorLine(actor, "work", "the hour working", players, traits, h)
-            behaviorLine(actor, "sabotage", "the hour sabotaging", players, traits, h)
-            behaviorLine(actor, "rest", "the hour resting", players, traits, h)
-            behaviorLine(actor, "loiter", "the hour doing nothing", players, traits, h)
-            behaviorLine(actor, "dead", "dead on the floor", players, traits, h)
+                #Generic Actions
+                behaviorLine(actor, "work", "the hour working", players, traits, h)
+                behaviorLine(actor, "sabotage", "the hour sabotaging", players, traits, h)
+                behaviorLine(actor, "rest", "the hour resting", players, traits, h)
+                behaviorLine(actor, "loiter", "the hour doing nothing", players, traits, h)
+                behaviorLine(actor, "dead", "dead on the floor", players, traits, h)
 
-            #Medical
+                #Medical
 
 
-            actor.events = []
+                actor.events = []
 
 
     #Now for the bits that have to happen at the end of the night
@@ -352,11 +364,11 @@ while nights < days:
                 weaponsNoArticles.append(players[p].weaponsStolen[w].withoutArticle)
             stolen = listToString(weaponsNoArticles)
             verb = "have"
-            if len(players[p].weaponsStolen) == 1:
+            if len(players[p].weaponsStolen) == 1 and players[p].weaponsStolen != weapons[16]:
                 verb = "has"
             players[p].endMessage += str("Your " + stolen.capitalize() + " " + verb + " been stolen from you in the night. ")
         if players[p].weapons == []:
-            players[p].endMessage += str("You have no weapons.") 
+            players[p].endMessage += str("You have no weapons. ") 
         else:
             weaponNames = []
             for w in range(len(players[p].weapons)):
@@ -417,14 +429,18 @@ while nights < days:
         requiredWork(players[p], locations)
         requiredSleep(players[p], locations, traits)
 
-        #New Weapon Cards
-    
-
         #DEAD PEOPLE
     report += "\n"
     report += "REPORTED BODIES: \n"
     for p in range(len(players)):
         report = weSeeDeadPeople(players[p], locations, report, False, players)
+
+        #New Weapon Cards
+    freeWeapons(locations, weapons, players)
+    report += "\n"
+    report += "WEAPON CHANGES: \n"
+    report += players[0].weaponChanges
+    players[0].weaponChanges = ""
 
         #The Alive the Dead and the Removed
     report += "\n"
@@ -443,18 +459,19 @@ while nights < days:
         #And finally, print the messages.
     print("\n")
     for p in range(len(players)):
-        actor = players[p]
-        if actor == players[-1]:
-            print(actor.trueName + " (" + actor.name + ")")
-        else:
-            print(actor.trueName)
-        print(actor.message)
-        actor.message = ""
         if players[p].alive == True:
-            print(" ")
-            print(actor.endMessage)
-            actor.endMessage = ""
-        print("\n")
+            actor = players[p]
+            if actor == players[-1]:
+                print(actor.trueName + " (" + actor.name + ")")
+            else:
+                print(actor.trueName)
+            print(actor.message)
+            actor.message = ""
+            if players[p].alive == True:
+                print(" ")
+                print(actor.endMessage)
+                actor.endMessage = ""
+            print("\n")
     print(report)
     report = ""
 

@@ -30,7 +30,7 @@ Traits
 
     Great (-2 Points)
         Charming        You choose your shift each night.                                                           	IN  
-	Highborn	Once per night, you can demote or promote a player of your choice by 1 rank         
+	Highborn	Once per night, you can demote or promote a player of your choice by 1 rank.         
         Heroic          If you witness someone kill, you will instantly attempt to kill them.                       	IN
         Productive      A single work action completes any workload.                                                	IN
     25  Hacker          You don't have to visit a room to sabotage it.                                              	IN
@@ -63,22 +63,22 @@ To demand the truth say "An Inquisitor of the Academy asks of you...". It is ill
 
 Weapons
 
-    	Lifting Weight 		You must rest an extra hour for every attack attempt.        			IN      
-    	Major Award             Other players will always succeed in stealing your weapons.  
+    	Lifting Weight 		You must rest an extra hour for every attack attempt.        			IN (NOT FOR AI)
+    	Major Award             Other players will always succeed in stealing your weapons.  			IN
     	Encrypted Laptop     	Players can see when you are sabotaging.     
     	Heavy Briefcase         Players will deduce you having random weapons present in the game.  
     	The Prince              Every night you hold this lowers your honor by 1.
-    	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.
+    	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.	IN
 
-    	Strong Bourbon          You cannot deduce anything about other players.
+    	Strong Bourbon          You cannot deduce anything about other players.					IN
     	Aggressive Stimulants	You must complete your shift.   						IN 
     	Pet Snake       	When loitering, you will sometimes attack random players.     
 	Exotic Poison		If you fail to kill someone in combat, you die.     
     	Sleeping Pills          While resting you can be killed without a fight.  
-    	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  
+    	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  			IN
 
     	Captain's Knife         Players with a higher rank can kill you without a fight.  
-    	Antique Sword           You must attempt to kill at least one player every night.  			IN
+    	Antique Sword           You must attempt to kill at least one player every night.  			IN (NOT FOR AI)
     	Forged Keycard          You will randomly be denyed entry to rooms you are capable of accessing.  
     	Sacred Dagger           You cannot hold this weapon with negative honor.                           
     	Throwing Shurikens      You will fail to kill players if there are witnesses.  
@@ -107,6 +107,7 @@ Things to Enter
     LOITER (LOCATION)                   You vibe at a given location.
     AMBUSH (LOCATION) (Player)          If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
     ENEMY (LOCATION) (weaponType)       If you correctly match The Enemy to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY. They will attempt to kill you back if you fail.
+    WIELD (LOCATION)                   Picks up a random weapon on the floor in this room.
 
     KILL (Player) (weaponType)          Attacks a player.                   
     STEAL (Player)                      Attempts to take a player's current weapon.
@@ -124,116 +125,3 @@ Things to Enter
     ARMAMENTS                           Reports one weapon currently in use anonymously.
     SECURITY                            Reports the locations of all players anonymously.
     COMMAND                             Reports the shifts of all players anonymously.
-
-
-Possible Event Types
-    "dead" - You see a dead body.
-
-    "watch" - You are watching someone.
-
-    "dysfunctional" - The room you are trying to use is dysfunctional.
-
-    "rest" - You are resting.
-    "rest" - You see someone resting.
-
-    "work" - You are working.
-    "work" - You see someone working.
-
-    "loiter" - You are loitering.
-    "loiter" - You see someone loitering.
-
-    "barraks" - You sleep in the barraks.
-    "barraks" - You see someone sleep in the barraks.
-    "sanitation_noWeapon" - You try to discard about in sanitation, but don't have one.
-    "sanitation" - You discard a weapon in sanitation.
-
-
-
-    "sabotage_hacker" - You sabotage another room.
-    "sabotage_hacker" - You see someone sabotaging another room. (Technician)
-    "sabotage" - You sabotage the room.
-    "sabotage" - You see someone working the room.
-    "sabotage" - You see someone sabotaging the room. (Technician)
-
-    "ambush_chemist" - You attempt to ambush another room.
-    "ambush_chemist" - You are ambushed from another room.
-    "ambush_chemist_fail" - You attempt to ambush another room.
-    "ambush_fail" - You fail to ambush a player.
-    "ambush" - You ambush another player.
-    "ambush" - You are ambushed.
-    "ambush" - You see someone ambush another player.
-
-    "stealBody_Success" - You take a weapon from a body.
-    "stealBody_Success" - You see someone take a weapon from a body. (Suspicious)
-    "stealBody_nothing" - There was nothing on the body.
-    "stealBody_nothing" - You see someone search a body, but find nothing. (Suspicious)
-    "steal_success" - You steal a weapon.
-    "steal_success" - You see someone steal a weapon. (Suspicious)
-    "steal_nothing" - You search for a weapon to steal, but find nothing.
-    "steal_nothing" - You see someone search for a weapon to steal, but find nothing. (Suspicious)
-    "steal_fail" - You are caught trying to steal a weapon.
-    "steal_fail" - You catch someone trying to steal your weapon.
-    "steal_fail" - You see someone strying to steal a weapon.
-
-    "enemy_notPresent" - The enemy doens't show.
-    "enemy_noWeapon" - You try to attack the enemy, but have no weapon.
-    "enemy_bluntSuccess" - You try to kill the enemy with a blunt weapon and succeed.
-    "enemy_bluntSuccess" - You see someone kill another player with a blunt weapon. The enemy is dead.
-    "enemy_bluntFail" - You try to kill the enemy with a blunt weapon and fail.
-    "enemy_bluntFail" - You see someone try to kill another player with a blunt weapon and fail.
-    "enemy_medicalSuccess" - You try to kill the enemy with a medical weapon and succeed.
-    "enemy_medicalSuccess" - You see someone kill another player with a medical weapon. The enemy is dead.
-    "enemy_medicalFail" - You try to kill the enemy with a medical weapon and fail.
-    "enemy_medicalFail" - You see someone try to kill another player with a medical weapon and fail.
-    "enemy_sharpSuccess" - You try to kill the enemy with a sharp weapon and succeed.
-    "enemy_sharpSuccess" - You see someone kill another player with a sharp weapon. The enemy is dead.
-    "enemy_sharpFail" - You try to kill the enemy with a sharp weapon and fail.
-    "enemy_sharpFail" - You see someone try to kill another player with a sharp weapon and fail.
-    "enemyAttack_bluntSuccess" - The enemy attacks you back with a blunt weapon and succeeds.
-    "enemyAttack_bluntSuccess" - You see someone attack another player with a blunt weapon and succeed.
-    "enemyAttack_bluntFail" - The enemy attacks you back with a blunt weapon and fails.
-    "enemyAttack_bluntFail" - You see someone try to kill another player with a blunt weapon and fail.
-    "enemyAttack_medicalSuccess" - The enemy attacks you back with a medical weapon and succeeds.
-    "enemyAttack_medicalSuccess" - You see someone attack another player with a medical weapon and succeed.
-    "enemyAttack_medicalFail" - The enemy attacks you back with a medical weapon and fails.
-    "enemyAttack_medicalFail" - You see someone try to kill another player with a medical weapon and fail.
-    "enemyAttack_sharpSuccess" - The enemy attacks you back with a sharp weapon and succeeds.
-    "enemyAttack_sharpSuccess" - You see someone attack another player with a sharp weapon and succeed.
-    "enemyAttack_sharpFail" - The enemy attacks you back with a sharp weapon and fails.
-    "enemyAttack_sharpFail" - You see someone try to kill another player with a sharp weapon and fail.
-
-    "kill_body" - You find someone's body while looking to kill them.                                       IN
-    "kill_intimidate" - You are intimidated and kept from attempting to kill someone.
-    "kill_intimidate" - Your shear strength has deterred a potencial attacker.
-    "kill_bluntSuccess" - You successfully kill someone with a blunt weapon.
-    "kill_bluntSuccess" - Someone kills you with a blunt weapon.
-    "kill_bluntSuccess" - You see someone kill another player with a blunt weapon.
-    "kill_medicalSuccess" - You successfully kill someone with a medical weapon.
-    "kill_medicalSuccess" - Someone kills you with a medical weapon.
-    "kill_medicalSuccess" - You see someone kill another player with a medical weapon.
-    "kill_sharpSuccess" - You successfully kill someone with a sharp weapon.
-    "kill_sharpSuccess" - Someone kills you with a sharp weapon.
-    "kill_sharpSuccess" - You see someone kill another player with a sharp weapon.
-    "kill_bluntDefense" - You fail to kill someone with a blunt weapon and they beat you to death.
-    "kill_bluntDefense" - Someone fails to kill you with a blunt weapon and you beat them to death. (Martial Artist)
-    "kill_bluntDefense" - You see someone fail to kill another player with a blunt weapon and they are beaten to death.
-    "kill_medicalDefense" - You fail to kill someone with a medical weapon and they beat you to death.
-    "kill_medicalDefense" - Someone fails to kill you with a medical weapon and you beat them to death. (Martial Artist)
-    "kill_medicalDefense" - You see someone fail to kill another player with a medical weapon and they are beaten to death.
-    "kill_sharpDefense" - You fail to kill someone with a sharp weapon and they beat you to death.
-    "kill_sharpDefense" - Someone fails to kill you with a sharp weapon and you beat them to death. (Martial Artist)
-    "kill_sharpDefense" - You see someone fail to kill another player with a sharp weapon and they are beaten to death.
-    "kill_bluntFail" - You fail to kill someone with a blunt weapon.
-    "kill_bluntFail" - Someone fails to kill you with a blunt weapon.
-    "kill_bluntFail" - You see someone fail to kill another player with a blunt weapon.
-    "kill_medicalFail" - You fail to kill someone with a medical weapon.
-    "kill_medicalFail" - Someone fails to kill you with a medical weapon.
-    "kill_medicalFail" - You see someone fail to kill another player with a medical weapon.
-    "kill_sharpFail" - You fail to kill someone with a sharp weapon.
-    "kill_sharpFail" - Someone fails to kill you with a sharp weapon.
-    "kill_sharpFail" - You see someone fail to kill another player with a sharp weapon.
-
-
-
-
-

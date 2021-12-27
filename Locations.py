@@ -32,6 +32,7 @@ class Barraks(Location):
         self.functionality = True
         self.input = "BARRAKS"
         self.blips = 0
+        self.weapons = []
 
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -54,6 +55,7 @@ class Sanitation(Location):
         self.functionality = True
         self.input = "SANITATION"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, weapon, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -67,6 +69,7 @@ class Sanitation(Location):
 
         if players[0].debug == True:
             print(player.trueName + " throws " + weapons[int(weapon)].name + " into the incinerator in sanitation. ")
+        players[0].weaponChanges += str("-Destroy " + player.name + "'s " + weapons[int(weapon)].withoutArticle + "\n")
         witnesses = whoHere(player, "none", players, locations)
         event(witnesses, player, "none", "sanitation")
         return
@@ -80,6 +83,7 @@ class Gymnasium(Location):
         self.functionality = True
         self.input = "GYMNASIUM"
         self.blips = 0
+        self.weapons = []
         
     def use(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -113,6 +117,7 @@ class Medical(Location):
         self.functionality = True
         self.input = "MEDICAL"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -146,6 +151,7 @@ class Library(Location):
         self.functionality = True
         self.input = "LIBRARY"
         self.blips = 0
+        self.weapons = []
 
     def use(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -177,6 +183,7 @@ class Information(Location):
         self.functionality = True
         self.input = "INFORMATION"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -197,6 +204,7 @@ class Bathhouse(Location):
         self.functionality = True
         self.input = "BATHHOUSE"
         self.blips = 0
+        self.weapons = []
         
     def use(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -228,6 +236,7 @@ class Communications(Location):
         self.functionality = True
         self.input = "COMMUNICATIONS"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, target1, target2, locations, players, report, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -250,6 +259,7 @@ class Power(Location):
         self.functionality = True
         self.input = "POWER"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -271,6 +281,7 @@ class Armaments(Location):
         self.functionality = True
         self.input = "ARMAMENTS"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -295,6 +306,7 @@ class Security(Location):
         self.functionality = True
         self.input = "SECURITY"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)
@@ -334,6 +346,7 @@ class Command(Location):
         self.functionality = True
         self.input = "COMMAND"
         self.blips = 0
+        self.weapons = []
         
     def visit(self, player, locations, players, weapons, traits):
         outcome = roomCheck(self, player, players, locations, weapons, traits)

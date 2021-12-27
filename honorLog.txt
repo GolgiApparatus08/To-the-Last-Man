@@ -1,46 +1,69 @@
 NIGHT 1
-Kevin kills Sheogoth_the_Unborn: 1 -> -1
-Skylar kills Kevin: 1 -> 2
+Nathan kills Sebby: 1 -> -1
 
 THE TRIBUNAL
-Morgan voted Ryan: 1 -> -1
-Morgan voted Jun: -1 -> -2
-Morgan voted Skylar: -2 -> -3
-Morgan voted Susu: -3 -> -4
-Morgan voted Nathan: -4 -> -5
-Jun voted Ryan: 1 -> -1
-Jun voted Skylar: -1 -> -2
-Jun voted Nathan: -2 -> -3
-Skylar voted Ryan: 2 -> 1
-Skylar voted Susu: 1 -> -1
 Susu voted Ryan: 1 -> -1
-Susu voted Skylar: -1 -> -2
-Susu voted Nathan: -2 -> -3
-Nathan voted Ryan: 1 -> -1
-Nathan voted Jun: -1 -> -2
-Nathan voted Skylar: -2 -> -3
+Susu voted Sol_Invictus: -1 -> -2
+Susu voted Lisa: -2 -> -3
+Ryan voted Susu: 1 -> -1
+Ryan voted Sol_Invictus: -1 -> -2
+Ryan voted Nathan: -2 -> -1
+Ryan voted Paul: -1 -> -2
+Ryan voted Lisa: -2 -> -3
+Sol_Invictus voted Nathan: 1 -> 2
+Sol_Invictus voted Lisa: 2 -> 1
+Nathan voted Ryan: -1 -> -2
+Nathan voted Ed: -2 -> -3
+Paul voted Ryan: 1 -> -1
+Paul voted Lisa: -1 -> -2
+Lisa voted Susu: 1 -> 1 (INNOCENT)
+Lisa voted Nathan: 1 -> 2
 
 NIGHT 2
 
 THE TRIBUNAL
-Morgan voted Susu: -5 -> -4
-Susu voted Morgan: -3 -> -2
+Susu voted Sol_Invictus: -3 -> -4
+Susu voted Nathan: -4 -> -3
+Ryan voted Susu: -3 -> -2
+Ryan voted Sol_Invictus: -2 -> -3
+Ryan voted Nathan: -3 -> -2
+Sol_Invictus voted Ryan: 1 -> 2
+Sol_Invictus voted Nathan: 2 -> 3
+Sol_Invictus voted Paul: 3 -> 4
+Ed voted Susu: 1 -> 2
+Ed voted Nathan: 2 -> 3
+Nathan voted Susu: -3 -> -2
+Nathan voted Ryan: -2 -> -1
+Nathan voted Paul: -1 -> 1
 
 NIGHT 3
-Morgan kills Susu: -4 -> -2
+
+THE TRIBUNAL
+Sol_Invictus voted Ryan: 4 -> 5
+Sol_Invictus voted Ed: 5 -> 4
+Sol_Invictus voted Paul: 4 -> 5
 
 NIGHT 4
+
+THE TRIBUNAL
+Sol_Invictus voted Ryan: 5 -> 6
+Sol_Invictus voted Ed: 6 -> 5
+Sol_Invictus voted Paul: 5 -> 6
+Ed voted Ryan: 3 -> 4
+Ed voted Sol_Invictus: 4 -> 3
+Ed voted Paul: 3 -> 4
+Paul voted Ryan: -2 -> -1
 
 NIGHT 5
 
 
 FINAL HONORS
-Jun: -3
-Nathan: -3
-Morgan: -2
-Susu: -2
-Kevin: -1
-Skylar: -1
-Ryan: 1
-Sheogoth_the_Unborn: 1
+Susu: -3
+Ryan: -2
+Paul: -1
+Nathan: 1
+Sebby: 1
 The Enemy: 1
+Lisa: 2
+Ed: 4
+Sol_Invictus: 6

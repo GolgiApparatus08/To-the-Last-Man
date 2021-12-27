@@ -1,12 +1,11 @@
 -lots of player attributes do not currently save
--add weapon spawning
 -Report "rowdy" stat increases at end of nights
--tribunal text is not integrated 
--random players dont attack each other for some reason
--Weapon update notifications for moving cards
+-finish text
+-make deducing "no weapon" possible
+-finish implementing trait and weapon effects
 
 Running 3.0 Dev Log:
 -Added updating player notes
--Added traits 
--Integrated text
--Can have multiple weapons
+-Integrated text: Paragraphs should be much shorter because players doing the same thing are now listed together
+-Weapon Overhaul: You can now own multiple weapons, can permanently steal them, and they nerf the holder
+-Added traits: Player buffs which stay with you the whole game

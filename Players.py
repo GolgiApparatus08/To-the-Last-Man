@@ -57,6 +57,7 @@ class Player:
         self.otherHonors = []
         self.previousLocation = location
         self.allWeapons = []
+        self.weaponChanges = ""
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -136,7 +137,7 @@ class Player:
         if traits[27] in self.traits and target.location == room and target.alive == True:
             target.alive = False
             target.causeOfDeath = "a medical weapon"
-            newHonor(self, target, players, traits)
+            newHonor(self, target, players, traits, weapons)
             if players[0].debug == True:
                 print(self.trueName + " kills " + target.name + " with a trap in " + room.name + " from " + self.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
@@ -161,7 +162,7 @@ class Player:
 
         target.alive = False
         target.causeOfDeath = "an ambush"
-        newHonor(self, target, players, traits)
+        newHonor(self, target, players, traits, weapons)
         if players[0].debug == True:
                 print(self.trueName + " ambushes and kills " + target.name + " in " + room.name + ". ")
         witnesses = whoHere(self, target, players, locations)
@@ -297,6 +298,28 @@ class Player:
         if players[0].debug == True:
             print(self.trueName + " watches " + target.name + " closely. ")
         self.LOITER(self.location, locations, players, weapons, False, traits)
+
+    def WIELD(self, room, players, locations, weapons, traits):
+        if self.alive == False:
+            self.DEAD(locations, players)
+            return
+        if self.location != room:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+        if room.weapons == []:
+            event([], self, "none", "wield_noWeapon")
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+
+        index = random.randint(0, len(room.weapons)-1)
+        players[0].weaponChanges += str("-Add the " + room.weapons[index].withoutArticle + " from " + room.name + " to " + self.trueName + "'s hand \n")
+        self.weapons.append(room.weapons[index])
+        room.weapons.pop(index)
+        if players[0].debug == True:
+            print(self.trueName + " aquires " + self.weapons[-1].name + " in " + room.name + ". ")
+        witnesses = whoHere(self, "none", players, locations)
+        event(witnesses, self, "none", "wield")
+        return
         
     def STEAL(self, target, locations, players, weapons, traits):
         def newOwner(thief, victum):
@@ -305,12 +328,16 @@ class Player:
             thief.weapons.append(weapon)
             victum.weapons.pop(weaponIndex)
             victum.weaponsStolen.append(weapon)
+            players[0].weaponChanges += str("-Move " + victum.name + "'s " + weapon.withoutArticle + " to " + thief.trueName + "'s hand \n")
             return weapon
 
         if self.alive == False:
             self.DEAD(locations, players)
             return
         if self.location != target.location:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+        if traits[39] in self.traits:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
         if target.alive == False and target.weapons != []:
@@ -331,7 +358,7 @@ class Player:
 
         outcomes = [1, 2, 3, 4, 5, 6, 7, 8]
         roll = random.choice(outcomes)
-        if self.nerves >= roll:
+        if self.nerves >= roll or weapons[1] in target.weapons:
             if target.weapons != []:
                 stolen = newOwner(self, target)
                 if players[0].debug == True:
@@ -408,7 +435,7 @@ class Player:
             if attributeSelf > attributeTarget:
                 target.alive = False
                 target.causeOfDeath = causeofDeath
-                newHonor(self, target, players, traits)
+                newHonor(self, target, players, traits, weapons)
                 if players[0].debug == True:
                     print(self.trueName + " kills " + target.name + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
@@ -419,8 +446,8 @@ class Player:
                 if traits[34] in target.traits and self != players[-1]:
                     self.alive = False
                     self.causeOfDeath = causeofDeath
-                    newHonor(self, target, players, traits)
-                    newHonor(target, self, players, traits)
+                    newHonor(self, target, players, traits, weapons)
+                    newHonor(target, self, players, traits, weapons)
                     if players[0].debug == True:
                         print(self.trueName + " fails to kill " + target.name + " and is beat to death in " + target.location.name + ". ")
                     witnesses = whoHere(self, target, players, locations)

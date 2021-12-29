@@ -1,87 +1,73 @@
 Traits
 
-	Inquisitor	A psychological savant trained since birth by the Academy, you always know when you are being lied to (you can privatly demand the truth) but have severly underdeveloped coordination (you cannot use weapons).
-	Imperial Heir	You wanted to see what life was like for the other half. Now that you have, you owe it to your country to survive at all costs (you cannot win by honor). Your royal blood allows you to use The Voice (once per player, you can issue a command which cannot be refused).
-
-    Bad (+1 Point)
-        Confessor      	As a member of the sacred Order of Confession, you are authorized to do whatever you deem fit in service of the Gods (you never lose honor) but have taken a vow of honesty (you cannot lie to other players).                                          IN
-        
-    Good (-1 Point)
-    1   Arrogant        Your rank cannot be deduced.                                                         		IN
-    2   Heavyset        Your strength cannot be deduced.                                                		IN
-    3   Eccentric       Your intellect cannot be deduced.                                                    		IN
-    4   Stuttering      Your nerves cannot be deduced.                                                       		IN
-    5   Hoarder         Your weapons cannot be deduced.	   		                                            	IN
-    6   Lazy            Your shift cannot be deduced.                                              			IN
-        Fickle          Your traits cannot be deduced.									IN
-        Technician      You will see when players are sabotaging.							IN
-        Detective       You can deduce a player's previous location.							IN
-        Bodyguard       Players in your location must pass an intimidation check against you to kill someone.
-        Drunk           You never have to sleep but cannot work.  							IN                
-        Depressive      Before the tribunal, you can gain any marks of your choice. 
-        Vindictive      Players that vote against you cannot intimidate you the following night.  			IN
-        Drama Queen     In the second half of the night you look like a body whenever you arn't doing something.	IN
-        Prying          You know who decides not to show up at the tribunal (when you attend).				IN
-    16  Rowdy           One of your attributes improves by 1 everytime you attempt to kill.                         	IN
-        Patriotic       You will know The Enemy when you see them.                                                  	IN               
-    18  Philosophical   You can deduce a player's honor.                                                            	IN
-        Mysterious      Information about you does not show up when visiting rooms.
-        Suspicious      You will see when players steal weapons successfully.
-
-    Great (-2 Points)
-        Charming        You choose your shift each night.                                                           	IN  
-	Highborn	Once per night, you can demote or promote a player of your choice by 1 rank.         
-        Heroic          If you witness someone kill, you will instantly attempt to kill them.                       	IN
-        Productive      A single work action completes any workload.                                                	IN
-    25  Hacker          You don't have to visit a room to sabotage it.                                              	IN
-        Sociable        Your rank is ignored when you WATCH someone.
-        Chemist         You don't have to visit a room to ambush it.                                                	IN
-        Doctor          You never show marks from fights.                                                           	IN
-        Bodybuilder    	It only takes 1 action to gain strength from the gym.
-        Bookworm        It only takes 1 action to gain intellect from the library.
-        Relaxed         It only takes 1 action to gain nerves from the bathhouse.
-
-    Incredible (-3 Points)
-    32  Curious         You deduce at double the rate.                                                              	IN
-    33  Ruthless        If someone witnesses you kill, you will instantly attempt to kill them.                     	IN
-        Martial Artist  You kill a player if they fail to kill you.                                                 	IN
-        Deep Sleeper    Your rests all have the effect of using the barraks.                                        	IN
-        Mercenary       You can produce a weapon in one action.
-        Ambitious       Everytime you gain an attribute, a random attribute improves by 1.
-
-
-IMPERIAL HEIR RULES
-To use The Voice say "You Emperor commands you...". It is illegal for any other player to say this under any circumstances.
-Things you can command:
-	-not to vote against... (Indefinite)
-	-to vote against... (Once)
-	-to claim... (Indefinite) 		///The Confessor CAN lie if asked.
-	-to carry out [action]. (Once the following night. They get to choose the hour)
-
-INQUISITOR RULES
-To demand the truth say "An Inquisitor of the Academy asks of you...". It is illegal for any other player to say this under any circumstances.
+    0	Occult		For every weapon you destroy, you may decide the outcome of a roll.		NOT IN
+    1   Arrogant	Players cannot deduce your rank.        					
+    2   Hulking	        players cannot deduce your strength.						
+    3   Eccentric       Players cannot deduce your intellect.						
+    4   Confident	Players cannot deduce your nerves.      					
+    5   Hoarding       	Players cannot deduce your weapons.						
+    6   Lazy            Players cannot deduce your shift.       					
+        Fickle          Players cannot deduce your traits.						
+        Technician      You can tell if a player is sabotaging.						
+        Detective       You can deduce a player's previous location.					
+        Bodyguard       You protect targets in your location with an intimidation check.		
+        Drunk           You never have to sleep but cannot work.					     
+        Depressive      You can use dysfunctional rooms.			 			NOT IN
+        Vindictive      Players that vote against you cannot intimidate you the following night.	
+        Drama Queen     You look like a body when loitering during the second half of the night.	
+        Prying          You know who chooses not to show up to the tribunal.				
+    16  Rowdy           One attribute improves everytime you attempt to kill.				
+        Patriotic       You can see the enemy.								
+    18  Philosophical   You can deduce other player's honor.						
+        Mysterious      Info about you does not show up when visiting rooms.				NOT IN
+        Untrusting      You will see players steal weapons.						NOT IN
+        Charming        You can pick your shift.							
+	Highborn	Once per night, add or subtract 1 rank from a player.				NOT IN
+        Heroic          If you witness a kill you will instantly attack the killer.			
+        Productive      A single work action completes any workload.					
+    25  Hacker          You don't need to visit a location to sabotage it.				
+        Sociable        Your rank is ignored when you WATCH.						NOT IN
+        Cunning         You don't have to visit a room to ambush it.					
+        Doctor          You never show marks from fights.                                              
+        Bodybuilder    	You gain double the strength when working out.					NOT IN
+        Bookworm        You gain double the intellect when reading.					NOT IN
+        Relaxed         You gain double the nerves when bathing.					NOT IN
+    32  Curious         You deduce at double the rate.                                                 
+    33  Ruthless        You will instantly attack witnesses.				         	
+        Martial Artist  You kill a player if they fail to kill you.                                    	
+        Deep Sleeper    Your rests all have the effect of using the barraks.                           	
+        Mercenary      	You know the specific identities of room weapons.				NOT IN
+        Ambitious       Everytime you gain an attribute, a random attribute improves by 1.		NOT IN
+	Imperial Heir	You cannot win by honor but can command each player once.			NOT IN
+	Inquisitor	You can privatly demand the truth but cannot hold weapons.			NOT IN
+    40  Flesh Weaver	You can adopt others' attributes but showing up at the tribunal will out you.	NOT IN
+	Blood Shade	You cannot be harmed but will die if one death does not occur each day.		NOT IN
+	Hearthfire	You cannot be harmed but will die when half of other players are dead.		NOT IN
+	Confessor      	You never lose honor and cannot lie to other players.                         
 
 Weapons
-
-    	Lifting Weight 		You must rest an extra hour for every attack attempt.        			IN (NOT FOR AI)
+		Blunt
+    	Lifting Weight 		You must rest an extra hour for every planned attack attempt.        		IN (NOT FOR AI)
     	Major Award             Other players will always succeed in stealing your weapons.  			IN
-    	Encrypted Laptop     	Players can see when you are sabotaging.     
-    	Heavy Briefcase         Players will deduce you having random weapons present in the game.  
-    	The Prince              Every night you hold this lowers your honor by 1.
+    	Encrypted Laptop     	Other players can see when you are sabotaging.     				IN
+    	Heavy Briefcase         Other players can tell how many weapons you have and of which types. 		IN
+    	The Prince              You never gain honor while holding this weapon.					
     	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.	IN
 
-    	Strong Bourbon          You cannot deduce anything about other players.					IN
-    	Aggressive Stimulants	You must complete your shift.   						IN 
+		Medical
+    	Strong Bourbon          You cannot deduce anything about other players while holding this.		IN
+    	Aggressive Stimulants	In so far as possible, you must work enough to complete your shift.   		IN
     	Pet Snake       	When loitering, you will sometimes attack random players.     
-	Exotic Poison		If you fail to kill someone in combat, you die.     
-    	Sleeping Pills          While resting you can be killed without a fight.  
+	Exotic Poison		If you fail to kill another player in combat, you die.     
+    	Sleeping Pills          If another player attacks you while you're resting, you die without a fight.
     	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  			IN
 
-    	Captain's Knife         Players with a higher rank can kill you without a fight.  
+		Sharp
+    	Officer's Knife         You always lose fights to players with a higher rank.  				IN
     	Antique Sword           You must attempt to kill at least one player every night.  			IN (NOT FOR AI)
-    	Forged Keycard          You will randomly be denyed entry to rooms you are capable of accessing.  
-    	Sacred Dagger           You cannot hold this weapon with negative honor.                           
-    	Throwing Shurikens      You will fail to kill players if there are witnesses.  
+    	Forged Keycard          You will randomly be denyed entry to locations you can otherwise enter.
+    	Sacred Blade           	You always lose fights to players with a higher honor than you.              	IN          
+    	Throwing Shurikens      You will fail to kill players if there are any witnesses present.  
 	Improvised Shiv		You always show up to the tribunal with cuts.                                                         
 
 Location Dysfunctionality
@@ -95,7 +81,7 @@ Location Dysfunctionality
     Bathhouse           The nerves of corpses are not announced.            				IN
     Communications      Players cannot communicate privatly.                				IN
     Power               Players do not witness other players actions.       				IN
-    Armaments           Players can choose their current weapon.
+    Armaments           Players can use any type of weapon.						IN
     Security            Corpses are not announced.                          				IN
     Commands            Players can access any location regardless of their rank.      		        IN		                                               
 
@@ -107,14 +93,14 @@ Things to Enter
     LOITER (LOCATION)                   You vibe at a given location.
     AMBUSH (LOCATION) (Player)          If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
     ENEMY (LOCATION) (weaponType)       If you correctly match The Enemy to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY. They will attempt to kill you back if you fail.
-    WIELD (LOCATION)                   Picks up a random weapon on the floor in this room.
+    WIELD (LOCATION)                   	Picks up a random weapon on the floor in this room.
 
     KILL (Player) (weaponType)          Attacks a player.                   
     STEAL (Player)                      Attempts to take a player's current weapon.
     WATCH (Player)                      Follows a player to wherever they end up during the hour.
 
-    BARRAKS                             For every hour the barraks is used, a player must sleep one less hour the following night.
-    SANITATION                          Removes current weapon from the game.
+    BARRAKS                             For every hour the barraks is used, a player must rest one less hour the following night. Counts as a rest.
+    SANITATION                          Removes a weapon of your choice from your hand.
     GYMNASIUM ("use" or "learn")        "use":  For every two visits raises your strength by 1.     "learn":    Reports all players strengths anonymously.
     MEDICAL                             Heals all signs of struggle.
     LIBRARY ("use" or "learn")          "use":  For every two visits raises your intellect by 1.    "learn":    Reports all players intellects anonymously.
@@ -122,6 +108,17 @@ Things to Enter
     BATHHOUSE ("use" or "learn")        "use":  For every two visits raises your nerves by 1.       "learn":    Reports all players nerves anonymously.
     COMMUNICATIONS (Player) (Player)    Reports all communications shared between two specific players the following day.
     POWER                               For every hour power is used, a player must work one less hour the following night to complete their shift.
-    ARMAMENTS                           Reports one weapon currently in use anonymously.
+    ARMAMENTS                           Reports the identities of all unclaimed weapons.
     SECURITY                            Reports the locations of all players anonymously.
     COMMAND                             Reports the shifts of all players anonymously.
+
+IMPERIAL HEIR RULES
+To use The Voice say "You Emperor commands you...". It is illegal for any other player to say this under any circumstances.
+Things you can command:
+	-not to vote against... (Indefinite)
+	-to vote against... (Once)
+	-to claim... (Indefinite) 		///The Confessor CAN lie if asked.
+	-to carry out [action]. (Once the following night. They get to choose the hour)
+
+INQUISITOR RULES
+Use the action INQUIRE (Player) to gain the ability to demand one truthful answer from that player through the moderator the following day. It has the same effect as WATCH.

@@ -101,13 +101,13 @@ class neurotoxicGas(Weapon):
         self.index = "11"
         self.withoutArticle = "neurotoxic gas"
 
-class captainsKnife(Weapon):
+class officersKnife(Weapon):
     def __init__(self):
-        self.name = "the captain's knife"
+        self.name = "an officer's knife"
         self.type = "sharp"
         self.used = False
         self.index = "12"
-        self.withoutArticle = "captain's knife"
+        self.withoutArticle = "officer's knife"
 
 class antiqueSword(Weapon):
     def __init__(self):
@@ -125,13 +125,13 @@ class forgedKeycard(Weapon):
         self.index = "14"
         self.withoutArticle = "forged keycard"
 
-class sacredDagger(Weapon):
+class sacredBlade(Weapon):
     def __init__(self):
-        self.name = "a sacred dagger"
+        self.name = "a sacred blade"
         self.type = "sharp"
         self.used = False
         self.index = "15"
-        self.withoutArticle = "sacred dagger"
+        self.withoutArticle = "sacred blade"
 
 class throwingShurikens(Weapon):
     def __init__(self):

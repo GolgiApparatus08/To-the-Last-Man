@@ -4,7 +4,7 @@ import sys
 import glob
 from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, freeWeapons, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
-from Weapons import antiqueSword, captainsKnife, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, sacredDagger, throwingShurikens, improvisedShiv
+from Weapons import antiqueSword, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, officersKnife, sacredBlade, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
 
 ran = True
@@ -22,10 +22,10 @@ weapons.append(petSnake())
 weapons.append(exoticPoison())
 weapons.append(sleepingPills())
 weapons.append(neurotoxicGas())
-weapons.append(captainsKnife())
+weapons.append(officersKnife())
 weapons.append(antiqueSword())
 weapons.append(forgedKeycard())
-weapons.append(sacredDagger())
+weapons.append(sacredBlade())
 weapons.append(throwingShurikens())
 weapons.append(improvisedShiv())
 
@@ -43,14 +43,22 @@ locations.append(Armaments())
 locations.append(Security())
 locations.append(Command())
 
-traits = []
-traits.append(Trait("Confessor", "a ", 0, ["Imperial Heir", "Inquisitor"]))
+roleRestrictions = [
+    "Imperial Heir",
+    "Inquisitor",
+    "Flesh Weaver",
+    "Blood Shade",
+    "Hearthfire",
+    "Confessor"
+]
 
+traits = []
+traits.append(Trait("Occult", "", 0, []))
 traits.append(Trait("Arrogant", "", 1, []))
-traits.append(Trait("Heavyset", "", 1, []))
+traits.append(Trait("Hulking", "", 1, []))
 traits.append(Trait("Eccentric", "", 1, []))
-traits.append(Trait("Stuttering", "", 1, []))
-traits.append(Trait("Hoarder", "", 1, []))
+traits.append(Trait("Confident", "", 1, []))
+traits.append(Trait("Hoarding", "", 1, []))
 traits.append(Trait("Lazy", "", 1, []))
 traits.append(Trait("Fickle", "", 1, []))
 traits.append(Trait("Technician", "a ", 1, []))
@@ -65,8 +73,7 @@ traits.append(Trait("Rowdy", "", 1, []))
 traits.append(Trait("Patriotic", "", 1, []))
 traits.append(Trait("Philosophical", "", 1, []))
 traits.append(Trait("Mysterious", "", 1, []))
-traits.append(Trait("Suspicious", "", 1, []))
-
+traits.append(Trait("Untrusting", "", 1, []))
 traits.append(Trait("Charming", "", 2, []))
 traits.append(Trait("Highborn", "", 2, []))
 traits.append(Trait("Heroic", "", 2, []))
@@ -78,16 +85,18 @@ traits.append(Trait("Doctor", "a ", 2, []))
 traits.append(Trait("Bodybuilder", "a ", 2, []))
 traits.append(Trait("Bookworm", "a ", 2, []))
 traits.append(Trait("Relaxed", "", 2, []))
-
 traits.append(Trait("Curious", "", 3, []))
 traits.append(Trait("Ruthless", "", 3, []))
 traits.append(Trait("Martial Artist", "a ", 3, []))
 traits.append(Trait("Deep Sleeper", "a ", 3, []))
 traits.append(Trait("Mercenary", "a ", 3, []))
 traits.append(Trait("Ambitious", "", 3, []))
-
-traits.append(Trait("Imperial Heir", "an ", 0, ["Confessor", "Inquisitor"]))
-traits.append(Trait("Inquisitor", "an ", 0, ["Imperial Heir", "Confessor"]))
+traits.append(Trait("Imperial Heir", "the ", 0, roleRestrictions))
+traits.append(Trait("Inquisitor", "an ", 0, roleRestrictions))
+traits.append(Trait("Flesh Weaver", "a ", 0, roleRestrictions))
+traits.append(Trait("Blood Shade", "a ", 0, roleRestrictions))
+traits.append(Trait("Hearthfire", "the ", 0, roleRestrictions))
+traits.append(Trait("Confessor", "the ", 0, roleRestrictions))
 
 numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"]
 
@@ -116,7 +125,10 @@ shifts(players, locations, traits)
 
 #Set up knowledge banks
 for p in range(len(players)):
-    for o in range(len(players)-1):
+    banks = len(players)-1
+    if traits[17] in players[p].traits:
+        banks = banks + 1
+    for o in range(banks):
         if players[o] == players[p]:
             players[p].otherRanks.append([players[p].rank])
             players[p].otherStrengths.append([players[p].strength])
@@ -135,7 +147,7 @@ for p in range(len(players)):
             players[p].otherHonors.append([" "])
         seen(players[o], players[p], True, players, traits, weapons)
         players[p].message = ""
-updateNotes(players, traits)
+updateNotes(players, traits, weapons)
 
 #Initial weapon cards
 freeWeapons(locations, weapons, players)
@@ -309,7 +321,7 @@ while nights < days:
            
         #Create Hourly Messages
         def behaviorLine(actor, activityInput, activityOutput, players, traits, nightPhase):
-            included = activityString(actor, activityInput, traits, nightPhase)
+            included = activityString(actor, activityInput, traits, nightPhase, weapons)
             if included != "":
                 verb = "spend"
                 if activityInput == "dead":
@@ -338,6 +350,7 @@ while nights < days:
                 behaviorLine(actor, "sanitation", "the hour discarding a weapon", players, traits, h)
                 behaviorLine(actor, "gymnasium_use", "the hour working out", players, traits, h)
                 behaviorLine(actor, "gymnasium_learn", "the hour searching the gym records", players, traits, h)
+
                 behaviorLine(actor, "library_use", "the hour reading books", players, traits, h)
                 behaviorLine(actor, "library_learn", "the hour searching the library records", players, traits, h)
 
@@ -362,7 +375,7 @@ while nights < days:
             weaponsNoArticles = []
             for w in range(len(players[p].weaponsStolen)):
                 weaponsNoArticles.append(players[p].weaponsStolen[w].withoutArticle)
-            stolen = listToString(weaponsNoArticles)
+            stolen = listToString(weaponsNoArticles, True)
             verb = "have"
             if len(players[p].weaponsStolen) == 1 and players[p].weaponsStolen != weapons[16]:
                 verb = "has"
@@ -373,7 +386,7 @@ while nights < days:
             weaponNames = []
             for w in range(len(players[p].weapons)):
                 weaponNames.append(players[p].weapons[w].name)
-            weaponsOwned = listToString(weaponNames)
+            weaponsOwned = listToString(weaponNames, True)
             verb = "s are"
             if len(weaponNames) == 1:
                 verb = " is"     
@@ -475,7 +488,7 @@ while nights < days:
     print(report)
     report = ""
 
-    updateNotes(players, traits)
+    updateNotes(players, traits, weapons)
 
         #Check for game ends
     livingPlayers = []
@@ -494,7 +507,7 @@ while nights < days:
         #Do the tribunal
     demotion(players, traits)
     theTribunal(players, locations, weapons, report, traits)
-    updateNotes(players, traits)
+    updateNotes(players, traits, weapons)
 
         #Check for game ends
     livingPlayers = []

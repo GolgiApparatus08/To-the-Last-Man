@@ -1,7 +1,7 @@
 from os import name
 import random
 import sys
-from Functions import available, doTheyDefend, event, freeRest, getHurt, highestStat, newHonor, printHonor, whoHere, whoToAttack, workload, bloodFeud
+from Functions import available, doTheyDefend, event, getHurt, highestStat, newHonor, whoHere, whoToAttack, workload, bloodFeud
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, location, traits):
@@ -379,15 +379,29 @@ class Player:
             event(witnesses, self, target, "steal_fail")
 
     def KILL(self, target, weaponType, time, locations, players, weapons, traits):
-        if self.location != target.location:    #In the right place?
+        #Make sure there in the right place
+        if self.location != target.location:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
-        if target.alive == False:                   #Target alive?
+        #Make sure their target isn't already dead
+        if target.alive == False:
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "kill_body")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
-        defend = doTheyDefend(self, target, traits)         #Target defends?
+        #Check for bodyguards
+        for p in range(len(players)):           
+            if players[p].location == self.location:
+                if traits[10] in players[p].traits:
+                    defend = doTheyDefend(self, players[p], traits)
+                    if defend == "pass":
+                        if players[0].debug == True:
+                            print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but is scared away by " + players[p].name + ". ")
+                        event([], self, players[p], "bodyguard")
+                        self.LOITER(self.location, locations, players, weapons, True, traits)
+                        return
+        #Check if the target intimidates
+        defend = doTheyDefend(self, target, traits)
         if defend == "pass":
             if players[0].debug == True:
                 print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but is scared away. ")
@@ -395,6 +409,7 @@ class Player:
             event(witnesses, self, target, "kill_intimidate")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
+        #Make sure they have access to the weapontype they want to use
         availableTypes = available(self.weapons, locations)
         if weaponType not in availableTypes:
             if players[0].debug == True:
@@ -402,7 +417,7 @@ class Player:
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "kill_noWeapon")
             self.LOITER(self.location, locations, players, weapons, True, traits)
-        
+            return
 
         self.initiatedFights = self.initiatedFights + 1
         def fightType(weaponType):
@@ -432,7 +447,27 @@ class Player:
                 fail = "kill_sharpFail"
 
             getHurt(self, target, wounds, traits)
-            if attributeSelf > attributeTarget:
+            #Check for instant failure based on weapons
+            weaponFailsThem = False
+            weaponFailsYou = False
+            if weapons[15] in self.weapons and self.honor < target.honor:
+                weaponFailsYou = True
+            if weapons[12] in self.weapons and self.rank < target.rank:
+                weaponFailsYou = True
+            if weapons[15] in target.weapons and target.honor < self.honor:
+                weaponFailsThem = True
+            if weapons[12] in target.weapons and target.rank < self.rank:
+                weaponFailsThem = True
+            if attributeSelf > attributeTarget and weaponFailsYou == False:
+                outcome = "success"
+            elif attributeSelf <= attributeTarget and weaponFailsThem == True and weaponFailsYou == False:
+                outcome = "success"
+            elif attributeSelf > attributeTarget and weaponFailsYou == True and weaponFailsThem == False:
+                outcome = "failure"
+            elif attributeSelf <= attributeTarget and weaponFailsThem == False:
+                outcome = "failure"
+
+            if outcome == "success":
                 target.alive = False
                 target.causeOfDeath = causeofDeath
                 newHonor(self, target, players, traits, weapons)

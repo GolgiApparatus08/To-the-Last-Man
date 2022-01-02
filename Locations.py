@@ -16,7 +16,7 @@ def roomCheck(self, player, players, locations, weapons, traits):
     if player.location != self:
         player.LOITER(player.location, locations, players, weapons, False, traits)
         return False
-    if self.functionality == False:
+    if self.functionality == False and traits[12] not in player.traits:
         witnesses = whoHere(player, "none", players, locations)
         event(witnesses, player, "none", "dysfunctional")
         player.LOITER(player.location, locations, players, weapons, False, traits)
@@ -70,6 +70,8 @@ class Sanitation(Location):
         if players[0].debug == True:
             print(player.trueName + " throws " + weapons[int(weapon)].name + " into the incinerator in sanitation. ")
         players[0].weaponChanges += str("-Destroy " + player.name + "'s " + weapons[int(weapon)].withoutArticle + "\n")
+        if traits[0] in player.traits:
+            player.offerings = player.offerings + 1
         witnesses = whoHere(player, "none", players, locations)
         event(witnesses, player, "none", "sanitation")
         return
@@ -91,6 +93,8 @@ class Gymnasium(Location):
             return
 
         player.gymnasiumVisits = player.gymnasiumVisits + 1
+        if traits[29] in player.traits:
+            player.gymnasiumVisits = player.gymnasiumVisits + 1
         if players[0].debug == True:
             print(player.trueName + " works out in the gymnasium. ")
         witnesses = whoHere(player, "none", players, locations)
@@ -159,6 +163,8 @@ class Library(Location):
             return
 
         player.libraryVisits = player.libraryVisits + 1
+        if traits[30] in player.traits:
+            player.libraryVisits = player.libraryVisits + 1
         if players[0].debug == True:
             print(player.trueName + " reads books in the library. ")
         witnesses = whoHere(player, "none", players, locations)
@@ -212,6 +218,8 @@ class Bathhouse(Location):
             return
 
         player.bathhouseVisits = player.bathhouseVisits + 1
+        if traits[31] in player.traits:
+            player.bathhouseVisits = player.bathhouseVisits + 1
         if players[0].debug == True:
             print(player.trueName + " relaxes in the bathhouse. ")
         witnesses = whoHere(player, "none", players, locations)

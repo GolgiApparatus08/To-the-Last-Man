@@ -2,7 +2,7 @@ from Players import randomPlayers, readPlayerData, spawnEnemy
 import random
 import sys
 import glob
-from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, freeWeapons, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
+from Functions import activityString, answer, checkAccess, clearLoop, demotion, enemyPlans, freeRest, freeWeapons, honorLog, howMany, listToString, load, locate, printHonor, randomCommands, randomize, readCommands, remind, requiredSleep, requiredWork, roomPoints, save, scratches, seen, shifts, theTribunal, updateNotes, weSeeDeadPeople, enemyPlans
 from Traits import Trait
 from Weapons import antiqueSword, exoticPoison, humanSkull, liftingWeight, encryptedLaptop, heavyBriefcase, majorAward, officersKnife, sacredBlade, strongBourbon, thePrince, aggressiveStimulants, petSnake, sleepingPills, neurotoxicGas, forgedKeycard, throwingShurikens, improvisedShiv
 from Locations import Barraks, Sanitation, Gymnasium, Medical, Library, Information, Bathhouse, Communications, Power, Armaments, Security, Command
@@ -185,7 +185,18 @@ while nights < days:
     else:
         randomCommands(players, locations, weapons, traits)
     enemyPlans(players, locations, traits, nights, weapons)
-    
+    for p in range(len(players)):
+        if traits[0] in players[p].traits:
+            traits[0].rituals = []
+            selection = answer("Ritual of battle? ", ["Yes", "No", ""])
+            if selection == "Yes":
+                traits[0].rituals.append("intimidate")
+            selection = answer("Ritual of wisdom? ", ["Yes", "No", ""])
+            if selection == "Yes":
+                traits[0].rituals.append("deduce")
+            selection = answer("Ritual of fortune? ", ["Yes", "No", ""])
+            if selection == "Yes":
+                traits[0].rituals.append("steal")
     for p in range(len(players) -1):
         players[p].endMessage += "NIGHT END: "
     report += str("COMMS: \n")
@@ -216,7 +227,7 @@ while nights < days:
                 for r in range(len(locations)):
                     if locations[r].input == actor.commands[h][0]:
                         actor.located = True
-                        checkAccess(actor, locations[r], False, hour, locations)
+                        checkAccess(actor, locations[r], actor.commands[h][0], hour, locations, traits)
                 
                 if actor.commands[h][0] == "SABOTAGE" and traits[25] in actor.traits:
                     actor.located = True
@@ -226,16 +237,16 @@ while nights < days:
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
-                            checkAccess(actor, locations[r], True, hour, locations)
+                            checkAccess(actor, locations[r], actor.commands[h][0], hour, locations, traits)
                 if actor.commands[h][0] == "AMBUSH" and traits[27] in actor.traits:
                     actor.located = True
                     actor.message += str("\n")
                     actor.message += str("At " + hour + " you stay in " + actor.location.name + ". ")
-                elif actor.commands[h][0] == "LOITER" or actor.commands[h][0] == "AMBUSH" or actor.commands[h][0] == "ENEMY" or actor.commands[h][0] == "WIELD":
+                elif actor.commands[h][0] == "LOITER" or actor.commands[h][0] == "AMBUSH" or actor.commands[h][0] == "ENEMY" or actor.commands[h][0] == "WIELD" or actor.commands[h][0] == "DROP":
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.located = True
-                            checkAccess(actor, locations[r], False, hour, locations)
+                            checkAccess(actor, locations[r], actor.commands[h][0], hour, locations, traits)
 
         #We go through and move around the tricky buggers that reference other players locations (KILL, WATCH, STEAL)
         for p in range(len(players)):
@@ -243,11 +254,11 @@ while nights < days:
                 players[i].visited = False
             inALoop = []
             if players[p].located == False:
-                outcome = locate(players, players[p], h, inALoop, locations, hour)
+                outcome = locate(players, players[p], h, inALoop, locations, hour, traits)
                 if outcome == "loop":
                     clearLoop(players, inALoop)
                     if players[p].located == False:
-                        locate(players, players[p], h, inALoop, locations, hour)
+                        locate(players, players[p], h, inALoop, locations, hour, traits)
 
         #Ok, now for the actions themselves
         playersRandomized = randomize(players)
@@ -294,6 +305,11 @@ while nights < days:
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
                             actor.WIELD(locations[r], players, locations, weapons, traits)
+                if actor.commands[h][0] == "DROP":
+                    for r in range(len(locations)):
+                        if locations[r].input == actor.commands[h][1]:
+                            weaponIndex = actor.commands[h][2] 
+                            actor.DROP(weaponIndex, locations[r], players, locations, weapons, traits)
                 if actor.commands[h][0] == "AMBUSH":
                     for r in range(len(locations)):
                         if locations[r].input == actor.commands[h][1]:
@@ -308,7 +324,7 @@ while nights < days:
                 if actor.commands[h][0] == "KILL":
                     for p in range(len(players)):
                         if players[p].trueName == actor.commands[h][1]:
-                            actor.KILL(players[p], actor.commands[h][2], hour, locations, players, weapons, traits)
+                            actor.KILL(players[p], actor.commands[h][2], locations, players, weapons, traits)
                 if actor.commands[h][0] == "STEAL":
                     for p in range(len(players)):
                         if players[p].trueName == actor.commands[h][1]:
@@ -505,6 +521,7 @@ while nights < days:
         sys.exit()
 
         #Do the tribunal
+    scratches(players, weapons)
     demotion(players, traits)
     theTribunal(players, locations, weapons, report, traits)
     updateNotes(players, traits, weapons)

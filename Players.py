@@ -1,7 +1,7 @@
 from os import name
 import random
 import sys
-from Functions import available, doTheyDefend, event, getHurt, highestStat, newHonor, whoHere, whoToAttack, workload, bloodFeud
+from Functions import available, doTheyDefend, event, getHurt, highestStat, magic, newHonor, whoHere, whoToAttack, workload, bloodFeud
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, location, traits):
@@ -58,6 +58,7 @@ class Player:
         self.previousLocation = location
         self.allWeapons = []
         self.weaponChanges = ""
+        self.offerings = 0
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -71,10 +72,16 @@ class Player:
             return
         if players[0].debug == True and self.location != locations[0]:
             print(self.trueName + " is resting in " + self.location.name + ". ")
+
+        #Can they use the barraks instead
+        bed = False
+        if self.location == locations[0]:
+            if locations[0].functionality == True or traits[12] in self.traits:
+                bed = True
         
-        if self.location == locations[0] and locations[0].functionality == True:   #Barraks
+        if bed == True:
             self.location.visit(self, locations, players, weapons, traits)
-        else:                               #Anywhere else
+        else:                        
             witnesses = whoHere(self, "none", players, locations)
             event(witnesses, self, "none", "rest")
 
@@ -118,11 +125,29 @@ class Player:
         if self.alive == False:
             self.DEAD(locations, players)
             return
-        if room == locations[0] and self.location == locations[0] and locations[0].functionality == True:
-            locations[0].visit(self, locations, players, weapons, traits)
-            return
         if self.location != room:
             self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+
+        #Snake randomly attacks?
+        witnesses = whoHere(self, "none", players, locations)
+        if weapons[8] in self.weapons and taskCompleted == False and witnesses != []:
+            outcomes = [1, 2, 3, 4]
+            roll = random.choice(outcomes)
+            if roll < 2:
+                target = random.choice(witnesses)
+                bestType = highestStat(self, locations)
+                self.KILL(target, bestType, locations, players, weapons, traits)
+                return
+
+        #Can they use the barraks instead
+        bed = False
+        if room == locations[0]:
+            if locations[0].functionality == True or traits[12] in self.traits:
+                bed = True
+
+        if bed == True:
+            locations[0].visit(self, locations, players, weapons, traits)
             return
         if players[0].debug == True and taskCompleted == False:
             print(self.trueName + " is loitering in " + self.location.name + ". ")
@@ -167,7 +192,7 @@ class Player:
                 print(self.trueName + " ambushes and kills " + target.name + " in " + room.name + ". ")
         witnesses = whoHere(self, target, players, locations)
         event(witnesses, self, target, "ambush")
-        bloodFeud(self, witnesses, players, weapons, time, locations, traits)
+        bloodFeud(self, witnesses, players, weapons, locations, traits)
         return
 
     def ENEMY(self, weaponType, room, locations, players, weapons, traits):
@@ -310,6 +335,9 @@ class Player:
             event([], self, "none", "wield_noWeapon")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
+        if traits[39] in self.traits:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
 
         index = random.randint(0, len(room.weapons)-1)
         players[0].weaponChanges += str("-Add the " + room.weapons[index].withoutArticle + " from " + room.name + " to " + self.trueName + "'s hand \n")
@@ -320,6 +348,30 @@ class Player:
         witnesses = whoHere(self, "none", players, locations)
         event(witnesses, self, "none", "wield")
         return
+
+    def DROP(self, weapon, room, players, locations, weapons, traits):
+        if self.alive == False:
+            self.DEAD(locations, players)
+            return
+        if self.location != room:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+        if weapons[weapon] not in self.weapons:
+            event([], self, "none", "drop_noWeapon")
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+
+        players[0].weaponChanges += str("-Remove the " + weapons[weapon].withoutArticle + " from " + self.trueName + "'s hand to " + room.name + ". ")
+        room.weapons.append(weapons[weapon])
+        for w in range(len(self.weapons)):
+            if weapons[weapon] == self.weapons[w]:
+                self.weapons.pop(w)
+        if players[0].debug == True:
+            print(self.trueName + " discards " + weapons[weapon].name + " in " + room.name + ". ")
+        witnesses = whoHere(self, "none", players, locations)
+        event(witnesses, self, "none", "drop")
+        return
+
         
     def STEAL(self, target, locations, players, weapons, traits):
         def newOwner(thief, victum):
@@ -356,8 +408,7 @@ class Player:
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
 
-        outcomes = [1, 2, 3, 4, 5, 6, 7, 8]
-        roll = random.choice(outcomes)
+        roll = magic(self, target, "steal", traits)
         if self.nerves >= roll or weapons[1] in target.weapons:
             if target.weapons != []:
                 stolen = newOwner(self, target)
@@ -378,7 +429,7 @@ class Player:
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "steal_fail")
 
-    def KILL(self, target, weaponType, time, locations, players, weapons, traits):
+    def KILL(self, target, weaponType, locations, players, weapons, traits):
         #Make sure there in the right place
         if self.location != target.location:
             self.LOITER(self.location, locations, players, weapons, False, traits)
@@ -475,7 +526,7 @@ class Player:
                     print(self.trueName + " kills " + target.name + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, success)
-                bloodFeud(self, witnesses, players, weapons, time, locations, traits)
+                bloodFeud(self, witnesses, players, weapons, locations, traits)
                 return
             else:
                 if traits[34] in target.traits and self != players[-1]:

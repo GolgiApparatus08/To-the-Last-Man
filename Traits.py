@@ -4,3 +4,4 @@ class Trait:
         self.aricle = article
         self.value = value
         self.contras = contras
+        self.rituals = []

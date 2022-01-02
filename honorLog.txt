@@ -1,69 +1,139 @@
 NIGHT 1
-Nathan kills Sebby: 1 -> -1
+The_Buddha kills Jesus: 1 -> 1 (CONFESSOR)
 
 THE TRIBUNAL
-Susu voted Ryan: 1 -> -1
-Susu voted Sol_Invictus: -1 -> -2
-Susu voted Lisa: -2 -> -3
-Ryan voted Susu: 1 -> -1
-Ryan voted Sol_Invictus: -1 -> -2
-Ryan voted Nathan: -2 -> -1
-Ryan voted Paul: -1 -> -2
-Ryan voted Lisa: -2 -> -3
-Sol_Invictus voted Nathan: 1 -> 2
-Sol_Invictus voted Lisa: 2 -> 1
-Nathan voted Ryan: -1 -> -2
-Nathan voted Ed: -2 -> -3
-Paul voted Ryan: 1 -> -1
-Paul voted Lisa: -1 -> -2
-Lisa voted Susu: 1 -> 1 (INNOCENT)
-Lisa voted Nathan: 1 -> 2
+Julius_Caesar voted Morgan: 1 -> -1
+Julius_Caesar voted Nathan: -1 -> -2
+Julius_Caesar voted Jesus: -2 -> -3
+Julius_Caesar voted Nate: -3 -> -4
+Julius_Caesar voted The_Buddha: -4 -> -5
+Julius_Caesar voted Skylar: -5 -> -6
+Nathan voted Julius_Caesar: 1 -> -1
+Nathan voted Morgan: -1 -> -2
+Nathan voted Jesus: -2 -> -3
+Nathan voted Nate: -3 -> -4
+Nathan voted Scott: -4 -> -5
+Nathan voted Jun: -5 -> -5 (CONFESSOR/NEUROTOXIC GAS)
+Kevin voted Julius_Caesar: 1 -> -1
+Kevin voted Morgan: -1 -> -2
+Kevin voted Nate: -2 -> -3
+Kevin voted Scott: -3 -> -4
+Kevin voted The_Buddha: -4 -> -5
+Kevin voted Skylar: -5 -> -6
+Nate voted Scott: 1 -> -1
+Nate voted Jun: -1 -> -1 (CONFESSOR/NEUROTOXIC GAS)
+Scott voted Julius_Caesar: 1 -> -1
+Scott voted Morgan: -1 -> -2
+Scott voted Kevin: -2 -> -3
+Scott voted Jesus: -3 -> -4
+Scott voted Nate: -4 -> -5
+Scott voted The_Buddha: -5 -> -6
+Scott voted Jun: -6 -> -6 (CONFESSOR/NEUROTOXIC GAS)
+Scott voted Sheogoth_the_Unborn: -6 -> -7
+Scott voted Skylar: -7 -> -8
+The_Buddha voted Julius_Caesar: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
+The_Buddha voted Kevin: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
+The_Buddha voted Jesus: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
+The_Buddha voted Jun: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
+Christian voted Morgan: 1 -> -1
+Christian voted Jesus: -1 -> -2
+Christian voted Scott: -2 -> -3
+Christian voted Sheogoth_the_Unborn: -3 -> -4
+Jun voted Nathan: 1 -> -1
+Jun voted Jesus: -1 -> -2
+Jun voted Scott: -2 -> -3
+Jun voted The_Buddha: -3 -> -4
+Jun voted Christian: -4 -> -5
+Jun voted Skylar: -5 -> -6
+Sheogoth_the_Unborn voted Julius_Caesar: 1 -> -1
+Sheogoth_the_Unborn voted Morgan: -1 -> -2
+Sheogoth_the_Unborn voted Nathan: -2 -> -3
+Sheogoth_the_Unborn voted Kevin: -3 -> -4
+Sheogoth_the_Unborn voted Nate: -4 -> -5
+Sheogoth_the_Unborn voted Scott: -5 -> -6
 
 NIGHT 2
+Jun kills Christian: -6 -> -2
+Jun kills Julius_Caesar: -2 -> 4
+Sheogoth_the_Unborn kills The_Buddha: -6 -> -7
+Nate kills Jun: -1 -> -1 (NEUROTOXIC GAS)
 
 THE TRIBUNAL
-Susu voted Sol_Invictus: -3 -> -4
-Susu voted Nathan: -4 -> -3
-Ryan voted Susu: -3 -> -2
-Ryan voted Sol_Invictus: -2 -> -3
-Ryan voted Nathan: -3 -> -2
-Sol_Invictus voted Ryan: 1 -> 2
-Sol_Invictus voted Nathan: 2 -> 3
-Sol_Invictus voted Paul: 3 -> 4
-Ed voted Susu: 1 -> 2
-Ed voted Nathan: 2 -> 3
-Nathan voted Susu: -3 -> -2
-Nathan voted Ryan: -2 -> -1
-Nathan voted Paul: -1 -> 1
+Nathan voted Julius_Caesar: -5 -> -4
+Nathan voted The_Buddha: -4 -> -5
+Nathan voted Christian: -5 -> -4
+Nathan voted Sheogoth_the_Unborn: -4 -> -3
+Kevin voted Nate: -6 -> -5
+Kevin voted Christian: -5 -> -4
+Nate voted Nathan: -1 -> 1
+Sheogoth_the_Unborn voted Julius_Caesar: -7 -> -6
+Sheogoth_the_Unborn voted Nathan: -6 -> -5
+Sheogoth_the_Unborn voted Kevin: -5 -> -4
+Sheogoth_the_Unborn voted The_Buddha: -4 -> -5
+Skylar voted Nate: 1 -> 2
+Skylar voted The_Buddha: 2 -> 1
+Skylar voted Christian: 1 -> 2
 
 NIGHT 3
 
 THE TRIBUNAL
-Sol_Invictus voted Ryan: 4 -> 5
-Sol_Invictus voted Ed: 5 -> 4
-Sol_Invictus voted Paul: 4 -> 5
+Nathan voted Kevin: -3 -> -2
+Nathan voted Christian: -2 -> -1
+Nathan voted Skylar: -1 -> -2
+Kevin voted Nathan: -4 -> -3
+Kevin voted Christian: -3 -> -2
+Kevin voted Sheogoth_the_Unborn: -2 -> -1
+Nate voted Christian: 1 -> 2
+Nate voted Sheogoth_the_Unborn: 2 -> 3
+Sheogoth_the_Unborn voted Kevin: -5 -> -4
+Sheogoth_the_Unborn voted Nate: -4 -> -5
+Sheogoth_the_Unborn voted Christian: -5 -> -4
+Sheogoth_the_Unborn voted Skylar: -4 -> -5
 
 NIGHT 4
+Skylar kills Sheogoth_the_Unborn: 2 -> 7
+Nate kills Nathan: 3 -> 5
 
 THE TRIBUNAL
-Sol_Invictus voted Ryan: 5 -> 6
-Sol_Invictus voted Ed: 6 -> 5
-Sol_Invictus voted Paul: 5 -> 6
-Ed voted Ryan: 3 -> 4
-Ed voted Sol_Invictus: 4 -> 3
-Ed voted Paul: 3 -> 4
-Paul voted Ryan: -2 -> -1
+Skylar voted Nathan: 7 -> 8
+Skylar voted Kevin: 8 -> 9
+Skylar voted Nate: 9 -> 8
+Skylar voted Sheogoth_the_Unborn: 8 -> 9
 
 NIGHT 5
 
+THE TRIBUNAL
+Kevin voted Nathan: -1 -> 1
+Kevin voted Sheogoth_the_Unborn: 1 -> 2
+Nate voted Kevin: 5 -> 6
+Nate voted Sheogoth_the_Unborn: 6 -> 7
+Nate voted Skylar: 7 -> 6
+
+NIGHT 6
+
+THE TRIBUNAL
+Kevin voted Nathan: 2 -> 3
+Nate voted Nathan: 6 -> 7
+Skylar voted Kevin: 9 -> 8
+
+NIGHT 7
+
+THE TRIBUNAL
+Kevin voted Nate: 3 -> 2
+Skylar voted Kevin: 8 -> 7
+
 
 FINAL HONORS
-Susu: -3
-Ryan: -2
-Paul: -1
-Nathan: 1
-Sebby: 1
+Scott: -8
+Julius_Caesar: -6
+Sheogoth_the_Unborn: -5
+Christian: -4
+Nathan: -2
+Morgan: 1
+Jesus: 1
+The_Buddha: 1
 The Enemy: 1
-Lisa: 2
-Ed: 4
-Sol_Invictus: 6
+Kevin: 2
+Jun: 4
+Nate: 7
+Skylar: 7

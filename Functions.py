@@ -337,7 +337,12 @@ def randomCommands(players, locations, weapons, traits):
 
             commandHours = [0, 1, 2, 3, 4, 5, 6, 7]
             #Pick Rest Hours randomly
+            if players[p].weapons != []:
+                outcomes = [0, 1]
+                attackAttempts = random.choice(outcomes)
             hoursToRest = players[p].requiredSleep
+            if weapons[0] in players[p].weapons:
+                hoursToRest = hoursToRest + attackAttempts
             for i in range(hoursToRest):
                 roll = random.randint(0,len(commandHours) - 1)
                 restHour = commandHours[roll]
@@ -354,43 +359,47 @@ def randomCommands(players, locations, weapons, traits):
                         workHour = commandHours[roll]
                         players[p].commands[workHour] = str("WORK " + players[p].shift.input)
                         commandHours.pop(roll)
+            #Sometimes attack
+            playersToTarget = []
+            for i in range(len(players)-1):
+                if players[i].reported == False and players[i] != players[p]:
+                    playersToTarget.append(players[i])
+            while attackAttempts > 0:
+                if len(commandHours) > 0:
+                    roll = random.randint(0,len(commandHours) - 1)
+                    target = random.choice(playersToTarget)
+                    bestType = highestStat(players[p], locations)
+                    attackHour = commandHours[roll]
+                    players[p].commands[attackHour] = str("KILL" + " " + target.name + " " + bestType)
+                    commandHours.pop(roll)
+                attackAttempts = attackAttempts - 1
             #Sometimes go for free weapons
             room = wieldForDummies(players[p], locations)
             if room != "none" and traits[39] not in players[p].traits:
-                roll = random.randint(0,len(commandHours) - 1)
-                wieldHour = commandHours[roll]
-                players[p].commands[wieldHour] = str("WIELD " + room.input)
-                commandHours.pop(roll)
+                if len(commandHours) > 0:
+                    roll = random.randint(0,len(commandHours) - 1)
+                    wieldHour = commandHours[roll]
+                    players[p].commands[wieldHour] = str("WIELD " + room.input)
+                    commandHours.pop(roll)
             #Randomly pick actions for remaining hours
             actions = [
                 "SABOTAGE",
                 "LOITER",
                 "AMBUSH",
                 "WATCH",
-                "BARRAKS",
-                "GYMNASIUM",
-                "MEDICAL",
-                "LIBRARY",
-                "INFORMATION",
-                "BATHHOUSE",
-                "COMMUNICATIONS",
-                "POWER",
-                "ARMAMENTS",
-                "SECURITY",
-                "COMMAND"
             ]
             if players[p].weapons != []:
-                actions.append("KILL")
-                actions.append("KILL")
-                actions.append("KILL")
-                actions.append("SANITATION")
+                if locations[1].functionality == True or traits[12] in players[p].traits:
+                    actions.append("SANITATION")
+                else:
+                    actions.append("DROP")
             if traits[39] not in players[p].traits:
                 actions.append("STEAL")
+            for l in range(len(locations)):
+                if locations[l] != locations[1]:
+                    if locations[l].functionality == True or traits[12] in players[p].traits:
+                        actions.append(locations[l].input)
 
-            playersToTarget = []
-            for i in range(len(players)-1):
-                if players[i].reported == False and players[i] != players[p]:
-                    playersToTarget.append(players[i])
             for c in range(len(players[p].commands)):
                 if players[p].commands[c] == "none":
                     command = random.choice(actions)
@@ -404,10 +413,13 @@ def randomCommands(players, locations, weapons, traits):
                     if command == "WATCH" or command == "STEAL":
                         target = random.choice(playersToTarget)
                         players[p].commands[c] = str(command + " " + target.name)
-                    if command == "KILL":
-                        target = random.choice(playersToTarget)
-                        bestType = highestStat(players[p], locations)
-                        players[p].commands[c] = str(command + " " + target.name + " " + bestType)
+                    if command == "DROP":
+                        weaponToChuck = random.choice(players[p].weapons)
+                        room = random.choice(locations)
+                        for w in range(len(weapons)):
+                            if weaponToChuck == weapons[w]:
+                                weaponIndex = w
+                        players[p].commands[c] = str(command + " " + room.input + " " + str(weaponIndex))
                     for l in range(len(locations)):
                         if locations[l].input == command and (l == 2 or l == 4 or l == 6):
                             players[p].commands[c] = str(command + " use")
@@ -416,7 +428,7 @@ def randomCommands(players, locations, weapons, traits):
                             for w in range(len(weapons)):
                                 if weaponToChuck == weapons[w]:
                                     weaponIndex = w
-                            players[p].commands[c] = str(command + " " + str(w))
+                            players[p].commands[c] = str(command + " " + str(weaponIndex))
                         elif locations[l].input == command and l == 7:
                             equal = True
                             while equal == True:
@@ -435,6 +447,21 @@ def randomCommands(players, locations, weapons, traits):
             if players[0].debug == True:
                 print(players[p].trueName + " command's have been read! \n")
 
+#Random choice that might not be so random after all ;)
+def magic(actor, target, ritual, traits):
+    doOffering = False
+    if ritual in traits[0].rituals:
+        doOffering = True
+    if actor.offerings > 0 and doOffering == True:
+        actor.offerings = actor.offerings - 1
+        return 1
+    elif actor.offerings > 0 and doOffering == True:
+        target.offerings = target.offerings - 1
+        return 8
+    else:
+        outcomes = [1, 2, 3, 4, 5, 6, 7, 8]
+        return random.choice(outcomes)
+
 #Gives Living Players Shifts
 def shifts(players, locations, traits):
     shiftsToChoose = locations.copy()
@@ -442,14 +469,13 @@ def shifts(players, locations, traits):
     for p in range(len(players)-1):
         if players[p].reported == False:
             playersToAssign.append(players[p])
+    playersToAssign = randomize(playersToAssign)
 
-    aShiftWasChosen = False
     player = "none"
     for pa in range(len(playersToAssign)):
         if traits[21] in playersToAssign[pa].traits:
             player = playersToAssign[pa]
             playerIndex = pa
-            aShiftWasChosen = True
 
     if player != "none":
         if players[0].ran == True:
@@ -467,14 +493,12 @@ def shifts(players, locations, traits):
                 print(player.trueName + "'s shift is now " + str(player.shift) + "! ")
                 shiftsToChoose.pop(l)
                 playersToAssign.pop(playerIndex)
-
-    if aShiftWasChosen == False:
+    else:
         print("SHIFTS: ")
     for pa in range(len(playersToAssign)):
         roll = random.randint(0, len(shiftsToChoose)-1)
-        playerShift = shiftsToChoose[roll]
+        playersToAssign[pa].shift = shiftsToChoose[roll]
         shiftsToChoose.pop(roll)
-        playersToAssign[pa].shift = playerShift
         playersToAssign[pa].shift.workload = playersToAssign[pa].shift.workload + playersToAssign[pa].requiredWork
         print(playersToAssign[pa].trueName + "'s shift is now " + str(playersToAssign[pa].shift) + "! ")
 
@@ -490,7 +514,7 @@ def randomize(original):
     return randomized
 
 #Attempts to send a player to a room. Is called anytime a players location might require updating. Checks if they can access the room, sends them to a location accordingly and tells them about it.
-def checkAccess(player, room, WORK, hour, locations):
+def checkAccess(player, room, action, hour, locations, traits):
     if player.alive == False:
         return
     if player.location == room:
@@ -504,9 +528,11 @@ def checkAccess(player, room, WORK, hour, locations):
             canAccess = True
         elif player.rank >= room.rank:
             canAccess = True
-        elif player.shift == room and WORK == True:
+        elif player.shift == room and action == "WORK":
             canAccess = True
         elif locations[11].functionality == False:
+            canAccess = True
+        elif action == "WATCH" and traits[26] in player.traits:
             canAccess = True
         if canAccess == True:
             player.location = room
@@ -521,33 +547,33 @@ def checkAccess(player, room, WORK, hour, locations):
                 print("MOVE: " + player.trueName + " failed to access " + room.name + " and returned to " + player.location.name + ". ")
 
 #If the locate function gets caught in a loop, this fixes it and then abandons the function so it can try again
-def resolveLoop(inALoop, hour, locations):
+def resolveLoop(inALoop, hour, locations, time, traits):
     for r in range(6):
         for l in range(len(inALoop)):
             if inALoop[l].location.rank == r + 1:
                 inALoop[l].located = True
-                checkAccess(inALoop[l], inALoop[l].location, False, hour, locations)
+                checkAccess(inALoop[l], inALoop[l].location, inALoop[l].commands[time][0], hour, locations, traits)
                 return
 
 #Finds the player in questions target and sees if they have been located. If they are, it sends the player there, if not it trys to locate them.
-def locate(players, player, time, inALoop, locations, hour):
+def locate(players, player, time, inALoop, locations, hour, traits):
     player.visited = True
     inALoop.append(player)
     for p in range(len(players)):
         if players[p].trueName == player.commands[time][1]:
             if players[p].visited == True:
-                resolveLoop(inALoop, hour, locations)
+                resolveLoop(inALoop, hour, locations, time, traits)
                 return "loop"
             else:
                 if players[p].located == True:
                     player.located = True
-                    checkAccess(player, players[p].location, False, hour, locations)
+                    checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits)
                     return "located"
                 else:
-                    outcome = locate(players, players[p], time, inALoop, locations, hour)
+                    outcome = locate(players, players[p], time, inALoop, locations, hour, traits)
                     if outcome == "located":
                         player.located = True
-                        checkAccess(player, players[p].location, False, hour, locations)
+                        checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits)
                         return "located"
                     else:
                         return "loop"
@@ -715,11 +741,10 @@ def seen(seen, witness, freebi, players, traits, weapons):
     if weapons[6] in witness.weapons:                               #WEAPON DEBUFF: Strong Bourbon
         chances = 0
     while chances > 0:
-        rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
         if freebi == True:
             roll = 1
         else:
-            roll = random.choice(rollOutcomes)
+            roll = magic(witness, seen, "deduce", traits)
         if witness.intellect >= roll:
             howMuch = howMuch + 1
         chances = chances - 1
@@ -873,11 +898,12 @@ def seen(seen, witness, freebi, players, traits, weapons):
 
 #Checks for and spawns weapons in rooms
 def freeWeapons(locations, weapons, players):
+    idealWeapons = math.ceil((len(players) - 1) / 4)
     freeWeapons = []
     for l in range(len(locations)):
         for lw in range(len(locations[l].weapons)):
             freeWeapons.append(locations[l].weapons[lw])
-    if len(freeWeapons) < 3:
+    if len(freeWeapons) < idealWeapons:
         weaponsToChoose = []
         for w in range(len(weapons)):
             available = True
@@ -893,8 +919,8 @@ def freeWeapons(locations, weapons, players):
                             available = False
             if available == True:
                 weaponsToChoose.append(weapons[w])
-        if len(weaponsToChoose) > 3 - len(freeWeapons):
-            while len(freeWeapons) < 3:
+        if len(weaponsToChoose) > idealWeapons - len(freeWeapons):
+            while len(freeWeapons) < idealWeapons:
                 weaponPlaced = random.randint(0, len(weaponsToChoose)-1)
                 roomPlaced = random.choice(locations)
                 players[0].weaponChanges += str("-Spawn the " + weaponsToChoose[weaponPlaced].withoutArticle + " in " + roomPlaced.name + "\n")
@@ -904,8 +930,7 @@ def freeWeapons(locations, weapons, players):
 
 #Roll that decides if a player defends when they are attacked
 def doTheyDefend(attacker, target, traits):
-    rollOutcomes = [1, 2, 3, 4, 5, 6, 7, 8]
-    roll = random.choice(rollOutcomes)
+    roll = magic(target, attacker, "intimidate", traits)
     if target in attacker.accusers and traits[13] in attacker.traits:
         return "fail"
     if roll > target.strength:
@@ -1218,8 +1243,14 @@ def workload(actor, room, traits):
     else:
         room.workload = room.workload - 1
 
+#Adds cuts to whoever has the Improvised Shiv before the tribunal
+def scratches(players, weapons):
+    for p in range(len(players)):
+        if weapons[16] in players[p].weapons:
+            players[p].marks.append("cuts")
+
 #Finds out if anyone attacks in response to a murder or witnessing of a murder
-def bloodFeud(attacker, present, players, weapons, time, locations, traits):
+def bloodFeud(attacker, present, players, weapons, locations, traits):
     if present != []:
         attackerBestType = highestStat(attacker, locations)
         presentRandomized = randomize(present)
@@ -1227,10 +1258,10 @@ def bloodFeud(attacker, present, players, weapons, time, locations, traits):
             presentBestType = highestStat(presentRandomized[i], locations)
             #If the witness is Heroic, they attack the attacker
             if traits[23] in presentRandomized[i].traits and presentRandomized[i].alive == True and attacker.alive == True and attacker != players[-1] and presentBestType != "":
-                presentRandomized[i].KILL(attacker, presentBestType, time, locations, players, weapons, traits)
+                presentRandomized[i].KILL(attacker, presentBestType, locations, players, weapons, traits)
             #If the attacker is Ruthless, they attack the witness
             if traits[33] in attacker.traits and presentRandomized[i].alive == True and attacker.alive == True and presentRandomized[i] != players[-1] and attackerBestType != "":
-                attacker.KILL(presentRandomized[i], attackerBestType, time, locations, players, weapons, traits)
+                attacker.KILL(presentRandomized[i], attackerBestType, locations, players, weapons, traits)
 
 #Finds a player's highest stat for which they own a corresponding weapon
 def highestStat(actor, locations):
@@ -1372,16 +1403,21 @@ def enemyPlans(players, locations, traits, nights, weapons):
         x = 0
         for c in range(len(players[-1].commands)):
             if players[-1].commands[c][0] == "none" and x == 0:
+                if locations[1].functionality == True or traits[12] in players[-1].traits:
                     players[-1].commands[c] = str("SANITATION " + str(index))
+                    x = x + 1
+                else:
+                    room = random.choice(locations)
+                    players[-1].commands[c] = str("DROP " + room.input + " " + str(index))
                     x = x + 1
 
     #Spend the remaining hours training or sabotaging
     outcomes = ["SABOTAGE"]
-    if locations[2].functionality == True:
+    if locations[2].functionality == True or traits[12] in players[-1].traits:
         outcomes.append("GYMNASIUM use")
-    if locations[4].functionality == True:
+    if locations[4].functionality == True or traits[12] in players[-1].traits:
         outcomes.append("LIBRARY use")
-    if locations[6].functionality == True:
+    if locations[6].functionality == True or traits[12] in players[-1].traits:
         outcomes.append("BATHHOUSE use")
     for c in range(len(players[-1].commands)):
         if players[-1].commands[c] == "none":

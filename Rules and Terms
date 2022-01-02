@@ -1,6 +1,6 @@
 Traits
 
-    0	Occult		For every weapon you destroy, you may decide the outcome of a roll.		NOT IN
+    0	Occult		For every weapon you destroy, the outcome of a roll is rigged in your favor.
     1   Arrogant	Players cannot deduce your rank.        					
     2   Hulking	        players cannot deduce your strength.						
     3   Eccentric       Players cannot deduce your intellect.						
@@ -12,105 +12,113 @@ Traits
         Detective       You can deduce a player's previous location.					
         Bodyguard       You protect targets in your location with an intimidation check.		
         Drunk           You never have to sleep but cannot work.					     
-        Depressive      You can use dysfunctional rooms.			 			NOT IN
+        Depressive      You can use dysfunctional rooms.			 
         Vindictive      Players that vote against you cannot intimidate you the following night.	
         Drama Queen     You look like a body when loitering during the second half of the night.	
         Prying          You know who chooses not to show up to the tribunal.				
-    16  Rowdy           One attribute improves everytime you attempt to kill.				
+   16  	Rowdy           One attribute improves everytime you attempt to kill.				
         Patriotic       You can see the enemy.								
-    18  Philosophical   You can deduce other player's honor.						
+   18  	Philosophical   You can deduce other player's honor.						
         Mysterious      Info about you does not show up when visiting rooms.				NOT IN
         Untrusting      You will see players steal weapons.						NOT IN
         Charming        You can pick your shift.							
-	Highborn	Once per night, add or subtract 1 rank from a player.				NOT IN
+	Highborn	Once per night, add or subtract 1 rank from a player.
         Heroic          If you witness a kill you will instantly attack the killer.			
         Productive      A single work action completes any workload.					
-    25  Hacker          You don't need to visit a location to sabotage it.				
-        Sociable        Your rank is ignored when you WATCH.						NOT IN
+   25  	Hacker          You don't need to visit a location to sabotage it.				
+        Sociable        Your rank is ignored when you WATCH.
         Cunning         You don't have to visit a room to ambush it.					
         Doctor          You never show marks from fights.                                              
-        Bodybuilder    	You gain double the strength when working out.					NOT IN
-        Bookworm        You gain double the intellect when reading.					NOT IN
-        Relaxed         You gain double the nerves when bathing.					NOT IN
-    32  Curious         You deduce at double the rate.                                                 
-    33  Ruthless        You will instantly attack witnesses.				         	
+        Bodybuilder    	You gain double the strength when working out.				
+        Bookworm        You gain double the intellect when reading.				
+        Relaxed         You gain double the nerves when bathing.				
+   32  	Curious         You deduce at double the rate.                                                 
+   33  	Ruthless        You will instantly attack witnesses.				         	
         Martial Artist  You kill a player if they fail to kill you.                                    	
         Deep Sleeper    Your rests all have the effect of using the barraks.                           	
         Mercenary      	You know the specific identities of room weapons.				NOT IN
         Ambitious       Everytime you gain an attribute, a random attribute improves by 1.		NOT IN
+
 	Imperial Heir	You cannot win by honor but can command each player once.			NOT IN
 	Inquisitor	You can privatly demand the truth but cannot hold weapons.			NOT IN
-    40  Flesh Weaver	You can adopt others' attributes but showing up at the tribunal will out you.	NOT IN
+   40  	Flesh Weaver	You can adopt others' attributes but showing up at the tribunal will out you.	NOT IN
 	Blood Shade	You cannot be harmed but will die if one death does not occur each day.		NOT IN
 	Hearthfire	You cannot be harmed but will die when half of other players are dead.		NOT IN
-	Confessor      	You never lose honor and cannot lie to other players.                         
+	Confessor      	You never lose honor but cannot lie to other players.                         
 
-Weapons
+Weapons				Debuff
 		Blunt
-    	Lifting Weight 		You must rest an extra hour for every planned attack attempt.        		IN (NOT FOR AI)
-    	Major Award             Other players will always succeed in stealing your weapons.  			IN
-    	Encrypted Laptop     	Other players can see when you are sabotaging.     				IN
-    	Heavy Briefcase         Other players can tell how many weapons you have and of which types. 		IN
-    	The Prince              You never gain honor while holding this weapon.					
-    	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.	IN
+    0	Lifting Weight 		You must rest an extra hour for every planned attack attempt.
+    1	Major Award             Other players will always succeed in stealing your weapons.  			
+    2	Encrypted Laptop     	Other players can see when you are sabotaging.     				
+    3	Heavy Briefcase         Other players can tell how many weapons you have and of which types. 	
+    4	The Prince              You never gain honor while holding this weapon.					NOT IN
+    5	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.	 
 
 		Medical
-    	Strong Bourbon          You cannot deduce anything about other players while holding this.		IN
-    	Aggressive Stimulants	In so far as possible, you must work enough to complete your shift.   		IN
-    	Pet Snake       	When loitering, you will sometimes attack random players.     
-	Exotic Poison		If you fail to kill another player in combat, you die.     
-    	Sleeping Pills          If another player attacks you while you're resting, you die without a fight.
-    	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  			IN
+    6	Strong Bourbon          You cannot deduce anything about other players while holding this.		
+    7	Aggressive Stimulants	In so far as possible, you must work enough to complete your shift.   		
+    8	Pet Snake       	When loitering, you will sometimes attack random players.     		
+    9	Exotic Poison		If you fail to kill another player in combat, you die.     			NOT IN
+   10 	Sleeping Pills          If another player attacks you while you're resting, you die without a fight.	NOT IN
+   11 	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  			
 
 		Sharp
-    	Officer's Knife         You always lose fights to players with a higher rank.  				IN
-    	Antique Sword           You must attempt to kill at least one player every night.  			IN (NOT FOR AI)
-    	Forged Keycard          You will randomly be denyed entry to locations you can otherwise enter.
-    	Sacred Blade           	You always lose fights to players with a higher honor than you.              	IN          
-    	Throwing Shurikens      You will fail to kill players if there are any witnesses present.  
-	Improvised Shiv		You always show up to the tribunal with cuts.                                                         
+   12 	Officer's Knife         You always lose fights to players with a higher rank.  				
+   13 	Antique Sword           You must attempt to kill at least one player every night.  			ADD TO AI
+   14 	Forged Keycard          You will randomly be denyed entry to locations you can otherwise enter.		NOT IN
+   15 	Sacred Blade           	You always lose fights to players with a higher honor than you.                   
+   16 	Throwing Shurikens      You will fail to kill players if there are any witnesses present.  		NOT IN
+   17	Improvised Shiv		You always show up to the tribunal with cuts.  				
+   18	VR Plug			If you die in the game, you die in real life.                                              
 
 Location Dysfunctionality
 
-    Barraks      	Players must spend an extra action resting the following night.             	IN
-    Sanitation          Players must spend an extra action to finish shifts the following night.	IN
-    Gymnasium           The strength of corpses are not announced.          				IN
-    Medical             Causes of death are not announced.                 				IN
-    Library             The intellects of corpses are not announced.         				IN
-    Information         The ranks of corpses are not announced.              				IN
-    Bathhouse           The nerves of corpses are not announced.            				IN
-    Communications      Players cannot communicate privatly.                				IN
-    Power               Players do not witness other players actions.       				IN
-    Armaments           Players can use any type of weapon.						IN
-    Security            Corpses are not announced.                          				IN
-    Commands            Players can access any location regardless of their rank.      		        IN		                                               
+    	Barraks      		Players must spend an extra action resting the following night.         	IN
+    	Sanitation      	Players must spend an extra action to finish shifts the following night.	IN
+    	Gymnasium       	The strength of corpses are not announced.          				IN
+    	Medical         	Causes of death are not announced.                 				IN
+    	Library         	The intellects of corpses are not announced.         				IN
+    	Information     	The ranks of corpses are not announced.              				IN
+    	Bathhouse       	The nerves of corpses are not announced.            				IN
+    	Communications  	Players cannot communicate privatly.                				IN
+    	Power           	Players do not witness other players actions.       				IN
+    	Armaments       	Players can use any type of weapon.						IN
+    	Security            	Corpses are not announced.                          				IN
+    	Commands            	Players can access any location regardless of their rank.      			IN		                                               
 
 Things to Enter
 
-    REST                                You must do this a certain number of hours each night (4 by default).
-    WORK (LOCATION)                     You must do this at your assigned shift a certain number of hours to complete it (2 by default).
-    SABOTAGE (LOCATION)                 Increases the amount of times a room must be worked the following night to stay functional/complete its shift.
-    LOITER (LOCATION)                   You vibe at a given location.
-    AMBUSH (LOCATION) (Player)          If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
-    ENEMY (LOCATION) (weaponType)       If you correctly match The Enemy to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY. They will attempt to kill you back if you fail.
-    WIELD (LOCATION)                   	Picks up a random weapon on the floor in this room.
+    	REST                                	You must do this a certain number of hours each night (4 by default).
+    	WORK (LOCATION)                     	You must do this at your assigned shift a certain number of hours to complete it (2 by default).
+    	SABOTAGE (LOCATION)                 	Increases the amount of times a room must be worked the following night to stay functional/complete its shift.
+    	LOITER (LOCATION)                   	You vibe at a given location.
+    	AMBUSH (LOCATION) (Player)          	If you correctly match the player, hour, and room, you kill them without struggle or chance of failure.
+    	ENEMY (LOCATION) (weaponType)       	If you correctly match The Enemy to a room and hour, you will attack them. If you succeed in killing them, you win TRUE VICTORY. They will attempt to kill you back if you fail.
+    	WIELD (LOCATION)                   	Picks up a random weapon on the floor in this room.
+	DROP (LOCATION) (weapon#)		Leaves a weapon of your choice in this room.
 
-    KILL (Player) (weaponType)          Attacks a player.                   
-    STEAL (Player)                      Attempts to take a player's current weapon.
-    WATCH (Player)                      Follows a player to wherever they end up during the hour.
+    	KILL (Player) (weaponType)          	Attacks a player.                   
+    	STEAL (Player)                      	Attempts to take a player's current weapon.
+    	WATCH (Player)                      	Follows a player to wherever they end up during the hour.
 
-    BARRAKS                             For every hour the barraks is used, a player must rest one less hour the following night. Counts as a rest.
-    SANITATION                          Removes a weapon of your choice from your hand.
-    GYMNASIUM ("use" or "learn")        "use":  For every two visits raises your strength by 1.     "learn":    Reports all players strengths anonymously.
-    MEDICAL                             Heals all signs of struggle.
-    LIBRARY ("use" or "learn")          "use":  For every two visits raises your intellect by 1.    "learn":    Reports all players intellects anonymously.
-    INFORMATION                         Reports all players ranks anonymously.
-    BATHHOUSE ("use" or "learn")        "use":  For every two visits raises your nerves by 1.       "learn":    Reports all players nerves anonymously.
-    COMMUNICATIONS (Player) (Player)    Reports all communications shared between two specific players the following day.
-    POWER                               For every hour power is used, a player must work one less hour the following night to complete their shift.
-    ARMAMENTS                           Reports the identities of all unclaimed weapons.
-    SECURITY                            Reports the locations of all players anonymously.
-    COMMAND                             Reports the shifts of all players anonymously.
+    	BARRAKS                             	For every hour the barraks is used, a player must rest one less hour the following night. Counts as a rest.
+    	SANITATION (weapon#)     		Removes a weapon of your choice from your hand.
+    	GYMNASIUM ("use" or "learn")        	"use":  For every two visits raises your strength by 1.     "learn":    Reports all players strengths anonymously.
+    	MEDICAL                             	Heals all signs of struggle.
+    	LIBRARY ("use" or "learn")          	"use":  For every two visits raises your intellect by 1.    "learn":    Reports all players intellects anonymously.
+    	INFORMATION                         	Reports all players ranks anonymously.
+    	BATHHOUSE ("use" or "learn")        	"use":  For every two visits raises your nerves by 1.       "learn":    Reports all players nerves anonymously.
+    	COMMUNICATIONS (Player) (Player)    	Reports all communications shared between two specific players the following day.
+    	POWER                               	For every hour power is used, a player must work one less hour the following night to complete their shift.
+    	ARMAMENTS                           	Reports the identities of all unclaimed weapons.
+    	SECURITY                            	Reports the locations of all players anonymously.
+    	COMMAND                             	Reports the shifts of all players anonymously.
+
+Occult Rituals
+	Ritual of Battle:	Offerings are spent to guarentee intimidation rolls.
+	Ritual of Wisdom:	Offerings are spent to guarentee deduction rolls.
+	Ritual of Fortune:	Offerings are spent to guarentee stealing rolls.
 
 IMPERIAL HEIR RULES
 To use The Voice say "You Emperor commands you...". It is illegal for any other player to say this under any circumstances.

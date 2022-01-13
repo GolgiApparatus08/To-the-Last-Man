@@ -1,0 +1,96 @@
+KEVIN (known dead)
+rnk: 1
+str:  
+int: 3
+nrv: 3
+wpn:  
+trt: Arrogant, Blood Shade, Hacker
+
+CHRISTIAN (known dead)
+rnk: 3
+str:  
+int: 3
+nrv:  
+wpn:  
+trt: Imperial Heir, Sociable, Doctor
+
+NATE (known dead)
+rnk: 3
+str:  
+int: 4
+nrv:  
+wpn(1): a heavy briefcase, a heavy briefcase
+trt: Occult, Confessor, Martial Artist
+
+PAUL (known dead)
+rnk: 4, 5
+str: 2
+int: 3, 3
+nrv: 2
+wpn: a lifting weight
+trt: Relaxed, Highborn, Lazy
+
+MORGAN
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+NATHAN (known dead)
+rnk: 2
+str:  
+int:  
+nrv:  
+wpn: an encrypted laptop
+trt: Drunk, Drama Queen, Depressive
+
+JUN (known dead)
+rnk: 3
+str:  
+int: 3
+nrv: 3
+wpn:  
+trt: Ambitious, Detective, Rowdy
+
+ED (known dead)
+rnk: 2, 1
+str:  
+int: 5
+nrv: 2
+wpn:  
+trt: Philosophical, Hoarding, Untrusting
+
+SCOTT (known dead)
+rnk: 3, 4
+str:  
+int: 1
+nrv:  
+wpn:  
+trt: Charming, Bookworm, Vindictive
+
+SEBBY (known dead)
+rnk: 1
+str:  
+int: 3
+nrv: 5
+wpn:  
+trt: Cunning, Mysterious, Hulking
+
+JESUS (known dead)
+rnk: 3
+str: 3
+int:  
+nrv:  
+wpn: an officer's knife
+trt: Mercenary, Deep Sleeper, Technician
+
+SKYLER (known dead)
+rnk: 3, 4
+str: 3
+int: 5
+nrv:  
+wpn: a copy of 'The Prince', a copy of 'The Prince'
+trt: Confident, Fickle, Eccentric
+

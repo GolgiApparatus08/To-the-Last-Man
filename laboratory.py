@@ -5,3 +5,8 @@ class Person:
 
 people = []
 
+people.append(Person("Jeff"))
+people.append(Person("Tom"))
+
+def weave(actor, target, attribute):
+    actor.attribute = target.attribute

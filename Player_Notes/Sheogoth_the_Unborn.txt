@@ -1,0 +1,96 @@
+JUN
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk: 4
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+PAUL
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Patriotic
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int: 6
+nrv:  
+wpn:  
+trt:  
+
+SUSU
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+SHEOGOTH_THE_UNBORN
+rnk: 4
+str: 2
+int: 3
+nrv: 1
+wpn: a pet snake
+trt: Technician, Curious, Highborn
+
+NATE
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: strong bourbon
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+MORGAN
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JESUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Heroic
+
+SOL_INVICTUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Flesh Weaver
+
+JACK
+rnk:  
+str: 1
+int:  
+nrv:  
+wpn:  
+trt:  
+

@@ -1,0 +1,96 @@
+SHEOGOTH_THE_UNBORN
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Prying
+
+ED (known dead)
+rnk: 1
+str: 5
+int: 1
+nrv: 3
+wpn: a human skull
+trt: Blood Shade, Highborn, Deep Sleeper, Hulking
+
+SKYLAR
+rnk:  
+str:  
+int: 7
+nrv:  
+wpn: a forged keycard
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn(1):  
+trt:  
+
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Confident
+
+KEVIN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: neurotoxic gas
+trt: Ambitious
+
+ISH
+rnk: 2
+str: 2
+int: 3
+nrv: 2
+wpn: an improvised shiv
+trt: Mercenary, Heroic, Productive
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int: 4, 4
+nrv:  
+wpn:  
+trt:  
+
+NATE
+rnk:  
+str:  
+int:  
+nrv: 4
+wpn:  
+trt:  
+
+EDDIE
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: throwing shurikens
+trt:  
+
+NATHAN
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt: Rowdy
+
+MORGAN
+rnk: 1
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+

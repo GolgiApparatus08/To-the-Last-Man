@@ -1,0 +1,96 @@
+SCOTT
+rnk: 3
+str:  
+int:  
+nrv: 2
+wpn: neurotoxic gas
+trt:  
+
+SEBBY
+rnk: 3
+str: 3
+int: 5
+nrv: 2
+wpn: a lifting weight
+trt:  
+
+PAUL
+rnk: 2, 2
+str:  
+int: 2
+nrv:  
+wpn:  
+trt: Hulking
+
+KEVIN
+rnk:  
+str:  
+int: 1
+nrv:  
+wpn: an antique sword
+trt: Confident
+
+JACK
+rnk: 3
+str: 4
+int: 5
+nrv: 1
+wpn: a sacred blade
+trt: Arrogant, Flesh Weaver, Sociable
+
+SOL_INVICTUS
+rnk:  
+str:  
+int:  
+nrv: 3
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk: 5
+str: 4, 4
+int:  
+nrv: 3
+wpn: a forged keycard
+trt: Hearthfire
+
+EDDIE
+rnk:  
+str:  
+int:  
+nrv: 3, 3
+wpn: aggressive stimulants
+trt:  
+
+JULIUS_CAESAR
+rnk: 4
+str: 2
+int:  
+nrv:  
+wpn:  
+trt: Bodybuilder
+
+SUSU
+rnk: 1
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Relaxed
+
+JUN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Martial Artist
+
+CHRISTIAN
+rnk: 3
+str: 3
+int: 4
+nrv:  
+wpn: a major award
+trt:  
+

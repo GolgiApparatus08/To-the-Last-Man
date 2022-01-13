@@ -17,10 +17,10 @@ Traits
         Drama Queen     You look like a body when loitering during the second half of the night.	
         Prying          You know who chooses not to show up to the tribunal.				
    16  	Rowdy           One attribute improves everytime you attempt to kill.				
-        Patriotic       You can see the enemy.								
+        Patriotic	You can see the enemy.								
    18  	Philosophical   You can deduce other player's honor.						
-        Mysterious      Info about you does not show up when visiting rooms.				NOT IN
-        Untrusting      You will see players steal weapons.						NOT IN
+        Mysterious      Info about you does not show up when visiting rooms.				NOT IN (ROOMS NOT READY)
+        Untrusting      You will see players steal weapons.						NOT IN (STEAL NOT READY)
         Charming        You can pick your shift.							
 	Highborn	Once per night, add or subtract 1 rank from a player.
         Heroic          If you witness a kill you will instantly attack the killer.			
@@ -36,39 +36,39 @@ Traits
    33  	Ruthless        You will instantly attack witnesses.				         	
         Martial Artist  You kill a player if they fail to kill you.                                    	
         Deep Sleeper    Your rests all have the effect of using the barraks.                           	
-        Mercenary      	You know the specific identities of room weapons.				NOT IN
+        Mercenary      	You know the specific identities of room weapons.	
         Ambitious       Everytime you gain an attribute, a random attribute improves by 1.		NOT IN
 
-	Imperial Heir	You cannot win by honor but can command each player once.			NOT IN
-	Inquisitor	You can privatly demand the truth but cannot hold weapons.			NOT IN
-   40  	Flesh Weaver	You can adopt others' attributes but showing up at the tribunal will out you.	NOT IN
-	Blood Shade	You cannot be harmed but will die if one death does not occur each day.		NOT IN
-	Hearthfire	You cannot be harmed but will die when half of other players are dead.		NOT IN
+	Imperial Heir	You cannot win by honor but can command each player once.			COMMANDS NOT IN
+	Inquisitor	You can privatly demand the truth but cannot hold weapons.	
+   40  	Flesh Weaver	You can adopt others' attributes but showing up at the tribunal will out you.	(AI WONT USE)
+	Blood Shade	You cannot be harmed but will die if one death does not occur each day.	
+	Hearthfire	You cannot be harmed but will die when half of other players are dead.	
 	Confessor      	You never lose honor but cannot lie to other players.                         
 
-Weapons				Debuff
+Weapons
 		Blunt
     0	Lifting Weight 		You must rest an extra hour for every planned attack attempt.
     1	Major Award             Other players will always succeed in stealing your weapons.  			
     2	Encrypted Laptop     	Other players can see when you are sabotaging.     				
     3	Heavy Briefcase         Other players can tell how many weapons you have and of which types. 	
-    4	The Prince              You never gain honor while holding this weapon.					NOT IN
+    4	The Prince              You never gain honor while holding this weapon.	
     5	Human Skull  		Instead of yours, players will deduce traits from an incriminating pool.	 
 
 		Medical
     6	Strong Bourbon          You cannot deduce anything about other players while holding this.		
     7	Aggressive Stimulants	In so far as possible, you must work enough to complete your shift.   		
     8	Pet Snake       	When loitering, you will sometimes attack random players.     		
-    9	Exotic Poison		If you fail to kill another player in combat, you die.     			NOT IN
-   10 	Sleeping Pills          If another player attacks you while you're resting, you die without a fight.	NOT IN
+    9	Exotic Poison		If you fail to kill another player in combat, you die.     	
+   10 	Sleeping Pills          If another player attacks you while you're resting, you die without a fight.
    11 	Neurotoxic Gas          Killing/voting against you will never lose a player honor.  			
 
 		Sharp
    12 	Officer's Knife         You always lose fights to players with a higher rank.  				
-   13 	Antique Sword           You must attempt to kill at least one player every night.  			ADD TO AI
-   14 	Forged Keycard          You will randomly be denyed entry to locations you can otherwise enter.		NOT IN
+   13 	Antique Sword           You must attempt to kill at least one player every night.  	
+   14 	Forged Keycard          You will randomly be denyed entry to locations you can otherwise enter.
    15 	Sacred Blade           	You always lose fights to players with a higher honor than you.                   
-   16 	Throwing Shurikens      You will fail to kill players if there are any witnesses present.  		NOT IN
+   16 	Throwing Shurikens      You will fail to kill players if there are any witnesses present. 
    17	Improvised Shiv		You always show up to the tribunal with cuts.  				
    18	VR Plug			If you die in the game, you die in real life.                                              
 
@@ -101,8 +101,11 @@ Things to Enter
     	KILL (Player) (weaponType)          	Attacks a player.                   
     	STEAL (Player)                      	Attempts to take a player's current weapon.
     	WATCH (Player)                      	Follows a player to wherever they end up during the hour.
-
-    	BARRAKS                             	For every hour the barraks is used, a player must rest one less hour the following night. Counts as a rest.
+	WEAVE (Player) (attribute)		If you are the Flesh Weaver, adopts this attribute of this player (name, rank, strength, intellect, or nerves). If you weave yourself (attribute: name) you will take back your original name.
+	INQUIRE (Player)			If you are the inquisitor, allows you to demand 1 truth from this person privately the following day.
+    	
+		*ROOMS MUST BE FUNCITONAL FOR THESE COMMANDS TO WORK
+	BARRAKS                             	For every hour the barraks is used, a player must rest one less hour the following night. Counts as a rest.
     	SANITATION (weapon#)     		Removes a weapon of your choice from your hand.
     	GYMNASIUM ("use" or "learn")        	"use":  For every two visits raises your strength by 1.     "learn":    Reports all players strengths anonymously.
     	MEDICAL                             	Heals all signs of struggle.
@@ -111,9 +114,9 @@ Things to Enter
     	BATHHOUSE ("use" or "learn")        	"use":  For every two visits raises your nerves by 1.       "learn":    Reports all players nerves anonymously.
     	COMMUNICATIONS (Player) (Player)    	Reports all communications shared between two specific players the following day.
     	POWER                               	For every hour power is used, a player must work one less hour the following night to complete their shift.
-    	ARMAMENTS                           	Reports the identities of all unclaimed weapons.
+    	ARMAMENTS                           	Reports one weapon of one player.
     	SECURITY                            	Reports the locations of all players anonymously.
-    	COMMAND                             	Reports the shifts of all players anonymously.
+    	COMMAND                             	Reports the someone's shift randomly.
 
 Occult Rituals
 	Ritual of Battle:	Offerings are spent to guarentee intimidation rolls.
@@ -126,7 +129,8 @@ Things you can command:
 	-not to vote against... (Indefinite)
 	-to vote against... (Once)
 	-to claim... (Indefinite) 		///The Confessor CAN lie if asked.
-	-to carry out [action]. (Once the following night. They get to choose the hour)
+	-to carry out [action]. (Once the following night. They get to choose the hour)	(If they kill someone its YOUR honor that changes)
 
 INQUISITOR RULES
 Use the action INQUIRE (Player) to gain the ability to demand one truthful answer from that player through the moderator the following day. It has the same effect as WATCH.
+

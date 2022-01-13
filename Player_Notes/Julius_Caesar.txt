@@ -1,0 +1,96 @@
+SCOTT
+rnk:  
+str: 4
+int:  
+nrv:  
+wpn:  
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int: 5
+nrv:  
+wpn:  
+trt:  
+
+PAUL
+rnk:  
+str:  
+int: 2
+nrv:  
+wpn:  
+trt:  
+
+KEVIN
+rnk:  
+str: 4
+int:  
+nrv:  
+wpn: an antique sword
+trt:  
+
+JACK
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: a sacred blade, a sacred blade
+trt:  
+
+SOL_INVICTUS
+rnk:  
+str:  
+int: 4
+nrv:  
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk: 5
+str: 2
+int:  
+nrv: 3
+wpn: strong bourbon
+trt:  
+
+EDDIE
+rnk:  
+str:  
+int:  
+nrv: 3
+wpn:  
+trt:  
+
+JULIUS_CAESAR
+rnk: 4
+str: 2
+int: 2
+nrv: 2
+wpn: an encrypted laptop
+trt: Deep Sleeper, Bodybuilder, Bodyguard
+
+SUSU
+rnk: 1
+str:  
+int:  
+nrv: 4
+wpn:  
+trt:  
+
+JUN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: an improvised shiv
+trt:  
+
+CHRISTIAN
+rnk: 3, 3
+str:  
+int: 4
+nrv:  
+wpn:  
+trt:  
+

@@ -1,0 +1,107 @@
+SCOTT
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+hnr:  
+
+SEBBY
+rnk:  
+str:  
+int: 5
+nrv:  
+wpn:  
+trt:  
+hnr:  
+
+PAUL
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Hulking
+hnr:  
+
+KEVIN
+rnk: 2, 2
+str:  
+int:  
+nrv:  
+wpn: an antique sword
+trt:  
+hnr:  
+
+JACK
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+hnr: 1
+
+SOL_INVICTUS
+rnk:  
+str:  
+int: 4
+nrv:  
+wpn:  
+trt: Inquisitor
+hnr:  
+
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: strong bourbon
+trt:  
+hnr:  
+
+EDDIE
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+hnr: 1
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int: 2
+nrv:  
+wpn:  
+trt:  
+hnr:  
+
+SUSU
+rnk: 1
+str: 4
+int: 2
+nrv: 4
+wpn: sleeping pills
+trt: Philosophical, Highborn, Relaxed
+
+JUN
+rnk: 4, 4
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+hnr:  
+
+CHRISTIAN
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+hnr:  
+

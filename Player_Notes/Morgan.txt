@@ -1,0 +1,96 @@
+KEVIN (known dead)
+rnk: 1
+str: 5
+int: 3
+nrv: 3, 3
+wpn:  
+trt: Hacker, Blood Shade, Arrogant
+
+CHRISTIAN (known dead)
+rnk: 3
+str:  
+int: 3
+nrv:  
+wpn:  
+trt: Imperial Heir, Sociable, Doctor
+
+NATE (known dead)
+rnk: 3
+str: 3
+int:  
+nrv:  
+wpn(1):  
+trt: Occult, Confessor, Martial Artist
+
+PAUL (known dead)
+rnk: 5, 5
+str:  
+int: 3, 3
+nrv: 2
+wpn:  
+trt: Relaxed, Highborn, Lazy
+
+MORGAN
+rnk: 5
+str: 3
+int: 3
+nrv: 2
+wpn: neurotoxic gas
+trt: Inquisitor, Heroic, Bodyguard
+
+NATHAN (known dead)
+rnk: 4, 2
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Drunk, Drama Queen, Depressive
+
+JUN (known dead)
+rnk: 3
+str:  
+int: 3
+nrv: 3
+wpn: sleeping pills
+trt: Ambitious, Detective, Rowdy
+
+ED (known dead)
+rnk: 1
+str:  
+int: 5, 5
+nrv:  
+wpn:  
+trt: Untrusting, Philosophical, Hoarding
+
+SCOTT (known dead)
+rnk: 3, 4
+str: 3
+int: 1
+nrv:  
+wpn:  
+trt: Charming, Bookworm, Vindictive
+
+SEBBY (known dead)
+rnk: 1
+str:  
+int: 3
+nrv: 5
+wpn:  
+trt: Mysterious, Cunning, Hulking
+
+JESUS (known dead)
+rnk: 3, 3, 3
+str:  
+int: 2, 2
+nrv:  
+wpn: an officer's knife
+trt: Technician, Mercenary, Deep Sleeper
+
+SKYLER (known dead)
+rnk: 3, 4
+str: 3, 3
+int: 5
+nrv:  
+wpn:  
+trt: Confident, Fickle, Eccentric
+

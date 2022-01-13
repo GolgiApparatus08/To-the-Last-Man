@@ -1,0 +1,96 @@
+KEVIN (known dead)
+rnk: 2, 1
+str: 5
+int: 3, 3
+nrv: 3, 3
+wpn: aggressive stimulants
+trt: Hacker, Blood Shade, Arrogant
+
+CHRISTIAN (known dead)
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn: strong bourbon
+trt: Imperial Heir, Sociable, Doctor
+
+NATE (known dead)
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn(1):  
+trt: Martial Artist, Occult, Confessor
+
+PAUL (known dead)
+rnk: 5
+str:  
+int: 3
+nrv: 2
+wpn:  
+trt: Highborn, Relaxed, Lazy
+
+MORGAN
+rnk: 5
+str: 3, 4
+int:  
+nrv:  
+wpn: neurotoxic gas
+trt:  
+
+NATHAN (known dead)
+rnk: 2
+str:  
+int:  
+nrv:  
+wpn: an encrypted laptop
+trt: Drunk, Drama Queen, Depressive
+
+JUN (known dead)
+rnk: 3, 3, 3
+str: 2
+int: 3, 3
+nrv: 3
+wpn:  
+trt: Ambitious, Detective, Rowdy
+
+ED (known dead)
+rnk: 2, 1
+str: 4
+int: 5
+nrv: 2
+wpn:  
+trt: Philosophical, Hoarding, Untrusting
+
+SCOTT (known dead)
+rnk: 3, 4
+str:  
+int: 1, 1
+nrv:  
+wpn: a pet snake
+trt: Charming, Bookworm, Vindictive
+
+SEBBY (known dead)
+rnk: 2, 1
+str:  
+int: 3, 3
+nrv: 5
+wpn:  
+trt: Mysterious, Cunning, Hulking
+
+JESUS (known dead)
+rnk: 3
+str:  
+int:  
+nrv: 2, 2
+wpn:  
+trt: Blood Shade, Mercenary, Deep Sleeper, Technician
+
+SKYLER (known dead)
+rnk: 3, 4
+str: 3
+int: 5
+nrv:  
+wpn: a copy of 'The Prince'
+trt: Confident, Fickle, Eccentric
+

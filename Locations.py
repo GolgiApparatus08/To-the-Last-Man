@@ -69,7 +69,7 @@ class Sanitation(Location):
 
         if players[0].debug == True:
             print(player.trueName + " throws " + weapons[int(weapon)].name + " into the incinerator in sanitation. ")
-        players[0].weaponChanges += str("-Destroy " + player.name + "'s " + weapons[int(weapon)].withoutArticle + "\n")
+        players[0].weaponChanges += str("-Destroy " + player.trueName + "'s " + weapons[int(weapon)].withoutArticle + "\n")
         if traits[0] in player.traits:
             player.offerings = player.offerings + 1
         witnesses = whoHere(player, "none", players, locations)
@@ -251,11 +251,11 @@ class Communications(Location):
         if outcome == False:
             return report
         
-        report += str("Audit the comms between " + str(target1.name) + " and " + str(target2.name) + " for " + player.name + ". \n")
+        report += str("Audit the comms between " + str(target1.trueName) + " and " + str(target2.trueName) + " for " + player.trueName + ". \n")
         if players[0].debug == True:
             print(player.trueName + " searches for information in communications. ")
         witnesses = whoHere(player, "none", players, locations)
-        event(witnesses, player, "none", str("communications_" + target1.name + "_" + target2.name))
+        event(witnesses, player, "none", "communications")
         return report
 
 class Power(Location):

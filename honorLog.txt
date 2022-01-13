@@ -1,139 +1,139 @@
 NIGHT 1
-The_Buddha kills Jesus: 1 -> 1 (CONFESSOR)
+Paul kills Jun: 1 -> -1
+Nathan kills Christian: 1 -> -1
 
 THE TRIBUNAL
-Julius_Caesar voted Morgan: 1 -> -1
-Julius_Caesar voted Nathan: -1 -> -2
-Julius_Caesar voted Jesus: -2 -> -3
-Julius_Caesar voted Nate: -3 -> -4
-Julius_Caesar voted The_Buddha: -4 -> -5
-Julius_Caesar voted Skylar: -5 -> -6
-Nathan voted Julius_Caesar: 1 -> -1
-Nathan voted Morgan: -1 -> -2
-Nathan voted Jesus: -2 -> -3
-Nathan voted Nate: -3 -> -4
-Nathan voted Scott: -4 -> -5
-Nathan voted Jun: -5 -> -5 (CONFESSOR/NEUROTOXIC GAS)
-Kevin voted Julius_Caesar: 1 -> -1
-Kevin voted Morgan: -1 -> -2
-Kevin voted Nate: -2 -> -3
-Kevin voted Scott: -3 -> -4
-Kevin voted The_Buddha: -4 -> -5
-Kevin voted Skylar: -5 -> -6
-Nate voted Scott: 1 -> -1
-Nate voted Jun: -1 -> -1 (CONFESSOR/NEUROTOXIC GAS)
-Scott voted Julius_Caesar: 1 -> -1
-Scott voted Morgan: -1 -> -2
-Scott voted Kevin: -2 -> -3
-Scott voted Jesus: -3 -> -4
-Scott voted Nate: -4 -> -5
-Scott voted The_Buddha: -5 -> -6
-Scott voted Jun: -6 -> -6 (CONFESSOR/NEUROTOXIC GAS)
-Scott voted Sheogoth_the_Unborn: -6 -> -7
-Scott voted Skylar: -7 -> -8
-The_Buddha voted Julius_Caesar: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
-The_Buddha voted Kevin: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
-The_Buddha voted Jesus: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
-The_Buddha voted Jun: 1 -> 1 (CONFESSOR/NEUROTOXIC GAS)
-Christian voted Morgan: 1 -> -1
-Christian voted Jesus: -1 -> -2
-Christian voted Scott: -2 -> -3
-Christian voted Sheogoth_the_Unborn: -3 -> -4
-Jun voted Nathan: 1 -> -1
-Jun voted Jesus: -1 -> -2
-Jun voted Scott: -2 -> -3
-Jun voted The_Buddha: -3 -> -4
-Jun voted Christian: -4 -> -5
-Jun voted Skylar: -5 -> -6
-Sheogoth_the_Unborn voted Julius_Caesar: 1 -> -1
-Sheogoth_the_Unborn voted Morgan: -1 -> -2
-Sheogoth_the_Unborn voted Nathan: -2 -> -3
-Sheogoth_the_Unborn voted Kevin: -3 -> -4
-Sheogoth_the_Unborn voted Nate: -4 -> -5
-Sheogoth_the_Unborn voted Scott: -5 -> -6
+Kevin votes Christian: 1 -> -1
+Kevin votes Paul: -1 -> 1
+Kevin votes Jun: 1 -> -1
+Kevin votes Sebby: -1 -> -2
+Kevin votes Jesus: -2 -> -3
+Nate votes Kevin: 1 -> 2
+Nate votes Christian: 2 -> 1
+Nate votes Nathan: 1 -> 2
+Nate votes Jun: 2 -> 1
+Nate votes Jesus: 1 -> -1
+Paul votes Morgan: -1 -> -1 (NEUROTOXIC GAS)
+Paul votes Nathan: -1 -> 1
+Paul votes Scott: 1 -> -1
+Paul votes Jesus: -1 -> -2
+Nathan votes Kevin: -1 -> 1
+Nathan votes Christian: 1 -> -1
+Nathan votes Morgan: -1 -> -1 (NEUROTOXIC GAS)
+Nathan votes Jun: -1 -> -2
+Nathan votes Sebby: -2 -> -3
+Nathan votes Jesus: -3 -> -4
+Ed votes Christian: 1 -> -1
+Ed votes Nate: -1 -> 1
+Ed votes Paul: 1 -> 2
+Ed votes Jun: 2 -> 1
+Ed votes Scott: 1 -> -1
+Ed votes Sebby: -1 -> -2
+Ed votes Skyler: -2 -> -3
+Scott votes Christian: 1 -> -1
+Scott votes Paul: -1 -> 1
+Scott votes Jesus: 1 -> -1
+Jesus votes Christian: 1 -> -1
+Jesus votes Paul: -1 -> 1
+Jesus votes Morgan: 1 -> 1 (NEUROTOXIC GAS)
+Jesus votes Jun: 1 -> -1
+Jesus votes Scott: -1 -> 1
+Skyler votes Kevin: 1 -> 1 (THE PRINCE)
+Skyler votes Nate: 1 -> 1 (THE PRINCE)
+Skyler votes Ed: 1 -> 1 (THE PRINCE)
+Skyler votes Scott: 1 -> 1 (THE PRINCE)
+Skyler votes Sebby: 1 -> -1
+Skyler votes Jesus: -1 -> -2
 
 NIGHT 2
-Jun kills Christian: -6 -> -2
-Jun kills Julius_Caesar: -2 -> 4
-Sheogoth_the_Unborn kills The_Buddha: -6 -> -7
-Nate kills Jun: -1 -> -1 (NEUROTOXIC GAS)
 
 THE TRIBUNAL
-Nathan voted Julius_Caesar: -5 -> -4
-Nathan voted The_Buddha: -4 -> -5
-Nathan voted Christian: -5 -> -4
-Nathan voted Sheogoth_the_Unborn: -4 -> -3
-Kevin voted Nate: -6 -> -5
-Kevin voted Christian: -5 -> -4
-Nate voted Nathan: -1 -> 1
-Sheogoth_the_Unborn voted Julius_Caesar: -7 -> -6
-Sheogoth_the_Unborn voted Nathan: -6 -> -5
-Sheogoth_the_Unborn voted Kevin: -5 -> -4
-Sheogoth_the_Unborn voted The_Buddha: -4 -> -5
-Skylar voted Nate: 1 -> 2
-Skylar voted The_Buddha: 2 -> 1
-Skylar voted Christian: 1 -> 2
+Nate votes Nathan: -1 -> 1
+Nate votes Scott: 1 -> 2
+Nate votes Sebby: 2 -> 1
+Nate votes Skyler: 1 -> 2
+Paul votes Nate: -2 -> -3
+Paul votes Morgan: -3 -> -3 (NEUROTOXIC GAS)
+Paul votes Nathan: -3 -> -2
+Paul votes Jun: -2 -> -3
+Paul votes Scott: -3 -> -2
+Morgan votes Kevin: 1 -> 2
+Morgan votes Nate: 2 -> 1
+Morgan votes Paul: 1 -> 2
+Morgan votes Nathan: 2 -> 3
+Nathan votes Kevin: -4 -> -3
+Ed votes Nate: -3 -> -4
+Ed votes Paul: -4 -> -3
+Ed votes Morgan: -3 -> -3 (NEUROTOXIC GAS)
+Ed votes Nathan: -3 -> -2
+Ed votes Skyler: -2 -> -1
+Scott votes Nate: -1 -> -2
+Scott votes Paul: -2 -> -1
+Scott votes Morgan: -1 -> -1 (NEUROTOXIC GAS)
+Scott votes Jun: -1 -> -2
+Skyler votes Kevin: -2 -> -2 (THE PRINCE)
+Skyler votes Nate: -2 -> -3
+Skyler votes Nathan: -3 -> -3 (THE PRINCE)
+Skyler votes Jun: -3 -> -4
+Skyler votes Ed: -4 -> -4 (THE PRINCE)
+Skyler votes Scott: -4 -> -4 (THE PRINCE)
 
 NIGHT 3
 
 THE TRIBUNAL
-Nathan voted Kevin: -3 -> -2
-Nathan voted Christian: -2 -> -1
-Nathan voted Skylar: -1 -> -2
-Kevin voted Nathan: -4 -> -3
-Kevin voted Christian: -3 -> -2
-Kevin voted Sheogoth_the_Unborn: -2 -> -1
-Nate voted Christian: 1 -> 2
-Nate voted Sheogoth_the_Unborn: 2 -> 3
-Sheogoth_the_Unborn voted Kevin: -5 -> -4
-Sheogoth_the_Unborn voted Nate: -4 -> -5
-Sheogoth_the_Unborn voted Christian: -5 -> -4
-Sheogoth_the_Unborn voted Skylar: -4 -> -5
+Kevin votes Paul: -3 -> -2
+Kevin votes Morgan: -2 -> -2 (NEUROTOXIC GAS)
+Kevin votes Jun: -2 -> -3
+Kevin votes Ed: -3 -> -2
+Kevin votes Sebby: -2 -> -3
+Kevin votes Skyler: -3 -> -2
+Paul votes Ed: -2 -> -1
+Paul votes Sebby: -1 -> -2
+Paul votes Skyler: -2 -> -1
+Morgan votes Paul: 3 -> 4
+Morgan votes Jun: 4 -> 3
+Morgan votes Ed: 3 -> 4
+Morgan votes Scott: 4 -> 5
+Morgan votes Skyler: 5 -> 6
+Ed votes Scott: -1 -> 1
+Scott votes Kevin: -2 -> -1
+Scott votes Paul: -1 -> 1
+Scott votes Ed: 1 -> -1
+Scott votes Sebby: -1 -> -2
+Scott votes Skyler: -2 -> -1
+Sebby votes Paul: 1 -> 2
+Sebby votes Jun: 2 -> 1
+Sebby votes Ed: 1 -> -1
+Sebby votes Scott: -1 -> 1
+Sebby votes Skyler: 1 -> 2
+Skyler votes Kevin: -4 -> -4 (THE PRINCE)
+Skyler votes Paul: -4 -> -4 (THE PRINCE)
+Skyler votes Morgan: -4 -> -4 (NEUROTOXIC GAS)
+Skyler votes Ed: -4 -> -5
+Skyler votes Scott: -5 -> -5 (THE PRINCE)
+Skyler votes Sebby: -5 -> -6
 
 NIGHT 4
-Skylar kills Sheogoth_the_Unborn: 2 -> 7
-Nate kills Nathan: 3 -> 5
 
 THE TRIBUNAL
-Skylar voted Nathan: 7 -> 8
-Skylar voted Kevin: 8 -> 9
-Skylar voted Nate: 9 -> 8
-Skylar voted Sheogoth_the_Unborn: 8 -> 9
+Kevin votes Morgan: -2 -> -2 (NEUROTOXIC GAS)
+Kevin votes Jun: -2 -> -3
+Morgan votes Kevin: 6 -> 7
+Morgan votes Jun: 7 -> 6
 
 NIGHT 5
 
-THE TRIBUNAL
-Kevin voted Nathan: -1 -> 1
-Kevin voted Sheogoth_the_Unborn: 1 -> 2
-Nate voted Kevin: 5 -> 6
-Nate voted Sheogoth_the_Unborn: 6 -> 7
-Nate voted Skylar: 7 -> 6
-
-NIGHT 6
-
-THE TRIBUNAL
-Kevin voted Nathan: 2 -> 3
-Nate voted Nathan: 6 -> 7
-Skylar voted Kevin: 9 -> 8
-
-NIGHT 7
-
-THE TRIBUNAL
-Kevin voted Nate: 3 -> 2
-Skylar voted Kevin: 8 -> 7
-
-
 FINAL HONORS
-Scott: -8
-Julius_Caesar: -6
-Sheogoth_the_Unborn: -5
-Christian: -4
-Nathan: -2
-Morgan: 1
+Skyler: -6
+Kevin: -3
+Nathan: -3
+Paul: -1
+Scott: -1
+Christian: 1
+Jun: 1
+Ed: 1
 Jesus: 1
-The_Buddha: 1
 The Enemy: 1
-Kevin: 2
-Jun: 4
-Nate: 7
-Skylar: 7
+Nate: 2
+Sebby: 2
+Morgan: 6

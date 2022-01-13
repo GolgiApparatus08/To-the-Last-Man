@@ -30,22 +30,31 @@ def remind(players, traits, weapons):
                 players[p].message += str("cannot wield or steal, ")
             players[p].message = players[p].message[:-1]
             players[p].message = players[p].message[:-1]
-            print(players[p].name + ": " + players[p].message)
+            print(players[p].trueName + ": " + players[p].message)
             players[p].message = ""
     print(" ")
 
-#Calculates attacker's new honor after a killing
-def newHonor(attacker, victum, players, traits, weapons):
-    if weapons[11] in victum.weapons:
-        honorLog(str(attacker.trueName + " kills " + victum.trueName + ": " + str(attacker.honor) + " -> " + str(attacker.honor) + " (NEUROTOXIC GAS)"), players)
+#Calculates actor's new honor after a killing or voting
+def newHonor(actor, target, voteOrKill, players, traits, weapons):
+    if weapons[11] in target.weapons and target.honor > 0:
+        honorLog(str(actor.trueName + voteOrKill + target.trueName + ": " + str(actor.honor) + " -> " + str(actor.honor) + " (NEUROTOXIC GAS)"), players)
         return
-    if victum.honor < 0 or traits[43] not in attacker.traits:
-        attacker.changedHonor = attacker.honor - victum.honor
-        honorCorrection(attacker, victum)
-        honorLog(str(attacker.trueName + " kills " + victum.trueName + ": " + str(attacker.honor) + " -> " + str(attacker.changedHonor)), players)
-        attacker.honor = attacker.changedHonor
+    if weapons[4] in actor.weapons and target.honor < 0:
+        honorLog(str(actor.trueName + voteOrKill + target.trueName + ": " + str(actor.honor) + " -> " + str(actor.honor) + " (THE PRINCE)"), players)
+        return
+    if traits[43] in actor.weapons and target.honor > 0:
+        honorLog(str(actor.trueName + voteOrKill + target.trueName + ": " + str(actor.honor) + " -> " + str(actor.honor) + " (CONFESSOR)"), players)
+        return
+    if voteOrKill == " kills ":
+        actor.changedHonor = actor.honor - target.honor
+    elif target.honor > 0:
+        actor.changedHonor = actor.honor - 1
     else:
-        honorLog(str(attacker.trueName + " kills " + victum.trueName + ": " + str(attacker.honor) + " -> " + str(attacker.changedHonor) + " (CONFESSOR)"), players)
+        actor.changedHonor = actor.honor + 1
+    honorCorrection(actor, target)
+    honorLog(str(actor.trueName + voteOrKill + target.trueName + ": " + str(actor.honor) + " -> " + str(actor.changedHonor)), players)
+    actor.honor = actor.changedHonor
+    return
 
 #Corrects honor to never be 0
 def honorCorrection(actor, target):
@@ -305,7 +314,7 @@ def readCommands(players):
         for p in range(len(players) - 1):
             players[p].commands = []
             if contents[(p * 16) + 6] != "":
-                input("WARNING: " + players[p].name + "'s commands are not lined up! ")
+                input("WARNING: " + players[p].trueName + "'s commands are not lined up! ")
                 continue
             players[p].commands.append(contents[(p * 16) + 7].strip())
             players[p].commands.append(contents[(p * 16) + 8].strip())
@@ -316,7 +325,7 @@ def readCommands(players):
             players[p].commands.append(contents[(p * 16) + 13].strip())
             players[p].commands.append(contents[(p * 16) + 14].strip())
             if contents[(p * 16) + 15] != "":
-                input("WARNING: " + players[p].name + "'s commands are not lined up! ")
+                input("WARNING: " + players[p].trueName + "'s commands are not lined up! ")
                 continue
             for c in range(len(players[p].commands)):
                 if players[0].debug == True:
@@ -340,6 +349,8 @@ def randomCommands(players, locations, weapons, traits):
             if players[p].weapons != []:
                 outcomes = [0, 1]
                 attackAttempts = random.choice(outcomes)
+                if weapons[13] in players[p].weapons:
+                    attackAttempts = 1
             hoursToRest = players[p].requiredSleep
             if weapons[0] in players[p].weapons:
                 hoursToRest = hoursToRest + attackAttempts
@@ -484,7 +495,7 @@ def shifts(players, locations, traits):
             locationInputs = []
             for i in range(len(locations)):
                 locationInputs.append(locations[i].input)
-            chosenShift = answer("Which shift would " + player.name + " like for the next night? ", locationInputs)
+            chosenShift = answer("Which shift would " + player.trueName + " like for the next night? ", locationInputs)
             print(" ")
         for l in range(len(locations)):
             if locations[l].input == chosenShift or locations[l] == chosenShift:
@@ -505,16 +516,14 @@ def shifts(players, locations, traits):
 #To randomize a list
 def randomize(original):
     randomized = []
-    x = 0
     while len(randomized) < len(original):
         choice = random.choice(original)
         if choice not in randomized:
             randomized.append(choice)
-        x = x + 1
     return randomized
 
 #Attempts to send a player to a room. Is called anytime a players location might require updating. Checks if they can access the room, sends them to a location accordingly and tells them about it.
-def checkAccess(player, room, action, hour, locations, traits):
+def checkAccess(player, room, action, hour, locations, traits, weapons):
     if player.alive == False:
         return
     if player.location == room:
@@ -523,9 +532,11 @@ def checkAccess(player, room, action, hour, locations, traits):
         if player.debug == True:
             print("MOVE: " + player.trueName + " has remained in " + room.name + ". ")
     else:
+        immunity = False
         canAccess = False
         if player.location.rank >= room.rank:
             canAccess = True
+            immunity = True
         elif player.rank >= room.rank:
             canAccess = True
         elif player.shift == room and action == "WORK":
@@ -535,6 +546,15 @@ def checkAccess(player, room, action, hour, locations, traits):
         elif action == "WATCH" and traits[26] in player.traits:
             canAccess = True
         if canAccess == True:
+            if weapons[14] in player.weapons:
+                outcomes = ["Fail", "Pass", "Pass"]
+                roll = random.choice(outcomes)
+                if roll == "Fail" and immunity == False:
+                    player.message += str("\n")
+                    player.message += str("Around " + hour + " your card denies you access to " + room.name + ", and you return to " + player.location.name + ". ")
+                    if player.debug == True:
+                        print("MOVE: " + player.trueName + " failed to access " + room.name + " because of their forged card and returned to " + player.location.name + ". ")
+                    return
             player.location = room
             player.message += str("\n")
             player.message += str("Around " + hour + " you make your way to " + room.name + ". ")
@@ -547,33 +567,33 @@ def checkAccess(player, room, action, hour, locations, traits):
                 print("MOVE: " + player.trueName + " failed to access " + room.name + " and returned to " + player.location.name + ". ")
 
 #If the locate function gets caught in a loop, this fixes it and then abandons the function so it can try again
-def resolveLoop(inALoop, hour, locations, time, traits):
+def resolveLoop(inALoop, hour, locations, time, traits, weapons):
     for r in range(6):
         for l in range(len(inALoop)):
             if inALoop[l].location.rank == r + 1:
                 inALoop[l].located = True
-                checkAccess(inALoop[l], inALoop[l].location, inALoop[l].commands[time][0], hour, locations, traits)
+                checkAccess(inALoop[l], inALoop[l].location, inALoop[l].commands[time][0], hour, locations, traits, weapons)
                 return
 
 #Finds the player in questions target and sees if they have been located. If they are, it sends the player there, if not it trys to locate them.
-def locate(players, player, time, inALoop, locations, hour, traits):
+def locate(players, player, time, inALoop, locations, hour, traits, weapons):
     player.visited = True
     inALoop.append(player)
     for p in range(len(players)):
         if players[p].trueName == player.commands[time][1]:
             if players[p].visited == True:
-                resolveLoop(inALoop, hour, locations, time, traits)
+                resolveLoop(inALoop, hour, locations, time, traits, weapons)
                 return "loop"
             else:
                 if players[p].located == True:
                     player.located = True
-                    checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits)
+                    checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits, weapons)
                     return "located"
                 else:
-                    outcome = locate(players, players[p], time, inALoop, locations, hour, traits)
+                    outcome = locate(players, players[p], time, inALoop, locations, hour, traits, weapons)
                     if outcome == "located":
                         player.located = True
-                        checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits)
+                        checkAccess(player, players[p].location, players[p].commands[time][0], hour, locations, traits, weapons)
                         return "located"
                     else:
                         return "loop"
@@ -627,15 +647,20 @@ def activityString(self, activity, traits, nightPhase, weapons):
         #GENERIC
         elif activity == self.events[e].action:
             involved.append(self.events[e].actor)
-    string = stringList(involved, self)
-    return string
+    return involved
 
-def stringList(objects, self):
+def stringList(objects, self, traits):
     txt = ""
     names = []
     for i in range(len(objects)):
         if objects[i] != self:
-            names.append(objects[i].name)
+            if self != "":
+                if traits[17] in self.traits:
+                    names.append(objects[i].trueName)
+                else:
+                   names.append(objects[i].name) 
+            else:
+                names.append(objects[i].name)
     if self in objects:
         names.append("you")
     if len(names) == 1:
@@ -723,7 +748,7 @@ def seen(seen, witness, freebi, players, traits, weapons):
 
     #PATRIOTIC
     seenName = seen.name
-    if traits[17] in witness.traits:
+    if traits[17] in witness.traits and seen == players[-1]:
         seenName = seen.trueName
     
     p = 0
@@ -758,7 +783,7 @@ def seen(seen, witness, freebi, players, traits, weapons):
         name = str(seen.name + "'s body")
         tense = "was"
         secondTense = "had"
-    if traits[17] in witness.traits:                    #TRAIT DEBUFF: Patriotic
+    if traits[17] in witness.traits and seen == players[-1]:                    #TRAIT DEBUFF: Patriotic
         name = seen.trueName
     if howMuch > 0:
         end = "; and "
@@ -831,7 +856,9 @@ def seen(seen, witness, freebi, players, traits, weapons):
             traits[28],
             traits[33],
             traits[36],
-            traits[38]
+            traits[38],
+            traits[40],
+            traits[41]
         ]
 
         if wounds == True:
@@ -896,6 +923,35 @@ def seen(seen, witness, freebi, players, traits, weapons):
                         knowBank(witness.otherTraits, seenName, traitToLearn.name, players)
                         traitFound = True
 
+#Hearthfire Life Check
+def hearthfire(tribunal, players, traits, locations):
+    for p in range(len(players)):
+        if traits[42] in players[p].traits and players[p].alive == True:
+            alive = -1
+            dead = 0
+            for i in range(len(players)-1):
+                if players[i].alive == True:
+                    alive = alive + 1
+                else:
+                    dead = dead + 1
+            if alive <= dead:
+                if tribunal == False:
+                    players[p].alive = False
+                    players[p].causeOfDeath = "mystical"
+                    players[0].blood = players[0].blood + 1
+                    witnesses = whoHere(players[p], "none", players, locations)
+                    event(witnesses, players[p], "none", "hearthfire")
+                    return
+                else:
+                    players[p].alive = False
+                    players[p].causeOfDeath = "mystical"
+                    players[0].blood = players[0].blood + 1
+                    report = ""
+                    report = weSeeDeadPeople(players[p], locations, report, True, players, traits)
+                    print(report)
+                    report = ""
+                    return
+
 #Checks for and spawns weapons in rooms
 def freeWeapons(locations, weapons, players):
     idealWeapons = math.ceil((len(players) - 1) / 4)
@@ -941,7 +997,7 @@ def doTheyDefend(attacker, target, traits):
 #Updates the players notes
 def updateNotes(players, traits, weapons):
     for p in range(len(players)-1):
-        playerDocument = open(str("Player_Notes/" + players[p].name + ".txt"), "w")
+        playerDocument = open(str("Player_Notes/" + players[p].trueName + ".txt"), "w")
 
         banks = len(players)-1
         if traits[17] in players[p].traits:
@@ -1047,7 +1103,7 @@ def everyoneLearns(bank, learned, about, players):
                     replaceOrAdd(players[p].otherTraits[index], about.traits[t].name)
 
 #Determines what I reveal about dead bodies
-def weSeeDeadPeople(actor, locations, report, tribunal, players):
+def weSeeDeadPeople(actor, locations, report, tribunal, players, traits):
     shouldReport = False
     if actor.alive == False and actor.reported == False and actor.location.functionality == True:
         shouldReport = True
@@ -1057,7 +1113,7 @@ def weSeeDeadPeople(actor, locations, report, tribunal, players):
         if tribunal == True:
             report += str("Their last location was " + actor.location.name + ". ")
         else:
-            report += str(actor.name + "'s body has been found in " + str(actor.location) + ": ")
+            report += str(actor.trueName + "'s body has been found in " + str(actor.location) + ": ")
         if locations[5].functionality == True:
             report += str("Their rank was " + str(actor.rank) + ". ")
             everyoneLearns("rank", actor.rank, actor, players)
@@ -1077,7 +1133,7 @@ def weSeeDeadPeople(actor, locations, report, tribunal, players):
                 report += "Their weapon was " + actor.weapons[0].name + ". "
             else:
                 report += "Their weapons were "
-                report += stringList(actor.weapons, "")
+                report += stringList(actor.weapons, "", traits)
                 report += ". "
             everyoneLearns("weapons", "", actor, players)
         if locations[11].functionality == True:
@@ -1096,7 +1152,7 @@ def demotion(players, traits):
     for p in range(len(players)):
         if players[p].alive == True and traits[22] in players[p].traits:
             if players[0].ran == False:
-                response = answer("Would " + players[p].name + " like to demote a player? ", ["Yes", "No"])
+                response = answer("Would " + players[p].trueName + " like to demote a player? ", ["Yes", "No"])
             else:
                 roll = random.randint(0, 1)
                 if roll == 1:
@@ -1107,7 +1163,7 @@ def demotion(players, traits):
                 if players[0].ran == False:
                     playerNames = []
                     for p in range(len(players)-1):
-                        playerNames.append(players[p].name)
+                        playerNames.append(players[p].trueName)
                     demoted = answer("Which player?", playerNames)
                 else:
                     toDemote = []
@@ -1116,7 +1172,7 @@ def demotion(players, traits):
                             toDemote.append(players[i])
                     demoted = random.choice(toDemote)
                 for i in range(len(players) - 1):
-                    if players[i].name == demoted:
+                    if players[i].trueName == demoted:
                         players[i].rank = players[i].rank - 1
 
 #Court is in Session
@@ -1140,7 +1196,7 @@ def theTribunal(players, locations, weapons, report, traits):
                 if roll > 0:
                     tribunalists.append(players[p])
             else:
-                response = answer("Is " + players[p].name + " showing up to the tribunal? ", ["Yes", "No"])
+                response = answer("Is " + players[p].trueName + " showing up to the tribunal? ", ["Yes", "No"])
                 if response == "Yes":
                     tribunalists.append(players[p])
 
@@ -1156,20 +1212,23 @@ def theTribunal(players, locations, weapons, report, traits):
         if showedUp == []:
             tribunalists[t].message += "No one else showed up to the tribunal. "
         else:
-            people = stringList(showedUp, tribunalists[t])
+            people = stringList(showedUp, tribunalists[t], traits)
             tribunalists[t].message += str(people + " showed up to the tribunal. ")       
         if locations[8].functionality == True:
             for s in range(len(showedUp)):
                 seen(showedUp[s], tribunalists[t], False, players, traits, weapons)
         elif showedUp != []:
             tribunalists[t].message += str("Because the power is out, you can only bearly make them out by candle light, and cannot deduce anything about them or notice any wounds. ")
+        for s in range(len(showedUp)):
+            if traits[40] in showedUp[s].traits:
+                tribunalists[t].message += str(showedUp[s].trueName + " is the FLESH WEAVER. ")
         if traits[15] in tribunalists[t].traits:
             decidedNot = []
             for p in range(len(players)-1):
                 if players[p] not in tribunalists and players[p].alive == True:
                     decidedNot.append(players[p])
             if decidedNot != []:
-                people = stringList(decidedNot, tribunalists[t])
+                people = stringList(decidedNot, tribunalists[t], traits)
                 tribunalists[t].message += str(people + " decided not to show despite being alive (Prying). ")
         print(tribunalists[t].message)
         tribunalists[t].message = ""
@@ -1189,45 +1248,37 @@ def theTribunal(players, locations, weapons, report, traits):
                 if players[p] != tribunalists[t]:
                     roll = random.randint(0, 1)
                     if roll == 1 and players[p].reported == False:
-                        response.append(players[p].name)
+                        response.append(players[p].trueName)
         else:
-            response = input("Who is " + tribunalists[t].name + " voting for? ")
+            response = input("Who is " + tribunalists[t].trueName + " voting for? ")
             response.split()
         for r in range(len(response)):
             for p in range(len(players) - 1):
-                if response[r] == players[p].name and players[p].reported == False:
-                    oldHonor = tribunalists[t].changedHonor
-                    if players[p].honor > 0 and traits[43] not in tribunalists[t].traits and weapons[11] not in players[p].weapons:
-                        tribunalists[t].changedHonor = tribunalists[t].changedHonor - 1
-                        honorCorrection(tribunalists[t], players[p])
-                        honorLog(str(tribunalists[t].name + " voted " + players[p].name + ": " + str(oldHonor) + " -> " + str(tribunalists[t].changedHonor)), players)
-                    elif players[p].honor > 0:
-                        honorLog(str(tribunalists[t].name + " voted " + players[p].name + ": " + str(oldHonor) + " -> " + str(tribunalists[t].changedHonor) + " (CONFESSOR/NEUROTOXIC GAS)"), players)
-                    elif players[p].honor < 0:
-                        tribunalists[t].changedHonor = tribunalists[t].changedHonor + 1
-                        honorCorrection(tribunalists[t], players[p])
-                        honorLog(str(tribunalists[t].name + " voted " + players[p].name + ": " + str(oldHonor) + " -> " + str(tribunalists[t].changedHonor)), players)
+                if response[r] == players[p].trueName and players[p].reported == False:
+                    newHonor(tribunalists[t], players[p], " votes ", players, traits, weapons)
                     players[p].accusers.append(tribunalists[t])
     for p in range(len(players)):
         players[p].honor = players[p].changedHonor
     for e in range(len(extantPlayers)):
-        print("Votes to Kill " + extantPlayers[e].name + ": ")
+        print("Votes to Kill " + extantPlayers[e].trueName + ": ")
         for a in range(len(extantPlayers[e].accusers)):
-                print(extantPlayers[e].accusers[a].name)
+                print(extantPlayers[e].accusers[a].trueName)
         if len(extantPlayers[e].accusers) >= len(extantPlayers)/2 and extantPlayers[e].alive == True:
             print(extantPlayers[e].name + " has been executed by the tribunal. ")
             extantPlayers[e].alive = False
             extantPlayers[e].causeOfDeath = "the tribunal"
-            report = weSeeDeadPeople(extantPlayers[e], locations, report, True, players)
+            players[0].blood = players[0].blood + 1
+            report = weSeeDeadPeople(extantPlayers[e], locations, report, True, players, traits)
             print(report)
             report = ""
+            hearthfire(True, players, traits, locations)
         elif len(extantPlayers[e].accusers) >= len(extantPlayers)/2:
-            print("The tribunal attempts to execute " + extantPlayers[e].name + ", but finds them already dead. ")
-            report = weSeeDeadPeople(extantPlayers[e], locations, report, True, players)
+            print("The tribunal attempts to execute " + extantPlayers[e].trueName + ", but finds them already dead. ")
+            report = weSeeDeadPeople(extantPlayers[e], locations, report, True, players, traits)
             print(report)
             report = ""
         else:
-            print(extantPlayers[e].name + " has survived the tribunal. ")
+            print(extantPlayers[e].trueName + " has survived the tribunal. ")
             print("")
 
 #Gives someone with sleeping pills a sleep for resting
@@ -1289,11 +1340,11 @@ def whoToAttack(possibilities, players, locations):
     vulnerability = []
     for p in range(len(possibilities)):
         if possibilities[p].infStrength != "none":
-            vulnerability.append(["blunt", players[-1].strength - possibilities[p].infStrength, possibilities[p].name])
+            vulnerability.append(["blunt", players[-1].strength - possibilities[p].infStrength, possibilities[p].trueName])
         if possibilities[p].infIntellect != "none":
-            vulnerability.append(["medical", players[-1].intellect - possibilities[p].infIntellect, possibilities[p].name])    
+            vulnerability.append(["medical", players[-1].intellect - possibilities[p].infIntellect, possibilities[p].trueName])    
         if possibilities[p].infNerves != "none":
-            vulnerability.append(["sharp", players[-1].nerves - possibilities[p].infNerves, possibilities[p].name])
+            vulnerability.append(["sharp", players[-1].nerves - possibilities[p].infNerves, possibilities[p].trueName])
 
     if vulnerability != []:
         sortedVulnerability = []

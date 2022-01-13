@@ -1,0 +1,96 @@
+ED
+rnk:  
+str:  
+int: 2
+nrv:  
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JESUS (known dead)
+rnk: 1
+str: 2
+int: 5
+nrv:  
+wpn:  
+trt: Patriotic, Mercenary, Curious
+
+SOL_INVICTUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Vindictive
+
+PAUL
+rnk: 3, 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+SKYLAR
+rnk: 4
+str: 1
+int: 4
+nrv: 3
+wpn: a forged keycard
+trt: Drama Queen, Charming, Technician
+
+NATHAN (known dead)
+rnk: 3
+str:  
+int: 1
+nrv: 2
+wpn:  
+trt: Productive, Doctor, Martial Artist
+
+MORGAN
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn(1):  
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: a major award
+trt:  
+
+JUN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Flesh Weaver
+
+RYAN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Hulking
+
+NATE
+rnk:  
+str:  
+int: 2
+nrv: 2, 2
+wpn:  
+trt:  
+

@@ -1,7 +1,7 @@
 from os import name
 import random
 import sys
-from Functions import available, doTheyDefend, event, getHurt, highestStat, magic, newHonor, whoHere, whoToAttack, workload, bloodFeud
+from Functions import available, doTheyDefend, event, getHurt, hearthfire, highestStat, magic, newHonor, whoHere, whoToAttack, workload, bloodFeud
 
 class Player:
     def __init__(self, name, rank, strength, intellect, nerves, weapon, location, traits):
@@ -59,6 +59,9 @@ class Player:
         self.allWeapons = []
         self.weaponChanges = ""
         self.offerings = 0
+        self.hour = 0
+        self.blood = 0
+        self.inquires = 0
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -140,15 +143,6 @@ class Player:
                 self.KILL(target, bestType, locations, players, weapons, traits)
                 return
 
-        #Can they use the barraks instead
-        bed = False
-        if room == locations[0]:
-            if locations[0].functionality == True or traits[12] in self.traits:
-                bed = True
-
-        if bed == True:
-            locations[0].visit(self, locations, players, weapons, traits)
-            return
         if players[0].debug == True and taskCompleted == False:
             print(self.trueName + " is loitering in " + self.location.name + ". ")
 
@@ -162,12 +156,14 @@ class Player:
         if traits[27] in self.traits and target.location == room and target.alive == True:
             target.alive = False
             target.causeOfDeath = "a medical weapon"
-            newHonor(self, target, players, traits, weapons)
+            players[0].blood = players[0].blood + 1
+            newHonor(self, target, " kills ", players, traits, weapons)
             if players[0].debug == True:
-                print(self.trueName + " kills " + target.name + " with a trap in " + room.name + " from " + self.location.name + ". ")
+                print(self.trueName + " kills " + target.trueName + " with a trap in " + room.name + " from " + self.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "ambush_chemist")
             self.LOITER(self.location, locations, players, weapons, True, traits)
+            hearthfire(True, players, traits, locations)
             return
         elif traits[27] in self.traits and target.location != room:
             if players[0].debug == True:
@@ -187,11 +183,13 @@ class Player:
 
         target.alive = False
         target.causeOfDeath = "an ambush"
-        newHonor(self, target, players, traits, weapons)
+        players[0].blood = players[0].blood + 1
+        newHonor(self, target, " kills ", players, traits, weapons)
         if players[0].debug == True:
-                print(self.trueName + " ambushes and kills " + target.name + " in " + room.name + ". ")
+                print(self.trueName + " ambushes and kills " + target.trueName + " in " + room.name + ". ")
         witnesses = whoHere(self, target, players, locations)
         event(witnesses, self, target, "ambush")
+        hearthfire(True, players, traits, locations)
         bloodFeud(self, witnesses, players, weapons, locations, traits)
         return
 
@@ -271,8 +269,10 @@ class Player:
                         print(self.trueName + " is killed by The Enemy in " + self.location.name + ". ")
                     self.alive = False
                     self.causeOfDeath = "a blunt weapon"
+                    players[0].blood = players[0].blood + 1
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_bluntSuccess")
+                    hearthfire(True, players, traits, locations)
                 else:
                     if players[0].debug == True:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
@@ -285,8 +285,10 @@ class Player:
                         print(self.trueName + " is killed by The Enemy in " + self.location.name + ". ")
                     self.alive = False
                     self.causeOfDeath = "a medical weapon"
+                    players[0].blood = players[0].blood + 1
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_medicalSuccess")
+                    hearthfire(True, players, traits, locations)
                 else:
                     if players[0].debug == True:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
@@ -299,8 +301,10 @@ class Player:
                         print(self.trueName + " is killed by The Enemy in " + self.location.name + ". ")
                     self.alive = False
                     self.causeOfDeath = "a sharp weapon"
+                    players[0].blood = players[0].blood + 1
                     witnesses = whoHere(players[-1], self, players, locations)
                     event(witnesses, players[-1], self, "enemyAttack_sharpSuccess")
+                    hearthfire(True, players, traits, locations)
                 else:
                     if players[0].debug == True:
                         print(self.trueName + " failed to kill The Enemy in " + self.location.name + " and survived its counter attack. ")
@@ -321,8 +325,10 @@ class Player:
             return
 
         if players[0].debug == True:
-            print(self.trueName + " watches " + target.name + " closely. ")
-        self.LOITER(self.location, locations, players, weapons, False, traits)
+            print(self.trueName + " watches " + target.trueName + " closely. ")
+        witnesses = whoHere(self, target, players, locations)
+        event(witnesses, self, target, "watch")
+        return
 
     def WIELD(self, room, players, locations, weapons, traits):
         if self.alive == False:
@@ -356,18 +362,18 @@ class Player:
         if self.location != room:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
-        if weapons[weapon] not in self.weapons:
+        if weapons[int(weapon)] not in self.weapons:
             event([], self, "none", "drop_noWeapon")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
 
-        players[0].weaponChanges += str("-Remove the " + weapons[weapon].withoutArticle + " from " + self.trueName + "'s hand to " + room.name + ". ")
-        room.weapons.append(weapons[weapon])
+        players[0].weaponChanges += str("-Remove the " + weapons[int(weapon)].withoutArticle + " from " + self.trueName + "'s hand to " + room.name + ". ")
+        room.weapons.append(weapons[int(weapon)])
         for w in range(len(self.weapons)):
-            if weapons[weapon] == self.weapons[w]:
+            if weapons[int(weapon)] == self.weapons[w]:
                 self.weapons.pop(w)
         if players[0].debug == True:
-            print(self.trueName + " discards " + weapons[weapon].name + " in " + room.name + ". ")
+            print(self.trueName + " discards " + weapons[int(weapon)].name + " in " + room.name + ". ")
         witnesses = whoHere(self, "none", players, locations)
         event(witnesses, self, "none", "drop")
         return
@@ -380,7 +386,7 @@ class Player:
             thief.weapons.append(weapon)
             victum.weapons.pop(weaponIndex)
             victum.weaponsStolen.append(weapon)
-            players[0].weaponChanges += str("-Move " + victum.name + "'s " + weapon.withoutArticle + " to " + thief.trueName + "'s hand \n")
+            players[0].weaponChanges += str("-Move " + victum.trueName + "'s " + weapon.withoutArticle + " to " + thief.trueName + "'s hand \n")
             return weapon
 
         if self.alive == False:
@@ -395,14 +401,14 @@ class Player:
         if target.alive == False and target.weapons != []:
             stolen = newOwner(self, target)
             if players[0].debug == True:
-                print(self.trueName + " steals " + stolen.name + " off " + target.name + "'s body in " + target.location.name + ". ")
+                print(self.trueName + " steals " + stolen.name + " off " + target.trueName + "'s body in " + target.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "stealBody_success")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
         if target.alive == False:
             if players[0].debug == True:
-                print(self.trueName + " steals nothing off " + target.name + "'s body in " + target.location.name + ". ")
+                print(self.trueName + " steals nothing off " + target.trueName + "'s body in " + target.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "stealBody_nothing")
             self.LOITER(self.location, locations, players, weapons, True, traits)
@@ -413,21 +419,69 @@ class Player:
             if target.weapons != []:
                 stolen = newOwner(self, target)
                 if players[0].debug == True:
-                    print(self.trueName + " steals " + stolen.name + " off " + target.name + " in " + target.location.name + ". ")
+                    print(self.trueName + " steals " + stolen.name + " off " + target.trueName + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, "steal_success")
                 self.LOITER(self.location, locations, players, weapons, True, traits)
             else:
                 if players[0].debug == True:
-                    print(self.trueName + " steals nothing off " + target.name + " in " + target.location.name + ". ")
+                    print(self.trueName + " steals nothing off " + target.trueName + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, "steal_nothing")
                 self.LOITER(self.location, locations, players, weapons, True, traits)
         else:
             if players[0].debug == True:
-                print(self.trueName + " is caught trying to steal " + target.name + "'s weapon in " + target.location.name + ". ")
+                print(self.trueName + " is caught trying to steal " + target.trueName + "'s weapon in " + target.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "steal_fail")
+
+    def WEAVE(self, target, attribute, locations, players, weapons, traits):
+        #Make sure they're in the right place
+        if self.location != target.location:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+        #Make sure they're the flesh weaver
+        if traits[40] not in self.traits:
+            return
+        
+        if attribute == "name":
+            self.name = target.trueName
+            if players[0].debug == True:
+                print(str(self.trueName + " has taken the name of " + target.trueName + " in " + self.location.name + ". "))
+        elif attribute == "rank":
+            self.rank = target.rank
+            if players[0].debug == True:
+                print(str(self.trueName + " has taken the rank of " + target.trueName + " (" + target.rank + ") in " + self.location.name + ". "))
+        elif attribute == "strength":
+            self.strength = target.strength
+            if players[0].debug == True:
+                print(str(self.trueName + " has taken the strength of " + target.trueName + " (" + target.strength + ") in " + self.location.name + ". "))
+        elif attribute == "intellect":
+            self.intellect = target.intellect
+            if players[0].debug == True:
+                print(str(self.trueName + " has taken the intellect of " + target.trueName + " (" + target.intellect + ") in " + self.location.name + ". "))
+        elif attribute == "nerves":
+            self.nerves = target.nerves
+            if players[0].debug == True:
+                print(str(self.trueName + " has taken the nerves of " + target.trueName + " (" + target.nerves + ") in " + self.location.name + ". "))
+        event([], self, target, "weave")
+        return
+        
+    def INQUIRE(self, target, locations, players, weapons, traits):
+        #Make sure there in the right place
+        if self.location != target.location:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+        #Make sure their target isn't already dead
+        if target.alive == False:
+            self.LOITER(self.location, locations, players, weapons, False, traits)
+            return
+
+        self.inquires = self.inquires + 1
+        if players[0].debug == True:
+            print(str(self.trueName + " inquires from " + target.trueName + " in " + self.location.name + ". "))
+        self.LOITER(self.location, locations, players, weapons, False, traits)
+        return
 
     def KILL(self, target, weaponType, locations, players, weapons, traits):
         #Make sure there in the right place
@@ -447,26 +501,41 @@ class Player:
                     defend = doTheyDefend(self, players[p], traits)
                     if defend == "pass":
                         if players[0].debug == True:
-                            print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but is scared away by " + players[p].name + ". ")
+                            print(self.trueName + " tries to attack " + target.trueName + " in " + target.location.name + ", but is scared away by " + players[p].trueName + ". ")
                         event([], self, players[p], "bodyguard")
                         self.LOITER(self.location, locations, players, weapons, True, traits)
                         return
-        #Check if the target intimidates
-        defend = doTheyDefend(self, target, traits)
-        if defend == "pass":
-            if players[0].debug == True:
-                print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but is scared away. ")
-            witnesses = whoHere(self, target, players, locations)
-            event(witnesses, self, target, "kill_intimidate")
-            self.LOITER(self.location, locations, players, weapons, True, traits)
-            return
         #Make sure they have access to the weapontype they want to use
         availableTypes = available(self.weapons, locations)
         if weaponType not in availableTypes:
             if players[0].debug == True:
-                print(self.trueName + " tries to attack " + target.name + " in " + target.location.name + ", but has no weapon. ")
+                print(self.trueName + " tries to attack " + target.trueName + " in " + target.location.name + ", but has no weapon. ")
             witnesses = whoHere(self, target, players, locations)
             event(witnesses, self, target, "kill_noWeapon")
+            self.LOITER(self.location, locations, players, weapons, True, traits)
+            return
+
+        #If they're on sleeping pills kill them immediatly
+        if weapons[10] in target.weapons:
+            if target.commands[players[0].hour][0] == "REST" or target.commands[players[0].hour][0] == "BARRAKS":
+                target.alive = False
+                target.causeOfDeath = str("a " + weaponType + " weapon")  
+                players[0].blood = players[0].blood + 1
+                newHonor(self, target, " kills ", players, traits, weapons)
+                if players[0].debug == True:
+                    print(self.trueName + " kills " + target.trueName + " in " + target.location.name + ". ")
+                witnesses = whoHere(self, target, players, locations)
+                event(witnesses, self, target, str("kill_" + weaponType + "Sleep"))
+                hearthfire(True, players, traits, locations)
+                bloodFeud(self, witnesses, players, weapons, locations, traits)
+                return
+        #Check if the target intimidates
+        defend = doTheyDefend(self, target, traits)
+        if defend == "pass":
+            if players[0].debug == True:
+                print(self.trueName + " tries to attack " + target.trueName + " in " + target.location.name + ", but is scared away. ")
+            witnesses = whoHere(self, target, players, locations)
+            event(witnesses, self, target, "kill_intimidate")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
 
@@ -479,6 +548,7 @@ class Player:
                 causeofDeath = "a blunt weapon"
                 success = "kill_bluntSuccess"
                 defense = "kill_bluntDefense"
+                poison = "kill_bluntPoison"
                 fail = "kill_bluntFail"
             elif weaponType == "medical":
                 attributeSelf = self.intellect
@@ -487,6 +557,7 @@ class Player:
                 causeofDeath = "a medical weapon"
                 success = "kill_medicalSuccess"
                 defense = "kill_medicalDefense"
+                poison = "kill_medicalPoison"
                 fail = "kill_medicalFail"
             elif weaponType == "sharp":
                 attributeSelf = self.nerves
@@ -495,12 +566,18 @@ class Player:
                 causeofDeath = "a sharp weapon"
                 success = "kill_sharpSuccess"
                 defense = "kill_sharpDefense"
+                poison = "kill_sharpPoison"
                 fail = "kill_sharpFail"
 
             getHurt(self, target, wounds, traits)
             #Check for instant failure based on weapons
+            witnesses = whoHere(target, self, players, locations)
             weaponFailsThem = False
             weaponFailsYou = False
+            if weapons[16] in self.weapons and witnesses != []:
+                weaponFailsYou = True
+            if weapons[16] in target.weapons and witnesses != []:
+                weaponFailsThem = True
             if weapons[15] in self.weapons and self.honor < target.honor:
                 weaponFailsYou = True
             if weapons[12] in self.weapons and self.rank < target.rank:
@@ -517,31 +594,50 @@ class Player:
                 outcome = "failure"
             elif attributeSelf <= attributeTarget and weaponFailsThem == False:
                 outcome = "failure"
+            #If the target is in any way invulnerable...
+            if traits[41] in target.traits or traits[42] in target.traits:
+                outcome = "failure"
 
             if outcome == "success":
                 target.alive = False
-                target.causeOfDeath = causeofDeath
-                newHonor(self, target, players, traits, weapons)
+                target.causeOfDeath = "a blunt weapon"
+                players[0].blood = players[0].blood + 1
+                newHonor(self, target, " kills ", players, traits, weapons)
                 if players[0].debug == True:
-                    print(self.trueName + " kills " + target.name + " in " + target.location.name + ". ")
+                    print(self.trueName + " kills " + target.trueName + " in " + target.location.name + ". ")
                 witnesses = whoHere(self, target, players, locations)
                 event(witnesses, self, target, success)
+                hearthfire(True, players, traits, locations)
                 bloodFeud(self, witnesses, players, weapons, locations, traits)
                 return
             else:
                 if traits[34] in target.traits and self != players[-1]:
                     self.alive = False
                     self.causeOfDeath = causeofDeath
-                    newHonor(self, target, players, traits, weapons)
-                    newHonor(target, self, players, traits, weapons)
+                    players[0].blood = players[0].blood + 1
+                    newHonor(self, target, " attempts to kill ", players, traits, weapons)
+                    newHonor(target, self, " kills ", players, traits, weapons)
                     if players[0].debug == True:
-                        print(self.trueName + " fails to kill " + target.name + " and is beat to death in " + target.location.name + ". ")
+                        print(self.trueName + " fails to kill " + target.trueName + " and is beat to death in " + target.location.name + ". ")
                     witnesses = whoHere(self, target, players, locations)
                     event(witnesses, self, target, defense)
+                    hearthfire(True, players, traits, locations)
+                    return
+                elif weapons[9] in self.weapons:
+                    self.alive = False
+                    self.causeOfDeath = "a medical weapon"
+                    players[0].blood = players[0].blood + 1
+                    newHonor(self, target, " attempts to kill ", players, traits, weapons)
+                    newHonor(target, self, " kills ", players, traits, weapons)
+                    if players[0].debug == True:
+                        print(self.trueName + " fails to kill " + target.trueName + " and dies of their own poison in " + target.location.name + ". ")
+                    witnesses = whoHere(self, target, players, locations)
+                    event(witnesses, self, target, poison)
+                    hearthfire(True, players, traits, locations)
                     return
                 else:
                     if players[0].debug == True:
-                        print(self.trueName + " fails to kill " + target.name + " in " + target.location.name + ". ")
+                        print(self.trueName + " fails to kill " + target.trueName + " in " + target.location.name + ". ")
                     witnesses = whoHere(self, target, players, locations)
                     event(witnesses, self, target, fail)
                     return
@@ -607,7 +703,7 @@ def randomPlayers(players, amount, weapons, startingLocation, traits):
         "Eddie",
         "Kevin",
         "Ish",
-        "Skylar",
+        "Skyler",
         "Christian",
         "Morgan",
         "Susu",

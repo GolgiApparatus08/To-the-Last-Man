@@ -1,0 +1,96 @@
+SCOTT
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+PAUL
+rnk:  
+str:  
+int:  
+nrv: 3
+wpn: a pet snake
+trt:  
+
+KEVIN
+rnk:  
+str: 4
+int:  
+nrv:  
+wpn: an antique sword
+trt: Mercenary
+
+JACK
+rnk:  
+str:  
+int:  
+nrv: 1
+wpn:  
+trt:  
+
+SOL_INVICTUS
+rnk: 2
+str: 4
+int: 4
+nrv: 3
+wpn: an officer's knife
+trt: Mysterious, Inquisitor, Bookworm
+
+THE_BUDDHA
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+EDDIE
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: a human skull
+trt:  
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Deep Sleeper
+
+SUSU
+rnk:  
+str: 4
+int:  
+nrv: 4
+wpn:  
+trt: Highborn
+
+JUN
+rnk: 4
+str: 2
+int: 2
+nrv:  
+wpn:  
+trt:  
+
+CHRISTIAN
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+

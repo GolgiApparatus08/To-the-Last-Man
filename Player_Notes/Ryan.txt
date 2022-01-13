@@ -1,0 +1,96 @@
+ED
+rnk: 4
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JESUS (known dead)
+rnk: 1
+str:  
+int: 5
+nrv: 1
+wpn:  
+trt: Patriotic, Mercenary, Curious
+
+SOL_INVICTUS
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+PAUL
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+SKYLAR
+rnk:  
+str:  
+int: 4
+nrv:  
+wpn:  
+trt:  
+
+NATHAN (known dead)
+rnk: 3
+str:  
+int: 1
+nrv:  
+wpn: an officer's knife
+trt: Productive, Doctor, Martial Artist
+
+MORGAN
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn(1):  
+trt:  
+
+SEBBY
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+JUN
+rnk:  
+str:  
+int: 4
+nrv:  
+wpn:  
+trt:  
+
+RYAN
+rnk: 2
+str: 4
+int: 1
+nrv: 6, 4
+wpn: an encrypted laptop
+trt: Eccentric, Untrusting, Hulking
+
+NATE
+rnk:  
+str: 5
+int:  
+nrv:  
+wpn:  
+trt:  
+

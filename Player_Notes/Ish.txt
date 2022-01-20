@@ -1,96 +1,96 @@
-SHEOGOTH_THE_UNBORN
+NATE
+rnk:  
+str:  
+int:  
+nrv:  
+wpn(1): a heavy briefcase
+trt:  
+
+MORGAN
+rnk: 2
+str:  
+int: 4
+nrv:  
+wpn: exotic poison, exotic poison
+trt:  
+
+LISA
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+JUN
+rnk:  
+str: 6
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int: 4
+nrv:  
+wpn:  
+trt:  
+
+THE_BUDDHA
 rnk: 3
 str:  
 int:  
 nrv:  
 wpn:  
-trt: Prying
-
-ED (known dead)
-rnk: 1
-str: 5
-int: 1
-nrv: 3
-wpn: a human skull
-trt: Blood Shade, Highborn, Deep Sleeper, Hulking
-
-SKYLAR
-rnk:  
-str:  
-int: 7
-nrv:  
-wpn: a forged keycard
 trt:  
-
-SEBBY
-rnk:  
-str:  
-int:  
-nrv: 2
-wpn(1):  
-trt:  
-
-THE_BUDDHA
-rnk:  
-str:  
-int:  
-nrv:  
-wpn:  
-trt: Confident
 
 KEVIN
 rnk:  
-str:  
+str: 4, 4
 int:  
 nrv:  
-wpn: neurotoxic gas
-trt: Ambitious
+wpn:  
+trt:  
 
 ISH
-rnk: 2
-str: 2
+rnk: 5
+str: 3
 int: 3
-nrv: 2
-wpn: an improvised shiv
-trt: Mercenary, Heroic, Productive
-
-JULIUS_CAESAR
-rnk:  
-str:  
-int: 4, 4
-nrv:  
-wpn:  
-trt:  
-
-NATE
-rnk:  
-str:  
-int:  
-nrv: 4
-wpn:  
-trt:  
-
-EDDIE
-rnk:  
-str:  
-int:  
-nrv:  
-wpn: throwing shurikens
-trt:  
+nrv: 1
+wpn: a copy of 'The Prince'
+trt: Hacker, Relaxed, Flesh Weaver
 
 NATHAN
 rnk:  
 str:  
-int: 3
+int:  
 nrv:  
-wpn:  
-trt: Rowdy
+wpn: a lifting weight
+trt:  
 
-MORGAN
-rnk: 1
+ED
+rnk:  
 str:  
 int:  
 nrv:  
+wpn: an antique sword
+trt:  
+
+JESUS
+rnk:  
+str:  
+int: 3
+nrv:  
 wpn:  
+trt:  
+
+PAUL
+rnk: 3
+str:  
+int: 2
+nrv:  
+wpn: sleeping pills
 trt:  
 

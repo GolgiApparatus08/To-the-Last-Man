@@ -1,96 +1,104 @@
-KEVIN (known dead)
-rnk: 1
-str: 5, 5
-int: 3, 3, 3, 3
-nrv: 3
-wpn: aggressive stimulants
-trt: Hacker, Blood Shade, Arrogant
-
-CHRISTIAN (known dead)
-rnk: 3, 3
-str:  
-int:  
-nrv:  
-wpn: strong bourbon
-trt: Sociable, Imperial Heir, Doctor
-
-NATE (known dead)
-rnk: 5, 3
-str: 3
-int:  
-nrv:  
-wpn(1):  
-trt: Occult, Confessor, Martial Artist
-
-PAUL (known dead)
-rnk: 6, 5
-str:  
-int: 3, 3
-nrv: 2
-wpn: a lifting weight, a lifting weight, a lifting weight
-trt: Relaxed, Highborn, Lazy
-
 MORGAN
-rnk: 5
+rnk: 3
 str:  
 int:  
-nrv: 2
+nrv:  
+wpn:  
+trt: Flesh Weaver, Vindictive
+
+JESUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Ambitious
+
+JACK
+rnk: 4
+str:  
+int:  
+nrv:  
 wpn:  
 trt:  
 
-NATHAN (known dead)
+SKYLER
+rnk: 2
+str: 3
+int: 5
+nrv: 3
+wpn: throwing shurikens
+trt: Drama Queen, Drunk, Patriotic
+
+ISH
+rnk: 1, 1
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+KEVIN
+rnk: 4
+str:  
+int: 1
+nrv: 3
+wpn: a forged keycard, a forged keycard
+trt:  
+
+SHEOGOTH_THE_UNBORN
+rnk:  
+str: 3
+int:  
+nrv:  
+wpn: a copy of 'The Prince', a copy of 'The Prince'
+trt:  
+
+LISA
 rnk: 2
 str:  
 int:  
-nrv: 3
-wpn:  
-trt: Drunk, Drama Queen, Depressive
-
-JUN (known dead)
-rnk: 3
-str:  
-int: 3
-nrv: 3, 3, 3
-wpn:  
-trt: Ambitious, Detective, Rowdy
-
-ED (known dead)
-rnk: 2, 1
-str:  
-int: 5
-nrv: 2
-wpn:  
-trt: Philosophical, Hoarding, Untrusting
-
-SCOTT (known dead)
-rnk: 4
-str:  
-int: 1, 1
-nrv: 1, 4
-wpn:  
-trt: Charming, Bookworm, Vindictive
-
-SEBBY (known dead)
-rnk: 1
-str:  
-int: 3, 3
 nrv:  
 wpn:  
-trt: Mysterious, Cunning, Hulking
+trt:  
 
-JESUS (known dead)
-rnk: 3
-str: 3, 3
+JULIUS_CAESAR (known dead)
+rnk: 5
+str: 2
 int: 2
-nrv: 2
-wpn: an officer's knife
-trt: Mercenary, Deep Sleeper, Technician
+nrv:  
+wpn: sleeping pills
+trt: Confessor, Ruthless, Untrusting
 
-SKYLER (known dead)
-rnk: 3, 4
-str: 3
-int: 5, 5
-nrv: 2
-wpn: a copy of 'The Prince'
-trt: Confident, Fickle, Eccentric
+ED
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+EDDIE
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+NATE
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn(2):  
+trt:  
+
+THE ENEMY
+rnk: 6
+str: 1
+int:  
+nrv:  
+wpn: exotic poison
+trt:  
 

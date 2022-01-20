@@ -1,36 +1,12 @@
-JUN
+NATE
 rnk:  
 str:  
-int:  
-nrv:  
-wpn: neurotoxic gas
+int: 3
+nrv: 1
+wpn(1):  
 trt:  
 
-SOL_INVICTUS
-rnk:  
-str: 2
-int:  
-nrv:  
-wpn:  
-trt:  
-
-LISA
-rnk: 5
-str: 4
-int: 1
-nrv: 3
-wpn: throwing shurikens
-trt: Lazy, Inquisitor, Cunning
-
-JESUS
-rnk:  
-str:  
-int:  
-nrv:  
-wpn: an encrypted laptop
-trt:  
-
-SEBBY
+MORGAN
 rnk: 2
 str:  
 int:  
@@ -38,57 +14,81 @@ nrv:
 wpn:  
 trt:  
 
-PAUL
-rnk:  
-str:  
-int:  
-nrv:  
-wpn: aggressive stimulants
-trt:  
+LISA
+rnk: 5
+str: 2
+int: 3
+nrv: 2
+wpn: an officer's knife
+trt: Vindictive, Bookworm, Eccentric
 
-ISH
+JUN
 rnk:  
 str:  
-int:  
+int: 2, 2
 nrv:  
-wpn:  
-trt: Detective
-
-JACK
-rnk:  
-str:  
-int:  
-nrv: 3
 wpn:  
 trt:  
 
-EDDIE
+JULIUS_CAESAR
 rnk:  
 str:  
 int:  
 nrv:  
-wpn: a pet snake
+wpn: an improvised shiv
 trt:  
 
 THE_BUDDHA
 rnk:  
 str:  
 int:  
-nrv: 4
+nrv:  
 wpn:  
 trt:  
 
-RYAN
+KEVIN
 rnk:  
 str:  
 int:  
 nrv:  
 wpn:  
-trt: Flesh Weaver
+trt: Depressive
 
-SHEOGOTH_THE_UNBORN
-rnk: 4
+ISH
+rnk:  
 str:  
+int:  
+nrv:  
+wpn: a copy of 'The Prince'
+trt:  
+
+NATHAN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+ED
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: an antique sword
+trt:  
+
+JESUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+PAUL
+rnk: 3
+str: 1
 int:  
 nrv:  
 wpn:  

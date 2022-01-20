@@ -1,96 +1,96 @@
-KEVIN (known dead)
-rnk: 2, 1
-str: 5
-int: 3, 3
-nrv: 3, 3
-wpn: aggressive stimulants
-trt: Hacker, Blood Shade, Arrogant
-
-CHRISTIAN (known dead)
-rnk: 3
+NATE
+rnk:  
 str:  
-int:  
-nrv:  
-wpn: strong bourbon
-trt: Imperial Heir, Sociable, Doctor
-
-NATE (known dead)
-rnk: 3
-str:  
-int:  
-nrv:  
+int: 3
+nrv: 1
 wpn(1):  
-trt: Martial Artist, Occult, Confessor
+trt:  
 
-PAUL (known dead)
-rnk: 5
+MORGAN
+rnk:  
+str: 6
+int:  
+nrv:  
+wpn:  
+trt:  
+
+LISA
+rnk:  
+str: 2
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+JUN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: aggressive stimulants
+trt:  
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Philosophical
+
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+KEVIN
+rnk: 3
+str: 4
+int: 3
+nrv: 4
+wpn: throwing shurikens
+trt: Depressive, Mysterious, Imperial Heir
+
+ISH
+rnk:  
+str: 3, 3
+int:  
+nrv:  
+wpn:  
+trt:  
+
+NATHAN
+rnk: 3
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+ED
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+JESUS
+rnk:  
 str:  
 int: 3
 nrv: 2
 wpn:  
-trt: Highborn, Relaxed, Lazy
-
-MORGAN
-rnk: 5
-str: 3, 4
-int:  
-nrv:  
-wpn: neurotoxic gas
 trt:  
 
-NATHAN (known dead)
-rnk: 2
-str:  
+PAUL
+rnk:  
+str: 1
 int:  
 nrv:  
-wpn: an encrypted laptop
-trt: Drunk, Drama Queen, Depressive
-
-JUN (known dead)
-rnk: 3, 3, 3
-str: 2
-int: 3, 3
-nrv: 3
 wpn:  
-trt: Ambitious, Detective, Rowdy
-
-ED (known dead)
-rnk: 2, 1
-str: 4
-int: 5
-nrv: 2
-wpn:  
-trt: Philosophical, Hoarding, Untrusting
-
-SCOTT (known dead)
-rnk: 3, 4
-str:  
-int: 1, 1
-nrv:  
-wpn: a pet snake
-trt: Charming, Bookworm, Vindictive
-
-SEBBY (known dead)
-rnk: 2, 1
-str:  
-int: 3, 3
-nrv: 5
-wpn:  
-trt: Mysterious, Cunning, Hulking
-
-JESUS (known dead)
-rnk: 3
-str:  
-int:  
-nrv: 2, 2
-wpn:  
-trt: Blood Shade, Mercenary, Deep Sleeper, Technician
-
-SKYLER (known dead)
-rnk: 3, 4
-str: 3
-int: 5
-nrv:  
-wpn: a copy of 'The Prince'
-trt: Confident, Fickle, Eccentric
+trt:  
 

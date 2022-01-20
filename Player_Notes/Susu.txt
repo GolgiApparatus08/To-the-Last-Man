@@ -1,107 +1,96 @@
-SCOTT
-rnk: 3
+PAUL
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+KEVIN
+rnk: 1
 str:  
 int:  
 nrv:  
 wpn:  
 trt:  
-hnr:  
+
+SKYLER
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Vindictive
+
+JESUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Detective
+
+SUSU
+rnk: 3
+str: 2
+int: 3
+nrv: 3
+wpn: a lifting weight
+trt: Blood Shade, Deep Sleeper, Highborn
 
 SEBBY
 rnk:  
 str:  
-int: 5
+int: 2
 nrv:  
 wpn:  
 trt:  
-hnr:  
 
-PAUL
+SHEOGOTH_THE_UNBORN
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+NATE
+rnk:  
+str: 3
+int:  
+nrv:  
+wpn:  
+trt:  
+
+MORGAN
+rnk:  
+str:  
+int: 1
+nrv:  
+wpn:  
+trt:  
+
+CHRISTIAN
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+NATHAN
 rnk:  
 str:  
 int:  
 nrv:  
 wpn:  
-trt: Hulking
-hnr:  
-
-KEVIN
-rnk: 2, 2
-str:  
-int:  
-nrv:  
-wpn: an antique sword
-trt:  
-hnr:  
+trt: Flesh Weaver
 
 JACK
 rnk:  
 str:  
 int:  
 nrv:  
-wpn:  
+wpn: a forged keycard
 trt:  
-hnr: 1
-
-SOL_INVICTUS
-rnk:  
-str:  
-int: 4
-nrv:  
-wpn:  
-trt: Inquisitor
-hnr:  
-
-THE_BUDDHA
-rnk:  
-str:  
-int:  
-nrv:  
-wpn: strong bourbon
-trt:  
-hnr:  
-
-EDDIE
-rnk:  
-str:  
-int:  
-nrv:  
-wpn:  
-trt:  
-hnr: 1
-
-JULIUS_CAESAR
-rnk:  
-str:  
-int: 2
-nrv:  
-wpn:  
-trt:  
-hnr:  
-
-SUSU
-rnk: 1
-str: 4
-int: 2
-nrv: 4
-wpn: sleeping pills
-trt: Philosophical, Highborn, Relaxed
-
-JUN
-rnk: 4, 4
-str:  
-int:  
-nrv:  
-wpn:  
-trt:  
-hnr:  
-
-CHRISTIAN
-rnk:  
-str:  
-int:  
-nrv: 2
-wpn:  
-trt:  
-hnr:  
 

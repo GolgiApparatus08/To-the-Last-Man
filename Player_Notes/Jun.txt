@@ -1,34 +1,10 @@
-KEVIN (known dead)
-rnk: 1
+NATE
+rnk:  
 str:  
-int: 3, 3
-nrv: 3
-wpn:  
-trt: Hacker, Blood Shade, Arrogant
-
-CHRISTIAN (known dead)
-rnk: 3
-str:  
-int:  
-nrv:  
-wpn: strong bourbon
-trt: Imperial Heir, Sociable, Doctor
-
-NATE (known dead)
-rnk: 3
-str:  
-int:  
-nrv: 1
-wpn(1):  
-trt: Occult, Confessor, Martial Artist
-
-PAUL (known dead)
-rnk: 5
-str: 2
 int: 3
 nrv:  
-wpn:  
-trt: Relaxed, Highborn, Lazy
+wpn(1):  
+trt: Hearthfire
 
 MORGAN
 rnk:  
@@ -36,61 +12,85 @@ str:
 int:  
 nrv:  
 wpn:  
-trt: Bodyguard
+trt:  
 
-NATHAN (known dead)
-rnk: 2
+LISA
+rnk:  
 str:  
 int:  
-nrv: 3
+nrv:  
 wpn:  
-trt: Drunk, Drama Queen, Depressive
+trt:  
 
-JUN (known dead)
-rnk: 3, 3
-str: 2
-int: 3, 3
-nrv: 3, 3
-wpn: sleeping pills
-trt: Ambitious, Detective, Rowdy
+JUN
+rnk: 2
+str: 6
+int: 2
+nrv: 1
+wpn: aggressive stimulants
+trt: Highborn, Doctor, Bodyguard
 
-ED (known dead)
-rnk: 1
+JULIUS_CAESAR
+rnk:  
 str:  
-int: 5
+int:  
+nrv:  
+wpn: an improvised shiv
+trt:  
+
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv: 4
+wpn:  
+trt:  
+
+KEVIN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: throwing shurikens
+trt: Depressive
+
+ISH
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: a copy of 'The Prince'
+trt:  
+
+NATHAN
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn:  
+trt:  
+
+ED
+rnk:  
+str:  
+int: 3
+nrv:  
+wpn:  
+trt:  
+
+JESUS
+rnk:  
+str:  
+int:  
 nrv: 2
 wpn:  
-trt: Philosophical, Hoarding, Untrusting
+trt:  
 
-SCOTT (known dead)
-rnk: 4
-str:  
-int: 1, 1
-nrv:  
-wpn:  
-trt: Charming, Bookworm, Vindictive
-
-SEBBY (known dead)
-rnk: 1
-str:  
-int: 3, 3
-nrv:  
-wpn:  
-trt: Mysterious, Cunning, Hulking
-
-JESUS (known dead)
-rnk: 3
+PAUL
+rnk:  
 str:  
 int:  
 nrv:  
 wpn:  
-trt: Technician, Mercenary, Deep Sleeper
-
-SKYLER (known dead)
-rnk: 4
-str: 3
-int: 5
-nrv:  
-wpn:  
-trt: Confident, Fickle, Eccentric
+trt:  
 

@@ -1,21 +1,37 @@
-SCOTT
-rnk:  
-str: 4
-int:  
-nrv: 2
-wpn:  
-trt:  
-
-SEBBY
+MORGAN
 rnk:  
 str:  
-int: 5
+int:  
 nrv:  
 wpn:  
 trt:  
 
-PAUL
-rnk: 2
+JESUS
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JACK
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+SKYLER
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+ISH
+rnk:  
 str:  
 int:  
 nrv:  
@@ -25,72 +41,56 @@ trt:
 KEVIN
 rnk:  
 str:  
-int: 1
-nrv:  
-wpn:  
-trt:  
-
-JACK
-rnk:  
-str: 4
 int:  
 nrv:  
-wpn: a sacred blade
+wpn:  
 trt:  
 
-SOL_INVICTUS
+SHEOGOTH_THE_UNBORN
 rnk:  
 str:  
-int: 4
+int:  
 nrv:  
 wpn:  
 trt:  
 
-THE_BUDDHA
+LISA
 rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JULIUS_CAESAR (known dead)
+rnk: 5
 str: 2
+int:  
+nrv:  
+wpn: sleeping pills
+trt: Confessor, Ruthless, Untrusting
+
+ED
+rnk:  
+str:  
 int:  
 nrv:  
 wpn:  
 trt:  
 
 EDDIE
-rnk: 2
+rnk: 3
 str: 3
 int: 3
 nrv: 3
-wpn: a human skull
-trt: Drama Queen, Cunning, Hacker
+wpn: strong bourbon
+trt: Highborn, Mysterious, Hulking
 
-JULIUS_CAESAR
-rnk: 4
-str:  
-int:  
-nrv:  
-wpn:  
-trt:  
-
-SUSU
-rnk:  
-str: 4
-int:  
-nrv:  
-wpn:  
-trt:  
-
-JUN
+NATE
 rnk:  
 str:  
 int:  
 nrv:  
-wpn:  
-trt: Martial Artist
-
-CHRISTIAN
-rnk:  
-str: 3
-int:  
-nrv:  
-wpn:  
-trt: Blood Shade
+wpn(2):  
+trt:  
 

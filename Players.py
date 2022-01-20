@@ -62,6 +62,7 @@ class Player:
         self.hour = 0
         self.blood = 0
         self.inquires = 0
+        self.stillAlive = True
 
     def DEAD(self, locations, players):
         if players[0].debug == True and self.reported == False:
@@ -111,7 +112,7 @@ class Player:
             if players[0].debug == True:
                 print(self.trueName + " sabotages " + room.name + " with their hacking from " + self.location.name + ". ")
             witnesses = whoHere(self, "none", players, locations)
-            event(witnesses, self, "none", "sabotage_hacker")
+            event(witnesses, self, room, "sabotage_hacker")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             return
         if self.location != room:
@@ -161,7 +162,7 @@ class Player:
             if players[0].debug == True:
                 print(self.trueName + " kills " + target.trueName + " with a trap in " + room.name + " from " + self.location.name + ". ")
             witnesses = whoHere(self, target, players, locations)
-            event(witnesses, self, target, "ambush_chemist")
+            event(witnesses, self, target, "ambush_cunning")
             self.LOITER(self.location, locations, players, weapons, True, traits)
             hearthfire(True, players, traits, locations)
             return
@@ -169,15 +170,14 @@ class Player:
             if players[0].debug == True:
                 print(self.trueName + " attempts kill " + target.trueName + " in " + room.name + " with a trap from " + self.location.name + ", but they're not there. ")
             witnesses = whoHere(self, target, players, locations)
-            event(witnesses, self, target, "ambush_chemist_fail")
+            event(witnesses, self, target, "ambush_cunning_fail")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
         if self.location != room:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
         if self.location != target.location:
-            witnesses = whoHere(self, target, players, locations)
-            event(witnesses, self, target, "ambush_fail")
+            event([], self, target, "ambush_fail")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
 
@@ -201,8 +201,7 @@ class Player:
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
         if self.location != players[-1].location:
-            witnesses = whoHere(self, players[-1], players, locations)
-            event(witnesses, self, players[-1], "enemy_notPresent")
+            event([], self, "none", "enemy_notPresent")
             self.LOITER(self.location, locations, players, weapons, False, traits)
             return
         
@@ -211,8 +210,7 @@ class Player:
 
         #Has no weapon
         if weaponType not in availableTypes:
-            witnesses = whoHere(self, players[-1], players, locations)
-            event(witnesses, self, players[-1], "enemy_dontHave")
+            event([], self, players[-1], "enemy_dontHave")
             youFailed = True
 
         #Has blunt weapon

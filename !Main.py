@@ -395,6 +395,7 @@ while nights < days:
                             seen(players[p], actor, False, players, traits, weapons)
             return involved
 
+        #Room info
         def baseInfo(attribute):
             stats = []
             for p in range(len(players)):
@@ -412,7 +413,7 @@ while nights < days:
             return string
 
         for p in range (len(players)):
-            if players[p].alive == True:
+            if players[p].stillAlive == True:
                 actor = players[p]
 
                 #Room Actions
@@ -443,7 +444,11 @@ while nights < days:
                 if actor in involved:
                     weaponChosen = False
                     while weaponChosen == False:
-                        selectedPlayer = random.choice(players)
+                        toChoose = []
+                        for i in range(len(players)):
+                            if traits[19] not in players[i].traits and players[i] != players[-1]:
+                                toChoose.append()
+                        selectedPlayer = random.choice(toChoose)
                         if selectedPlayer.weapons != []:
                             selectedWeapon = random.choice(selectedPlayer.weapons)
                             weaponChosen = True
@@ -452,9 +457,9 @@ while nights < days:
                 if actor in involved:
                     for l in range(len(locations)):
                         locations[l].blips = 0
-                    for p in range(len(players)):
+                    for i in range(len(players)):
                         for l in range(len(locations)):
-                            if players[p].location == locations[l]:
+                            if players[i].location == locations[l] and traits[19] not in players[i].traits:
                                 locations[l].blips = locations[l].blips + 1
                     actor.message += "You discover that there are: "
                     locationsWithBlips = []
@@ -466,9 +471,11 @@ while nights < days:
                     actor.message += str("and " + str(locationsWithBlips[-1].blips) + " bodies in " + locationsWithBlips[-1].name + ". ")
                 involved = behaviorLine(actor, "command", "the hour searching command records", players, traits, h)
                 if actor in involved:
-                    withoutEnemy = players.copy()
-                    withoutEnemy.pop(-1)
-                    chosenPlayer = random.choice(withoutEnemy)
+                    toChoose = []
+                    for i in range(len(players)):
+                        if traits[19] not in players[i].traits and players[i] != players[-1]:
+                            toChoose.append(players[i])
+                    chosenPlayer = random.choice(toChoose)
                     actor.message += str("You discover that " + chosenPlayer.name + " has the " + str(chosenPlayer.input) + " shift. ")
 
                 #Generic Actions
@@ -478,6 +485,71 @@ while nights < days:
                 behaviorLine(actor, "loiter", "the hour doing nothing", players, traits, h)
                 behaviorLine(actor, "dead", "dead on the floor", players, traits, h)
 
+                #Special Events
+                for e in range(len(actor.events)):
+                    event = actor.events[e]
+                    if event.action == "ambush":
+                        if event.actor == actor:
+                            actor.message += str("Your ambush is successful. " + event.target.name.upper() + " IS DEAD. ")
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " ambushes you, having predicted your location. YOU ARE DEAD. ")
+                        else:
+                            actor.message += str(event.actor.name + " successfully ambushes " + event.target.name + ". " + event.target.name.upper() + " IS DEAD. ")
+                    if event.action == "ambush_fail":
+                        actor.message += str(event.target.name + " never shows up to your ambush. ")
+                    if event.action == "enemy_notPresent":
+                        actor.message += str("The enemy never showed up to your attack. ")
+                    if event.action == "enemy_dontHave":
+                        if event.actor == actor:
+                            actor.message += ("You try to attack The Enemy, but have no weapon. ")
+                        else:
+                            actor.message += (event.actor.name + " tries to attack you, but has no weapon. ")
+                    if event.action == "enemy_bluntSuccess" or event.action == "kill_bluntSuccess":
+                        if event.actor == actor:
+                            actor.message += str("You attack " + event.target.trueName + " with a blunt weapon and smash their head open. " + event.target.trueName.upper() + " IS DEAD. ")
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attacks you with a blunt weapon and smashes your head open. YOU ARE DEAD. ")
+                        else:
+                            actor.message += str(event.actor.name + " attacks " + event.target.name + " with a blunt weapon and smashes their head open. " + event.target.trueName.upper() + " IS DEAD. ")
+                    if event.action == "enemy_medicalSuccess" or event.action == "kill_medicalSuccess":
+                        if event.actor == actor:
+                            actor.message += str("You attempt to outwit " + event.target.trueName + " with a medical weapon and are quicker than them. " + event.target.trueName.upper() + " IS DEAD. ")
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attempts to outwit you with a medical weapon and is quicker than you. YOU ARE DEAD. ")
+                        else:
+                            actor.message += str(event.actor.name + " attempts to outwit " + event.target.name + " with a medical weapon and is quicker than them. " + event.target.trueName.upper() + " IS DEAD. ")
+                    if event.action == "enemy_sharpSuccess" or event.action == "kill_sharpSuccess":
+                        if event.actor == actor:
+                            actor.message += str("You attack " + event.target.trueName + " with a sharp weapon and stab them to death. " + event.target.trueName.upper() + " IS DEAD. ")
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attacks you with a sharp weapon and stabs you to death. YOU ARE DEAD. ")
+                        else:
+                            actor.message += str(event.actor.name + " attacks " + event.target.name + " with a sharp weapon and stabs them to death. " + event.target.trueName.upper() + " IS DEAD. ") 
+                    if event.action == "enemy_bluntFail" or event.action == "kill_bluntFail":
+                        if event.actor == actor:
+                            actor.message += str("You attack " + event.target.trueName + " with a blunt weapon, but they overpower you and survive. ") 
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attacks you with a blunt weapon, but you overpower them and survive. ")     
+                        else:
+                             actor.message += str(event.actor.name + " attacks " + event.target.name + " with a blunt weapon, but they overpower them and survive. ")
+                    if event.action == "enemy_medicalFail" or event.action == "kill_medicalFail":
+                        if event.actor == actor:
+                            actor.message += str("You attempt to outwit " + event.target.trueName + " with a medical weapon, but they're quicker than you and survive. ") 
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attempts to outwit you with a medical weapon, but you're quicker than them and survive. ")     
+                        else:
+                             actor.message += str(event.actor.name + " attempts to outwit " + event.target.name + " with a medical weapon, but they're quicker than them and survive. ")
+                    if event.action == "enemy_sharpFail" or event.action == "kill_sharpFail":
+                        if event.actor == actor:
+                            actor.message += str("You attack " + event.target.trueName + " with a sharp weapon, but they're reflexes are better and they survive. ") 
+                        elif event.target == actor:
+                            actor.message += str(event.actor.name + " attacks you with a sharp weapon, but you're reflexes are better and you survive. ")     
+                        else:
+                             actor.message += str(event.actor.name + " attacks " + event.target.name + " with a sharp weapon, but they're reflexes are better and they survive. ")                    
+
+
+                if actor.alive == False:
+                    actor.stillAlive = False
                 actor.events = []
 
 

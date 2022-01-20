@@ -1,36 +1,52 @@
-KEVIN (known dead)
-rnk: 1
+NATE
+rnk:  
 str:  
-int: 3
-nrv: 3, 3
-wpn:  
-trt: Hacker, Blood Shade, Arrogant
-
-CHRISTIAN (known dead)
-rnk: 3
-str:  
-int: 3
+int:  
 nrv:  
-wpn:  
-trt: Imperial Heir, Sociable, Doctor
-
-NATE (known dead)
-rnk: 3
-str:  
-int: 4
-nrv:  
-wpn(1):  
-trt: Occult, Confessor, Martial Artist
-
-PAUL (known dead)
-rnk: 5
-str:  
-int: 3, 3
-nrv:  
-wpn:  
-trt: Relaxed, Highborn, Lazy
+wpn(1): a heavy briefcase
+trt:  
 
 MORGAN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+LISA
+rnk:  
+str: 2
+int:  
+nrv:  
+wpn:  
+trt:  
+
+JUN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt: Bodyguard
+
+JULIUS_CAESAR
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
+
+KEVIN
 rnk:  
 str:  
 int: 3
@@ -38,59 +54,43 @@ nrv:
 wpn:  
 trt:  
 
-NATHAN (known dead)
-rnk: 4, 2
+ISH
+rnk: 5
 str:  
 int:  
 nrv:  
-wpn: an encrypted laptop
-trt: Drunk, Drama Queen, Depressive
+wpn: a copy of 'The Prince'
+trt:  
 
-JUN (known dead)
-rnk: 3
+NATHAN
+rnk:  
 str:  
-int: 3, 3
-nrv: 3
-wpn:  
-trt: Ambitious, Detective, Rowdy
-
-ED (known dead)
-rnk: 1
-str: 4
-int: 5
+int:  
 nrv:  
-wpn:  
-trt: Philosophical, Hoarding, Untrusting
+wpn: a lifting weight
+trt:  
 
-SCOTT (known dead)
-rnk: 3, 4
-str:  
-int: 1
-nrv:  
-wpn: exotic poison
-trt: Charming, Bookworm, Vindictive
-
-SEBBY (known dead)
-rnk: 1
-str:  
-int: 3
-nrv:  
-wpn:  
-trt: Mysterious, Cunning, Hulking
-
-JESUS (known dead)
-rnk: 2, 3
+ED
+rnk: 2
 str: 3
-int: 2
-nrv: 2
-wpn: an officer's knife
-trt: Mercenary, Deep Sleeper, Technician
-
-SKYLER (known dead)
-rnk: 3, 4
-str:  
-int: 5
+int:  
 nrv:  
 wpn:  
-trt: Confident, Fickle, Eccentric
+trt:  
+
+JESUS
+rnk: 2
+str: 3
+int: 3
+nrv: 2
+wpn: a human skull
+trt: Cunning, Ambitious, Arrogant
+
+PAUL
+rnk: 4
+str:  
+int:  
+nrv:  
+wpn:  
+trt:  
 

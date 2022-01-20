@@ -621,11 +621,14 @@ def allInstances(list, item):
 def activityString(self, activity, traits, nightPhase, weapons):
     involved = []
     for e in range(len(self.events)):
+        sabotage = False
+        if self.events[e].action == "sabotage" or self.events[e].action == "sabotage_hacker":
+            sabotage = True
         #WORK INCLUDES UNSEEN SABOTAGE
-        if activity == "work" and self.events[e].action == "sabotage" and traits[8] not in self.traits and self.events[e].actor != self and weapons[2] not in self.events[e].actor.weapons:
+        if activity == "work" and sabotage == True and traits[8] not in self.traits and self.events[e].actor != self and weapons[2] not in self.events[e].actor.weapons:
             involved.append(self.events[e].actor)
         #PLAYER CAN SEE SABOTAGE
-        elif activity == "sabotage" and self.events[e].action == activity:
+        elif activity == "sabotage" and sabotage == True:
             if traits[8] in self.traits or self.events[e].actor == self or weapons[2] in self.events[e].actor.weapons:
                 involved.append(self.events[e].actor)   
         #DEATH INCLUDES LOITER FOR DRAMA QUEENS
@@ -825,26 +828,41 @@ def seen(seen, witness, freebi, players, traits, weapons):
         thingsToLearn = []
         if traits[1] not in seen.traits:
             thingsToLearn.append("rank")
+        else:
+            thingsToLearn.append("nothing")
         if traits[2] not in seen.traits:
             thingsToLearn.append("strength")
+        else:
+            thingsToLearn.append("nothing")
         if traits[3] not in seen.traits:
             thingsToLearn.append("intellect")
+        else:
+            thingsToLearn.append("nothing")
         if traits[4] not in seen.traits:
             thingsToLearn.append("nerves")
+        else:
+            thingsToLearn.append("nothing")
         if traits[5] not in seen.traits and weaponToFind == True:
             thingsToLearn.append("weapons")
+        else:
+            thingsToLearn.append("nothing")
         if traits[6] not in seen.traits and freebi == False:
             thingsToLearn.append("shift")
+        else:
+            thingsToLearn.append("nothing")
         if traits[18] in witness.traits and witness != players[-1]:
             thingsToLearn.append("honor")
         if traits[7] not in seen.traits and len(witness.otherTraits[index]) < 3 and seen != players[-1]:
             thingsToLearn.append("traits")
+        else:
+            thingsToLearn.append("nothing")
         if traits[9] in witness.traits and freebi == False:
             thingsToLearn.append("location")
         deduced = []
         while howMuch > 0:
             choice = random.randint(0, len(thingsToLearn)-1)
-            deduced.append(thingsToLearn[choice])
+            if thingsToLearn[choice] != "nothing":
+                deduced.append(thingsToLearn[choice])
             thingsToLearn.pop(choice)
             howMuch = howMuch - 1
 

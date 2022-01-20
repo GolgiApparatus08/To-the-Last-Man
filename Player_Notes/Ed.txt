@@ -1,107 +1,96 @@
-KEVIN (known dead)
-rnk: 1
-str:  
-int: 3, 3
-nrv: 3
-wpn:  
-trt: Hacker, Blood Shade, Arrogant
-hnr: 1, -3
-
-CHRISTIAN (known dead)
-rnk: 3, 3
-str: 2
+NATE
+rnk:  
+str: 5
 int:  
-nrv:  
-wpn:  
-trt: Imperial Heir, Sociable, Doctor
-hnr:  
-
-NATE (known dead)
-rnk: 3
-str:  
-int: 4
 nrv:  
 wpn(1): a heavy briefcase
-trt: Occult, Confessor, Martial Artist
-hnr:  
-
-PAUL (known dead)
-rnk: 5
-str:  
-int: 3
-nrv:  
-wpn:  
-trt: Lazy, Relaxed, Highborn
-hnr:  
+trt:  
 
 MORGAN
-rnk: 5
+rnk:  
 str:  
 int: 4
 nrv:  
 wpn:  
-trt: Bodyguard
-hnr: 1
+trt:  
 
-NATHAN (known dead)
-rnk: 2
+LISA
+rnk:  
+str:  
+int:  
+nrv: 2
+wpn:  
+trt:  
+
+JUN
+rnk:  
 str:  
 int:  
 nrv:  
-wpn:  
-trt: Drunk, Drama Queen, Depressive
-hnr: 1
+wpn: aggressive stimulants
+trt:  
 
-JUN (known dead)
-rnk: 3
+JULIUS_CAESAR
+rnk:  
 str:  
-int: 3, 3
-nrv: 3
-wpn: sleeping pills
-trt: Ambitious, Detective, Rowdy
-hnr:  
+int: 4
+nrv:  
+wpn:  
+trt:  
 
-ED (known dead)
-rnk: 2, 1
-str: 4
-int: 5, 5
-nrv: 2
-wpn: a forged keycard
-trt: Philosophical, Hoarding, Untrusting
+THE_BUDDHA
+rnk:  
+str:  
+int:  
+nrv: 4
+wpn:  
+trt:  
 
-SCOTT (known dead)
-rnk: 4
-str: 3, 4, 4
-int: 1, 1, 1
-nrv: 1, 4
-wpn: exotic poison
-trt: Vindictive, Charming, Bookworm
-hnr:  
+KEVIN
+rnk:  
+str:  
+int:  
+nrv:  
+wpn: throwing shurikens
+trt:  
 
-SEBBY (known dead)
-rnk: 1
+ISH
+rnk:  
 str:  
 int: 3
-nrv: 5
+nrv:  
 wpn:  
-trt: Mysterious, Cunning, Hulking
-hnr:  
+trt:  
 
-JESUS (known dead)
-rnk: 3
+NATHAN
+rnk:  
 str:  
 int:  
 nrv:  
 wpn:  
-trt: Mercenary, Deep Sleeper, Technician
-hnr: 1
+trt:  
 
-SKYLER (known dead)
-rnk: 4
+ED
+rnk: 2
 str: 3
-int: 5
+int: 3
+nrv: 3
+wpn: an antique sword
+trt: Deep Sleeper, Drama Queen, Prying
+
+JESUS
+rnk:  
+str:  
+int:  
 nrv:  
-wpn: a copy of 'The Prince'
-trt: Confident, Fickle, Eccentric
-hnr:  
+wpn:  
+trt:  
+
+PAUL
+rnk:  
+str:  
+int: 2
+nrv:  
+wpn: a pet snake, sleeping pills
+trt:  
 
